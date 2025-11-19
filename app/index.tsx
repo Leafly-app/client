@@ -1,4 +1,4 @@
-import SplashHome from "@/components/splashHome";
+import StartHome from "@/components/StartHome";
 import { useRouter } from "expo-router";
 
 export default function HomeScreen() {
@@ -12,5 +12,5 @@ export default function HomeScreen() {
     router.push("/signup");
   };
 
-  return <SplashHome onLogin={handleLogin} onSignup={handleSignup} />;
+  return <StartHome onLogin={handleLogin} onSignup={handleSignup} />;
 }

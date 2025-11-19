@@ -12,7 +12,6 @@ type Props = {
 export default function SplashHome({ onLogin, onSignup }: Props) {
   return (
     <SafeAreaView className="flex-1 bg-white items-center justify-around px-4">
-      {/* 가운데 로고 */}
       <View className="flex-1 flex-col w-full items-center justify-center">
         <View className="flex-row items-center">
           <Image
@@ -21,11 +20,10 @@ export default function SplashHome({ onLogin, onSignup }: Props) {
             accessible
             accessibilityLabel="Leafly logo"
           />
-          <Text className="text-5xl text-[#0d4d21] ml-4 font-extrabold">Leafly</Text>
+          <Text className="text-5xl text-brand ml-4 font-extrabold">Leafly</Text>
         </View>
       </View>
 
-      {/* 하단 버튼들 */}
       <View className="w-full items-center space-y-4 pb-6">
         <TouchableOpacity
           onPress={onLogin}
