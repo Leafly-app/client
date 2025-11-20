@@ -26,20 +26,12 @@ API.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     if (error.response) {
-      console.error("Response error:", {
-        status: error.response.status,
-        statusText: error.response.statusText,
-        url: error.config?.url,
-        method: error.config?.method,
-      });
+      const isAuthRequest =
+        error.config?.url?.includes("/signin") || error.config?.url?.includes("/signup");
 
-      if (error.response.status === 401) {
+      if (error.response.status === 401 && !isAuthRequest) {
         await useAuthStore.getState().logout();
       }
-    } else if (error.request) {
-      console.error("Request error: No response received");
-    } else {
-      console.error("Error:", error.message);
     }
 
     return Promise.reject(error);

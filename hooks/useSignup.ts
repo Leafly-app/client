@@ -19,7 +19,8 @@ export const useSignup = () => {
       Alert.alert("회원가입 실패", response.message);
       return false;
     } catch (error: any) {
-      Alert.alert("오류", error?.response?.data?.message || "회원가입 중 오류가 발생했습니다.");
+      const errorMessage = error?.response?.data?.message || "회원가입 중 오류가 발생했습니다.";
+      Alert.alert("회원가입 실패", errorMessage);
       return false;
     } finally {
       setIsLoading(false);

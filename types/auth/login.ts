@@ -1,5 +1,4 @@
 import { ApiResponse } from "../api";
-import { UserInfo } from "./user";
 
 export interface LoginRequest {
   email: string;
@@ -7,9 +6,7 @@ export interface LoginRequest {
 }
 
 export interface LoginData {
-  accessToken: string;
-  refreshToken: string;
-  user: UserInfo;
+  token: string;
 }
 
 export type LoginResponse = ApiResponse<LoginData>;

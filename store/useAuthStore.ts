@@ -11,7 +11,7 @@ interface AuthState {
 
   setUser: (user: UserInfo) => void;
   setTokens: (accessToken: string, refreshToken: string) => Promise<void>;
-  login: (user: UserInfo, accessToken: string, refreshToken: string) => Promise<void>;
+  login: (user: UserInfo, token: string) => Promise<void>;
   logout: () => Promise<void>;
   loadTokens: () => Promise<void>;
 }
@@ -37,12 +37,12 @@ export const useAuthStore = create<AuthState>((set) => ({
     });
   },
 
-  login: async (user, accessToken, refreshToken) => {
-    await secureStorage.setTokens(accessToken, refreshToken);
+  login: async (user, token) => {
+    await secureStorage.setTokens(token, token);
     set({
       user,
-      accessToken,
-      refreshToken,
+      accessToken: token,
+      refreshToken: token,
       isAuthenticated: true,
     });
   },
