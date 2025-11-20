@@ -10,9 +10,17 @@ interface AuthHeaderProps {
 export default function AuthHeader({ title }: AuthHeaderProps) {
   const router = useRouter();
 
+  const handleBackPress = () => {
+    if (router.canGoBack()) {
+      router.back();
+    } else {
+      router.replace("/(tabs)/explore");
+    }
+  };
+
   return (
     <View className="flex-row items-center justify-between mb-8">
-      <TouchableOpacity onPress={() => router.back()} className="p-2">
+      <TouchableOpacity onPress={handleBackPress} className="p-2">
         <Ionicons name="arrow-back" size={24} color="black" />
       </TouchableOpacity>
       <Text className="text-2xl font-bold">{title}</Text>
