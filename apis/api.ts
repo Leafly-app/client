@@ -26,7 +26,12 @@ API.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     if (error.response) {
-      console.error("Response error:", error.response.data);
+      console.error("Response error:", {
+        status: error.response.status,
+        statusText: error.response.statusText,
+        url: error.config?.url,
+        method: error.config?.method,
+      });
 
       if (error.response.status === 401) {
         await useAuthStore.getState().logout();
