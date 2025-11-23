@@ -1,9 +1,3 @@
-import GoBackIcon from "@/assets/images/goback.svg";
-import SearchIcon from "@/assets/images/search/search_search.svg";
-import BookCard from "@/components/home/BookCard";
-import { useSearchBooks } from "@/hooks/useSearchBooks";
-import { colors } from "@/styles/colors";
-import type { BookGenre } from "@/types/book";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -15,6 +9,12 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import GoBackIcon from "@/assets/images/goback.svg";
+import SearchIcon from "@/assets/images/search/search_search.svg";
+import BookCard from "@/components/home/BookCard";
+import { useSearchBooks } from "@/hooks/useSearchBooks";
+import { colors } from "@/styles/colors";
+import type { BookGenre } from "@/types/book";
 
 const GENRE_OPTIONS: BookGenre[] = [
   "소설/시/희곡",
@@ -38,7 +38,7 @@ export default function SearchScreen() {
 
   const toggleGenre = (genre: BookGenre) => {
     setSelectedGenres((prev) =>
-      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre]
+      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre],
     );
   };
 

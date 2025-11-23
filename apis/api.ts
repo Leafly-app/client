@@ -1,5 +1,5 @@
-import { useAuthStore } from "@/store/useAuthStore";
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios";
+import { useAuthStore } from "@/store/useAuthStore";
 
 const API = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_BASE_URL,

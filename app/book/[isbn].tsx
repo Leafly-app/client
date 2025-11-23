@@ -1,12 +1,12 @@
+import { useLocalSearchParams, useRouter } from "expo-router";
+import React from "react";
+import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import GoBackIcon from "@/assets/images/goback.svg";
 import HeartIcon from "@/assets/images/heart.svg";
 import BookCardV2 from "@/components/home/BookCardV2";
 import { useBookDetail } from "@/hooks/useBookDetail";
 import { colors } from "@/styles/colors";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import React from "react";
-import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function BookDetailScreen() {
   const router = useRouter();

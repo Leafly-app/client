@@ -1,10 +1,10 @@
+import { useRouter } from "expo-router";
+import React from "react";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 import LogoText from "@/assets/images/home/home_logo.svg";
 import LogoImage from "@/assets/images/home/home_logo_image.svg";
 import SearchIcon from "@/assets/images/home/home_search.svg";
 import { useAuthStore } from "@/store/useAuthStore";
-import { useRouter } from "expo-router";
-import React from "react";
-import { Alert, Text, TouchableOpacity, View } from "react-native";
 
 const HomeHeader = React.memo(() => {
   const router = useRouter();

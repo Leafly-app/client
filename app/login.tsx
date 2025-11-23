@@ -31,7 +31,7 @@ export default function LoginScreen() {
   const onSubmit = async (data: LoginFormData) => {
     const success = await handleLogin(data);
     if (success) {
-      router.replace("/(tabs)/explore");
+      router.replace("/(tabs)");
     }
   };
 

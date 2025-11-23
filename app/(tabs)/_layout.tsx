@@ -1,12 +1,12 @@
+import { Tabs } from "expo-router";
+import { View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import BookIcon from "@/assets/images/tab/tab_book.svg";
 import CameraIcon from "@/assets/images/tab/tab_camera.svg";
 import FeedIcon from "@/assets/images/tab/tab_feed.svg";
 import HomeIcon from "@/assets/images/tab/tab_home.svg";
 import WriteIcon from "@/assets/images/tab/tab_write.svg";
 import { colors } from "@/styles/colors";
-import { Tabs } from "expo-router";
-import { View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TabLayout() {
   const insets = useSafeAreaInsets();
