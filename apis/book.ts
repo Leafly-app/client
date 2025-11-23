@@ -1,5 +1,5 @@
 import type { ApiResponse } from "@/types/api";
-import type { Book, SearchBook } from "@/types/book";
+import type { Book, BookGenre, SearchBook } from "@/types/book";
 import API from "./api";
 
 export const getRecommendedBooks = async (): Promise<ApiResponse<Book[]>> => {
@@ -23,7 +23,7 @@ export const getRecommendedBooks = async (): Promise<ApiResponse<Book[]>> => {
 
 export const searchBooks = async (
   keyword: string,
-  genres: string[] | null,
+  genres: BookGenre[] | null,
 ): Promise<ApiResponse<SearchBook[]>> => {
   const response = await API.post<ApiResponse<SearchBook[]>>(
     `/api/books?keyword=${encodeURIComponent(keyword)}`,
