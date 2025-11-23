@@ -12,13 +12,13 @@ export const useOnboarding = () => {
     try {
       const response = await submitOnboarding(data);
 
-      if (response.isSuccess) {
-        router.replace("/(tabs)/explore");
-        return true;
+      if (!response.isSuccess) {
+        Alert.alert("온보딩 실패", response.message || "온보딩 처리에 실패했습니다.");
+        return false;
       }
 
-      Alert.alert("온보딩 실패", response.message);
-      return false;
+      router.replace("/(tabs)/explore");
+      return true;
     } catch (error: unknown) {
       const errorMessage =
         (error as { response?: { data?: { message?: string } } })?.response?.data?.message ||

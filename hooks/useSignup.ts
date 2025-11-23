@@ -19,12 +19,25 @@ export const useSignup = () => {
         return false;
       }
 
-      const loginResponse = await login({
-        email: data.email,
-        password: data.password,
-      });
+      try {
+        const loginResponse = await login({
+          email: data.email,
+          password: data.password,
+        });
 
-      if (loginResponse.isSuccess && loginResponse.data.token) {
+        if (!loginResponse.isSuccess) {
+          Alert.alert(
+            "로그인 실패",
+            "회원가입은 완료되었으나 자동 로그인에 실패했습니다. 다시 로그인해주세요."
+          );
+          return false;
+        }
+
+        if (!loginResponse.data.token) {
+          Alert.alert("로그인 실패", "인증 토큰을 받아올 수 없습니다.");
+          return false;
+        }
+
         const user = getUserFromToken(loginResponse.data.token);
 
         if (!user) {
@@ -34,10 +47,13 @@ export const useSignup = () => {
 
         await loginAction(user, loginResponse.data.token);
         return true;
+      } catch (loginError: unknown) {
+        const loginErrorMessage =
+          (loginError as { response?: { data?: { message?: string } } })?.response?.data?.message ||
+          "자동 로그인 중 오류가 발생했습니다.";
+        Alert.alert("로그인 실패", `회원가입은 완료되었으나 ${loginErrorMessage}\n다시 로그인해주세요.`);
+        return false;
       }
-
-      Alert.alert("로그인 실패", loginResponse.message);
-      return false;
     } catch (error: unknown) {
       const errorMessage =
         (error as { response?: { data?: { message?: string } } })?.response?.data?.message ||
