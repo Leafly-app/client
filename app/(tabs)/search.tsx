@@ -38,7 +38,7 @@ export default function SearchScreen() {
 
   const toggleGenre = (genre: BookGenre) => {
     setSelectedGenres((prev) =>
-      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre],
+      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre]
     );
   };
 
@@ -116,9 +116,7 @@ export default function SearchScreen() {
                   className="bg-gray-300 rounded-lg overflow-hidden mb-3"
                   style={{ width: 130, height: 180 }}
                 >
-                  <View className="flex-1 items-center justify-center">
-                    <View className="w-12 h-14 bg-gray-500 rounded" />
-                  </View>
+                  <View className="flex-1 items-center justify-center"></View>
                 </View>
                 <Text className="text-body-14-semibold text-gray-900 mb-1" numberOfLines={1}>
                   데미안
