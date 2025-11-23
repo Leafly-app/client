@@ -13,9 +13,9 @@ const passwordSchema = z
   .refine(
     (val) =>
       [/[A-Z]/.test(val), /[a-z]/.test(val), /\d/.test(val), /[^A-Za-z0-9]/.test(val)].filter(
-        Boolean
+        Boolean,
       ).length >= 2,
-    "영문 대소문자, 숫자, 특수문자 중 2가지 이상 포함해주세요."
+    "영문 대소문자, 숫자, 특수문자 중 2가지 이상 포함해주세요.",
   );
 
 const nicknameSchema = z

@@ -1,5 +1,5 @@
-import StartHome from "@/components/StartHome";
 import { useRouter } from "expo-router";
+import StartHome from "@/components/StartHome";
 
 export default function HomeScreen() {
   const router = useRouter();

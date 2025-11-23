@@ -1,5 +1,9 @@
-import React from "react";
-import { ActivityIndicator, Text, TouchableOpacity, TouchableOpacityProps } from "react-native";
+import {
+  ActivityIndicator,
+  Text,
+  TouchableOpacity,
+  type TouchableOpacityProps,
+} from "react-native";
 
 interface SubmitButtonProps extends TouchableOpacityProps {
   text: string;
@@ -12,21 +16,30 @@ export default function SubmitButton({
   isLoading = false,
   variant = "primary",
   disabled,
+  className,
+  style,
   ...props
 }: SubmitButtonProps) {
-  const bgColor = variant === "primary" ? "bg-primary-600" : "bg-gray-600";
+  const isDisabled = disabled || isLoading;
 
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      className={`w-full h-14 ${bgColor} rounded-md items-center justify-center`}
-      disabled={disabled || isLoading}
+      className={`w-full h-12 rounded-md items-center justify-center ${
+        isDisabled
+          ? "bg-gray-400"
+          : variant === "primary"
+            ? "bg-primary-600"
+            : "bg-gray-600"
+      } ${className || ""}`}
+      style={style}
+      disabled={isDisabled}
       {...props}
     >
       {isLoading ? (
         <ActivityIndicator color="white" />
       ) : (
-        <Text className="text-white text-lg font-bold">{text}</Text>
+        <Text className="text-white text-body-16-bold">{text}</Text>
       )}
     </TouchableOpacity>
   );
