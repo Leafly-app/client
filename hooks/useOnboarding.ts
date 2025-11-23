@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Alert } from "react-native";
 import { submitOnboarding } from "@/apis/auth";
 import type { OnboardingRequest } from "@/types/onboarding";
+import { getErrorMessage } from "@/utils/error";
 
 export const useOnboarding = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,10 +20,8 @@ export const useOnboarding = () => {
 
       router.replace("/(tabs)");
       return true;
-    } catch (error: unknown) {
-      const errorMessage =
-        (error as { response?: { data?: { message?: string } } })?.response?.data?.message ||
-        "온보딩 중 오류가 발생했습니다.";
+    } catch (error) {
+      const errorMessage = getErrorMessage(error, "온보딩 중 오류가 발생했습니다.");
       Alert.alert("온보딩 실패", errorMessage);
       return false;
     } finally {

@@ -3,6 +3,7 @@ import { Alert } from "react-native";
 import { login, signup } from "@/apis/auth";
 import type { SignupFormData } from "@/schemas/auth";
 import { useAuthStore } from "@/store/useAuthStore";
+import { getErrorMessage } from "@/utils/error";
 import { getUserFromToken } from "@/utils/jwt";
 
 export const useSignup = () => {
@@ -47,20 +48,19 @@ export const useSignup = () => {
 
         await loginAction(user, loginResponse.data.token);
         return true;
-      } catch (loginError: unknown) {
-        const loginErrorMessage =
-          (loginError as { response?: { data?: { message?: string } } })?.response?.data?.message ||
-          "자동 로그인 중 오류가 발생했습니다.";
+      } catch (loginError) {
+        const loginErrorMessage = getErrorMessage(
+          loginError,
+          "자동 로그인 중 오류가 발생했습니다.",
+        );
         Alert.alert(
           "로그인 실패",
           `회원가입은 완료되었으나 ${loginErrorMessage}\n다시 로그인해주세요.`,
         );
         return false;
       }
-    } catch (error: unknown) {
-      const errorMessage =
-        (error as { response?: { data?: { message?: string } } })?.response?.data?.message ||
-        "회원가입 중 오류가 발생했습니다.";
+    } catch (error) {
+      const errorMessage = getErrorMessage(error, "회원가입 중 오류가 발생했습니다.");
       Alert.alert("회원가입 실패", errorMessage);
       return false;
     } finally {
