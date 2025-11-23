@@ -39,8 +39,8 @@ export default function Home() {
 
   return (
     <SafeAreaView className="flex-1 bg-white" edges={["top"]}>
+      <HomeHeader />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <HomeHeader />
         <HomeBanner />
         <QuickActions />
         <TodayRecommendations />
