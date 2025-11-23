@@ -17,7 +17,7 @@ export const useOnboarding = () => {
         return false;
       }
 
-      router.replace("/(tabs)/explore");
+      router.replace("/(tabs)");
       return true;
     } catch (error: unknown) {
       const errorMessage =

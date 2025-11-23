@@ -1,6 +1,6 @@
+import { colors } from "@/styles/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { Text, TextInput, type TextInputProps, View } from "react-native";
-import { colors } from "@/styles/colors";
 
 interface AuthInputProps extends TextInputProps {
   label: string;
@@ -24,7 +24,9 @@ export default function AuthInput({ label, icon, error, ...props }: AuthInputPro
           {...props}
         />
       </View>
-      {error && <Text className="text-red-500 text-sm font-pretendard-regular mt-1">{error}</Text>}
+      {error && (
+        <Text className="text-secondary-600 text-sm font-pretendard-regular mt-1">{error}</Text>
+      )}
     </View>
   );
 }

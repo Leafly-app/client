@@ -24,7 +24,7 @@ export const useLogin = () => {
         }
 
         await loginAction(user, response.data.token);
-        router.replace("/(tabs)/explore");
+        router.replace("/(tabs)");
         return true;
       }
 

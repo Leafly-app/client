@@ -38,8 +38,7 @@ export const decodeJwt = (token: string): JwtPayload | null => {
     const payload = parts[1];
     const decoded = JSON.parse(base64UrlDecode(payload));
     return decoded;
-  } catch (error) {
-    console.error("Failed to decode JWT:", error);
+  } catch {
     return null;
   }
 };
