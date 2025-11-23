@@ -24,7 +24,7 @@ export default function AuthInput({ label, icon, error, ...props }: AuthInputPro
           {...props}
         />
       </View>
-      {error && <Text className="text-red-600 text-sm font-pretendard-regular mt-1">{error}</Text>}
+      {error && <Text className="text-red-500 text-sm font-pretendard-regular mt-1">{error}</Text>}
     </View>
   );
 }

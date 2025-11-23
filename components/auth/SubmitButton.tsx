@@ -26,7 +26,11 @@ export default function SubmitButton({
     <TouchableOpacity
       activeOpacity={0.8}
       className={`w-full h-12 rounded-md items-center justify-center ${
-        isDisabled ? "bg-gray-400" : variant === "primary" ? "bg-primary-600" : "bg-gray-600"
+        isDisabled
+          ? "bg-gray-400"
+          : variant === "primary"
+            ? "bg-primary-600"
+            : "bg-gray-600"
       } ${className || ""}`}
       style={style}
       disabled={isDisabled}

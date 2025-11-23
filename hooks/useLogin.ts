@@ -31,8 +31,10 @@ export const useLogin = () => {
 
       Alert.alert("로그인 실패", response.message);
       return false;
-    } catch (error) {
-      const errorMessage = getErrorMessage(error, "로그인 중 오류가 발생했습니다.");
+    } catch (error: unknown) {
+      const errorMessage =
+        (error as { response?: { data?: { message?: string } } })?.response?.data?.message ||
+        "로그인 중 오류가 발생했습니다.";
       Alert.alert("로그인 실패", errorMessage);
       return false;
     } finally {

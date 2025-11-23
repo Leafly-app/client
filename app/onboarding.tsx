@@ -71,16 +71,9 @@ export default function OnboardingScreen() {
       case 3:
         return <GenreStep onGenresSelect={setGenres} initialGenres={genres} />;
       case 4:
-        return (
-          <ReadingPurposeStep onPurposeSelect={setReadingPurpose} initialPurpose={readingPurpose} />
-        );
+        return <ReadingPurposeStep onPurposeSelect={setReadingPurpose} initialPurpose={readingPurpose} />;
       case 5:
-        return (
-          <ReadingFrequencyStep
-            onFrequencySelect={setReadingFrequency}
-            initialFrequency={readingFrequency}
-          />
-        );
+        return <ReadingFrequencyStep onFrequencySelect={setReadingFrequency} initialFrequency={readingFrequency} />;
       default:
         return null;
     }

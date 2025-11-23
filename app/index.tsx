@@ -1,8 +1,5 @@
 import { useRouter } from "expo-router";
-import { useEffect } from "react";
-import { ActivityIndicator, View } from "react-native";
 import StartHome from "@/components/StartHome";
-import { useAuthStore } from "@/store/useAuthStore";
 
 export default function HomeScreen() {
   const router = useRouter();
