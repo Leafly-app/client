@@ -1,15 +1,15 @@
-import AuthFooter from "@/components/auth/AuthFooter";
-import AuthHeader from "@/components/auth/AuthHeader";
-import { FormController } from "@/components/auth/FormController";
-import SubmitButton from "@/components/auth/SubmitButton";
-import { useLogin } from "@/hooks/useLogin";
-import { loginSchema, type LoginFormData } from "@/schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { KeyboardAvoidingView, Platform, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import AuthFooter from "@/components/auth/AuthFooter";
+import AuthHeader from "@/components/auth/AuthHeader";
+import { FormController } from "@/components/auth/FormController";
+import SubmitButton from "@/components/auth/SubmitButton";
+import { useLogin } from "@/hooks/useLogin";
+import { type LoginFormData, loginSchema } from "@/schemas/auth";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -18,7 +18,7 @@ export default function LoginScreen() {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     mode: "onChange",
@@ -36,12 +36,12 @@ export default function LoginScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white p-6">
+    <SafeAreaView className="flex-1 bg-white" edges={["top", "bottom"]}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         className="flex-1"
       >
-        <View className="flex-1">
+        <View className="flex-1 px-6">
           <AuthHeader title="로그인" />
 
           <FormController
@@ -68,6 +68,7 @@ export default function LoginScreen() {
           <SubmitButton
             text="로그인"
             isLoading={isLoading}
+            disabled={!isValid}
             onPress={handleSubmit(onSubmit)}
             className="mb-4"
           />
