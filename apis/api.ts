@@ -1,9 +1,9 @@
-import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios";
 import { useAuthStore } from "@/store/useAuthStore";
+import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios";
 
 const API = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_BASE_URL,
-  timeout: 10000,
+  timeout: 20000,
   headers: {
     "Content-Type": "application/json",
   },
@@ -19,7 +19,7 @@ API.interceptors.request.use(
 
     return config;
   },
-  (error: AxiosError) => Promise.reject(error),
+  (error: AxiosError) => Promise.reject(error)
 );
 
 API.interceptors.response.use(
@@ -35,7 +35,7 @@ API.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  },
+  }
 );
 
 export default API;
