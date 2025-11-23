@@ -1,0 +1,43 @@
+import { useState } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
+import { READING_FREQUENCY_OPTIONS } from "@/constants/onboarding";
+import type { ReadingFrequency } from "@/types/onboarding";
+
+interface ReadingFrequencyStepProps {
+  onFrequencySelect?: (frequency: ReadingFrequency | null) => void;
+}
+
+export function ReadingFrequencyStep({ onFrequencySelect }: ReadingFrequencyStepProps) {
+  const [selectedFrequency, setSelectedFrequency] = useState<ReadingFrequency | null>(null);
+
+  const handleSelect = (frequency: ReadingFrequency) => {
+    setSelectedFrequency(frequency);
+    onFrequencySelect?.(frequency);
+  };
+
+  return (
+    <View className="flex-1">
+      {READING_FREQUENCY_OPTIONS.map((option) => (
+        <TouchableOpacity
+          key={option.value}
+          className={`border rounded-lg px-4 py-4 mb-3 ${
+            selectedFrequency === option.value
+              ? "border-primary-600 bg-primary-50"
+              : "border-gray-300"
+          }`}
+          onPress={() => handleSelect(option.value)}
+        >
+          <Text
+            className={
+              selectedFrequency === option.value
+                ? "text-base font-pretendard-semibold text-primary-600"
+                : "text-base font-pretendard-regular text-gray-800"
+            }
+          >
+            {option.label}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+  );
+}
