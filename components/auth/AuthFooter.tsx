@@ -1,5 +1,4 @@
-import { Href, Link } from "expo-router";
-import React from "react";
+import { type Href, Link } from "expo-router";
 import { Text, View } from "react-native";
 
 interface AuthFooterProps {
@@ -11,9 +10,9 @@ interface AuthFooterProps {
 export default function AuthFooter({ text, linkText, href }: AuthFooterProps) {
   return (
     <View className="flex-row justify-center mt-4">
-      <Text className="text-gray-500">{text} </Text>
+      <Text className="text-gray-500 text-sm font-pretendard-regular">{text} </Text>
       <Link href={href}>
-        <Text className="text-primary-600 font-bold">{linkText}</Text>
+        <Text className="text-primary-600 text-sm font-pretendard-bold">{linkText}</Text>
       </Link>
     </View>
   );

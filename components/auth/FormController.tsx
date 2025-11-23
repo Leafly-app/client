@@ -1,6 +1,6 @@
 import React from "react";
-import { Control, Controller, FieldValues, Path } from "react-hook-form";
-import { TextInputProps } from "react-native";
+import { type Control, Controller, type FieldValues, type Path } from "react-hook-form";
+import type { TextInputProps } from "react-native";
 import AuthInput from "./AuthInput";
 
 interface FormControllerProps<T extends FieldValues> {

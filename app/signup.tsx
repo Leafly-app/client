@@ -1,15 +1,15 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "expo-router";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { KeyboardAvoidingView, Platform, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import AuthFooter from "@/components/auth/AuthFooter";
 import AuthHeader from "@/components/auth/AuthHeader";
 import { FormController } from "@/components/auth/FormController";
 import SubmitButton from "@/components/auth/SubmitButton";
 import { useSignup } from "@/hooks/useSignup";
-import { signupSchema, type SignupFormData } from "@/schemas/auth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "expo-router";
-import React from "react";
-import { useForm } from "react-hook-form";
-import { KeyboardAvoidingView, Platform, ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { type SignupFormData, signupSchema } from "@/schemas/auth";
 
 export default function SignupScreen() {
   const router = useRouter();
@@ -18,7 +18,7 @@ export default function SignupScreen() {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
     mode: "onChange",
@@ -33,17 +33,17 @@ export default function SignupScreen() {
   const onSubmit = async (data: SignupFormData) => {
     const success = await handleSignup(data);
     if (success) {
-      router.replace("/login");
+      router.replace("/onboarding");
     }
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-white" edges={["top", "bottom"]}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         className="flex-1"
       >
-        <ScrollView className="flex-1 px-6" showsVerticalScrollIndicator={false}>
+        <View className="flex-1 px-6">
           <AuthHeader title="회원가입" />
 
           <FormController
@@ -82,15 +82,18 @@ export default function SignupScreen() {
             error={errors.nickname?.message}
           />
 
+          <View className="flex-1" />
+
           <SubmitButton
             text="가입하기"
             isLoading={isLoading}
+            disabled={!isValid}
             onPress={handleSubmit(onSubmit)}
-            className="mt-4 mb-4"
+            className="mb-4"
           />
 
           <AuthFooter text="이미 계정이 있으신가요?" linkText="로그인" href="/login" />
-        </ScrollView>
+        </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
