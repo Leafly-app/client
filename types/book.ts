@@ -8,10 +8,6 @@ export interface Book {
   isLiked: boolean;
 }
 
-export interface RecommendedBook extends Book {
-  id: string;
-}
-
 export interface SearchBook {
   isbn: string;
   title: string;
