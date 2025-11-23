@@ -1,10 +1,10 @@
+import { router } from "expo-router";
+import { useState } from "react";
+import { Alert } from "react-native";
 import { login } from "@/apis/auth";
 import type { LoginFormData } from "@/schemas/auth";
 import { useAuthStore } from "@/store/useAuthStore";
 import { getUserFromToken } from "@/utils/jwt";
-import { router } from "expo-router";
-import { useState } from "react";
-import { Alert } from "react-native";
 
 export const useLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -30,8 +30,10 @@ export const useLogin = () => {
 
       Alert.alert("로그인 실패", response.message);
       return false;
-    } catch (error: any) {
-      const errorMessage = error?.response?.data?.message || "로그인 중 오류가 발생했습니다.";
+    } catch (error: unknown) {
+      const errorMessage =
+        (error as { response?: { data?: { message?: string } } })?.response?.data?.message ||
+        "로그인 중 오류가 발생했습니다.";
       Alert.alert("로그인 실패", errorMessage);
       return false;
     } finally {
