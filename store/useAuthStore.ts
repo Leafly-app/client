@@ -1,6 +1,6 @@
+import { create } from "zustand";
 import type { UserInfo } from "@/types/auth/user";
 import { secureStorage } from "@/utils/secureStorage";
-import { create } from "zustand";
 
 interface AuthState {
   user: UserInfo | null;
@@ -70,7 +70,8 @@ export const useAuthStore = create<AuthState>((set) => ({
       } else {
         set({ isLoading: false });
       }
-    } catch {
+    } catch (err) {
+      console.error("Failed to load token:", err);
       set({ isLoading: false });
     }
   },
