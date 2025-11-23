@@ -4,6 +4,7 @@ import { Alert } from "react-native";
 import { login } from "@/apis/auth";
 import type { LoginFormData } from "@/schemas/auth";
 import { useAuthStore } from "@/store/useAuthStore";
+import { getErrorMessage } from "@/utils/error";
 import { getUserFromToken } from "@/utils/jwt";
 
 export const useLogin = () => {
@@ -24,7 +25,7 @@ export const useLogin = () => {
         }
 
         await loginAction(user, response.data.token);
-        router.replace("/(tabs)/explore");
+        router.replace("/(tabs)");
         return true;
       }
 

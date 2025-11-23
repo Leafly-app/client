@@ -1,8 +1,8 @@
 import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-const LOGO_IMAGE = require("../assets/images/logo-1x.png");
+import LogoText from "@/assets/images/home/home_logo.svg";
+import LogoImage from "@/assets/images/home/home_logo_image.svg";
 
 type Props = {
   onLogin?: () => void;
@@ -14,13 +14,8 @@ export default function SplashHome({ onLogin, onSignup }: Props) {
     <SafeAreaView className="flex-1 bg-white items-center justify-around px-4">
       <View className="flex-1 flex-col w-full items-center justify-center">
         <View className="flex-row items-center">
-          <Image
-            source={LOGO_IMAGE}
-            style={{ width: 61, height: 48, resizeMode: "contain" }}
-            accessible
-            accessibilityLabel="Leafly logo"
-          />
-          <Text className="text-5xl text-brand ml-4 font-extrabold">Leafly</Text>
+          <LogoImage width={61} height={48} />
+          <LogoText width={120} height={40} style={{ marginLeft: 16 }} />
         </View>
       </View>
 

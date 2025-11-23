@@ -4,7 +4,7 @@ module.exports = {
     slug: "leafly",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./assets/images/icon.png",
+    icon: "./assets/images/splash-icon.png",
     scheme: "leafly",
     userInterfaceStyle: "automatic",
     newArchEnabled: true,
@@ -20,6 +20,7 @@ module.exports = {
       },
       edgeToEdgeEnabled: true,
       predictiveBackGestureEnabled: false,
+      usesCleartextTraffic: true,
     },
     web: {
       output: "static",
