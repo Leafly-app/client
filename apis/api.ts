@@ -19,7 +19,7 @@ API.interceptors.request.use(
 
     return config;
   },
-  (error: AxiosError) => Promise.reject(error)
+  (error: AxiosError) => Promise.reject(error),
 );
 
 API.interceptors.response.use(
@@ -35,7 +35,7 @@ API.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default API;

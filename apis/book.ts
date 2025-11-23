@@ -13,12 +13,12 @@ export const getRecommendedBooks = async (): Promise<ApiResponse<Book[]>> => {
 
 export const searchBooks = async (
   keyword: string,
-  genres: string[] | null
+  genres: string[] | null,
 ): Promise<ApiResponse<SearchBook[]>> => {
   try {
     const response = await API.post<ApiResponse<SearchBook[]>>(
       `/api/books?keyword=${encodeURIComponent(keyword)}`,
-      { genres }
+      { genres },
     );
     return response.data;
   } catch (error) {

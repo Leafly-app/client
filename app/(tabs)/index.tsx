@@ -26,7 +26,7 @@ export default function Home() {
               onPress: () => BackHandler.exitApp(),
             },
           ],
-          { cancelable: false }
+          { cancelable: false },
         );
         return true;
       };
@@ -34,7 +34,7 @@ export default function Home() {
       const subscription = BackHandler.addEventListener("hardwareBackPress", onBackPress);
 
       return () => subscription.remove();
-    }, [])
+    }, []),
   );
 
   return (

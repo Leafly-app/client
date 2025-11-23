@@ -28,7 +28,7 @@ const HomeHeader = React.memo(() => {
           style: "destructive",
         },
       ],
-      { cancelable: true }
+      { cancelable: true },
     );
   };
 
