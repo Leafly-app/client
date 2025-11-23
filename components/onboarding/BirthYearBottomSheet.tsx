@@ -13,7 +13,8 @@ export function BirthYearBottomSheet({
   onSelect,
   selectedYear,
 }: BirthYearBottomSheetProps) {
-  const years = Array.from({ length: 111 }, (_, i) => 2020 - i);
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 111 }, (_, i) => currentYear - i);
 
   const handleSelect = (year: number) => {
     onSelect(year);
