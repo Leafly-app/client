@@ -5,10 +5,11 @@ import type { ReadingPurpose } from "@/types/onboarding";
 
 interface ReadingPurposeStepProps {
   onPurposeSelect?: (purpose: ReadingPurpose | null) => void;
+  initialPurpose?: ReadingPurpose | null;
 }
 
-export function ReadingPurposeStep({ onPurposeSelect }: ReadingPurposeStepProps) {
-  const [selectedPurpose, setSelectedPurpose] = useState<ReadingPurpose | null>(null);
+export function ReadingPurposeStep({ onPurposeSelect, initialPurpose }: ReadingPurposeStepProps) {
+  const [selectedPurpose, setSelectedPurpose] = useState<ReadingPurpose | null>(initialPurpose ?? null);
 
   const handleSelect = (purpose: ReadingPurpose) => {
     setSelectedPurpose(purpose);

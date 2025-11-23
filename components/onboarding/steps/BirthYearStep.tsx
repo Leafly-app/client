@@ -4,10 +4,11 @@ import { BirthYearBottomSheet } from "../BirthYearBottomSheet";
 
 interface BirthYearStepProps {
   onYearSelect?: (year: number | null) => void;
+  initialYear?: number | null;
 }
 
-export function BirthYearStep({ onYearSelect }: BirthYearStepProps) {
-  const [selectedYear, setSelectedYear] = useState<number | null>(null);
+export function BirthYearStep({ onYearSelect, initialYear }: BirthYearStepProps) {
+  const [selectedYear, setSelectedYear] = useState<number | null>(initialYear ?? null);
   const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
 
   const handleYearSelect = (year: number) => {

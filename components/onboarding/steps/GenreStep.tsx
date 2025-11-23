@@ -5,10 +5,11 @@ import type { GenreType } from "@/types/onboarding";
 
 interface GenreStepProps {
   onGenresSelect?: (genres: GenreType[]) => void;
+  initialGenres?: GenreType[];
 }
 
-export function GenreStep({ onGenresSelect }: GenreStepProps) {
-  const [selectedGenres, setSelectedGenres] = useState<GenreType[]>([]);
+export function GenreStep({ onGenresSelect, initialGenres }: GenreStepProps) {
+  const [selectedGenres, setSelectedGenres] = useState<GenreType[]>(initialGenres ?? []);
 
   const handleToggle = (genre: GenreType) => {
     const newSelectedGenres = selectedGenres.includes(genre)

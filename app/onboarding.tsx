@@ -65,15 +65,15 @@ export default function OnboardingScreen() {
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:
-        return <BirthYearStep onYearSelect={setBirthYear} />;
+        return <BirthYearStep onYearSelect={setBirthYear} initialYear={birthYear} />;
       case 2:
-        return <GenderStep onGenderSelect={setGender} />;
+        return <GenderStep onGenderSelect={setGender} initialGender={gender} />;
       case 3:
-        return <GenreStep onGenresSelect={setGenres} />;
+        return <GenreStep onGenresSelect={setGenres} initialGenres={genres} />;
       case 4:
-        return <ReadingPurposeStep onPurposeSelect={setReadingPurpose} />;
+        return <ReadingPurposeStep onPurposeSelect={setReadingPurpose} initialPurpose={readingPurpose} />;
       case 5:
-        return <ReadingFrequencyStep onFrequencySelect={setReadingFrequency} />;
+        return <ReadingFrequencyStep onFrequencySelect={setReadingFrequency} initialFrequency={readingFrequency} />;
       default:
         return null;
     }
@@ -91,6 +91,7 @@ export default function OnboardingScreen() {
       onBack={currentStep > 1 ? handleBack : undefined}
       isLastStep={currentStep === TOTAL_STEPS}
       isNextDisabled={isNextDisabled()}
+      isLoading={isLoading}
     >
       {renderStepContent()}
     </OnboardingLayout>

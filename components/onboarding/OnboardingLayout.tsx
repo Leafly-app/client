@@ -13,6 +13,7 @@ interface OnboardingLayoutProps {
   onBack?: () => void;
   isLastStep?: boolean;
   isNextDisabled?: boolean;
+  isLoading?: boolean;
 }
 
 export function OnboardingLayout({
@@ -25,6 +26,7 @@ export function OnboardingLayout({
   onBack,
   isLastStep = false,
   isNextDisabled = false,
+  isLoading = false,
 }: OnboardingLayoutProps) {
   return (
     <SafeAreaView className="flex-1 bg-white" edges={["top", "bottom"]}>
@@ -49,17 +51,22 @@ export function OnboardingLayout({
 
         <View className="pb-6">
           <TouchableOpacity
-            className={`py-4 rounded-lg items-center ${
-              isNextDisabled ? "bg-gray-300" : "bg-primary-600"
+            className={`py-4 rounded-lg items-center justify-center ${
+              isNextDisabled || isLoading ? "bg-gray-300" : "bg-primary-600"
             }`}
             onPress={onNext}
-            disabled={isNextDisabled}
+            disabled={isNextDisabled || isLoading}
+            activeOpacity={0.8}
           >
-            <Text
-              className={`text-base font-pretendard-semibold ${isNextDisabled ? "text-gray-500" : "text-white"}`}
-            >
-              {isLastStep ? "완료" : "다음"}
-            </Text>
+            {isLoading ? (
+              <Text className="text-base font-pretendard-semibold text-gray-500">로딩 중...</Text>
+            ) : (
+              <Text
+                className={`text-base font-pretendard-semibold ${isNextDisabled ? "text-gray-500" : "text-white"}`}
+              >
+                {isLastStep ? "완료" : "다음"}
+              </Text>
+            )}
           </TouchableOpacity>
         </View>
       </View>

@@ -5,10 +5,11 @@ import type { ReadingFrequency } from "@/types/onboarding";
 
 interface ReadingFrequencyStepProps {
   onFrequencySelect?: (frequency: ReadingFrequency | null) => void;
+  initialFrequency?: ReadingFrequency | null;
 }
 
-export function ReadingFrequencyStep({ onFrequencySelect }: ReadingFrequencyStepProps) {
-  const [selectedFrequency, setSelectedFrequency] = useState<ReadingFrequency | null>(null);
+export function ReadingFrequencyStep({ onFrequencySelect, initialFrequency }: ReadingFrequencyStepProps) {
+  const [selectedFrequency, setSelectedFrequency] = useState<ReadingFrequency | null>(initialFrequency ?? null);
 
   const handleSelect = (frequency: ReadingFrequency) => {
     setSelectedFrequency(frequency);

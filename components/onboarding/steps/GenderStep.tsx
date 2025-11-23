@@ -5,10 +5,11 @@ import type { Gender } from "@/types/onboarding";
 
 interface GenderStepProps {
   onGenderSelect?: (gender: Gender | null) => void;
+  initialGender?: Gender | null;
 }
 
-export function GenderStep({ onGenderSelect }: GenderStepProps) {
-  const [selectedGender, setSelectedGender] = useState<Gender | null>(null);
+export function GenderStep({ onGenderSelect, initialGender }: GenderStepProps) {
+  const [selectedGender, setSelectedGender] = useState<Gender | null>(initialGender ?? null);
 
   const handleSelect = (gender: Gender) => {
     setSelectedGender(gender);
