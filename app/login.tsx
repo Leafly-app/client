@@ -6,8 +6,8 @@ import { KeyboardAvoidingView, Platform, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AuthFooter from "@/components/auth/AuthFooter";
 import AuthHeader from "@/components/auth/AuthHeader";
+import Button from "@/components/common/Button";
 import { FormController } from "@/components/auth/FormController";
-import SubmitButton from "@/components/auth/SubmitButton";
 import { useLogin } from "@/hooks/useLogin";
 import { type LoginFormData, loginSchema } from "@/schemas/auth";
 
@@ -65,11 +65,13 @@ export default function LoginScreen() {
 
           <View className="flex-1" />
 
-          <SubmitButton
+          <Button
             text="로그인"
             isLoading={isLoading}
             disabled={!isValid}
             onPress={handleSubmit(onSubmit)}
+            variant="primary-green"
+            fullWidth
             className="mb-4"
           />
 

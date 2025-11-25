@@ -6,8 +6,8 @@ import { KeyboardAvoidingView, Platform, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AuthFooter from "@/components/auth/AuthFooter";
 import AuthHeader from "@/components/auth/AuthHeader";
+import Button from "@/components/common/Button";
 import { FormController } from "@/components/auth/FormController";
-import SubmitButton from "@/components/auth/SubmitButton";
 import { useSignup } from "@/hooks/useSignup";
 import { type SignupFormData, signupSchema } from "@/schemas/auth";
 
@@ -84,11 +84,13 @@ export default function SignupScreen() {
 
           <View className="flex-1" />
 
-          <SubmitButton
+          <Button
             text="가입하기"
             isLoading={isLoading}
             disabled={!isValid}
             onPress={handleSubmit(onSubmit)}
+            variant="primary-green"
+            fullWidth
             className="mb-4"
           />
 
