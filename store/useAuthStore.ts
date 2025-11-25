@@ -4,22 +4,20 @@ import { secureStorage } from "@/utils/secureStorage";
 
 interface AuthState {
   user: UserInfo | null;
-  accessToken: string | null;
-  refreshToken: string | null;
+  token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
 
   setUser: (user: UserInfo) => void;
-  setTokens: (accessToken: string, refreshToken: string) => Promise<void>;
+  setToken: (token: string) => Promise<void>;
   login: (user: UserInfo, token: string) => Promise<void>;
   logout: () => Promise<void>;
-  loadTokens: () => Promise<void>;
+  loadToken: () => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
-  accessToken: null,
-  refreshToken: null,
+  token: null,
   isAuthenticated: false,
   isLoading: true,
 
@@ -29,41 +27,37 @@ export const useAuthStore = create<AuthState>((set) => ({
       isAuthenticated: true,
     }),
 
-  setTokens: async (accessToken, refreshToken) => {
-    await secureStorage.setTokens(accessToken, refreshToken);
+  setToken: async (token) => {
+    await secureStorage.setToken(token);
     set({
-      accessToken,
-      refreshToken,
+      token,
     });
   },
 
   login: async (user, token) => {
-    await secureStorage.setTokens(token, token);
+    await secureStorage.setToken(token);
     set({
       user,
-      accessToken: token,
-      refreshToken: token,
+      token,
       isAuthenticated: true,
     });
   },
 
   logout: async () => {
-    await secureStorage.clearTokens();
+    await secureStorage.clearToken();
     set({
       user: null,
-      accessToken: null,
-      refreshToken: null,
+      token: null,
       isAuthenticated: false,
     });
   },
 
-  loadTokens: async () => {
+  loadToken: async () => {
     try {
-      const { accessToken, refreshToken } = await secureStorage.getTokens();
-      if (accessToken && refreshToken) {
+      const token = await secureStorage.getToken();
+      if (token) {
         set({
-          accessToken,
-          refreshToken,
+          token,
           isAuthenticated: true,
           isLoading: false,
         });
