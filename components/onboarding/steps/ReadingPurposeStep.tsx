@@ -9,7 +9,9 @@ interface ReadingPurposeStepProps {
 }
 
 export function ReadingPurposeStep({ onPurposeSelect, initialPurpose }: ReadingPurposeStepProps) {
-  const [selectedPurpose, setSelectedPurpose] = useState<ReadingPurpose | null>(initialPurpose ?? null);
+  const [selectedPurpose, setSelectedPurpose] = useState<ReadingPurpose | null>(
+    initialPurpose ?? null,
+  );
 
   const handleSelect = (purpose: ReadingPurpose) => {
     setSelectedPurpose(purpose);

@@ -8,8 +8,13 @@ interface ReadingFrequencyStepProps {
   initialFrequency?: ReadingFrequency | null;
 }
 
-export function ReadingFrequencyStep({ onFrequencySelect, initialFrequency }: ReadingFrequencyStepProps) {
-  const [selectedFrequency, setSelectedFrequency] = useState<ReadingFrequency | null>(initialFrequency ?? null);
+export function ReadingFrequencyStep({
+  onFrequencySelect,
+  initialFrequency,
+}: ReadingFrequencyStepProps) {
+  const [selectedFrequency, setSelectedFrequency] = useState<ReadingFrequency | null>(
+    initialFrequency ?? null,
+  );
 
   const handleSelect = (frequency: ReadingFrequency) => {
     setSelectedFrequency(frequency);
