@@ -1,4 +1,10 @@
-import { useRouter } from "expo-router";
+import GoBackIcon from "@/assets/images/goback.svg";
+import SearchIcon from "@/assets/images/search/search_search.svg";
+import BookCard from "@/components/home/BookCard";
+import { useSearchBooks } from "@/hooks/useSearchBooks";
+import { colors } from "@/styles/colors";
+import type { BookGenre } from "@/types/book";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
@@ -9,12 +15,6 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import GoBackIcon from "@/assets/images/goback.svg";
-import SearchIcon from "@/assets/images/search/search_search.svg";
-import BookCard from "@/components/home/BookCard";
-import { useSearchBooks } from "@/hooks/useSearchBooks";
-import { colors } from "@/styles/colors";
-import type { BookGenre } from "@/types/book";
 
 const GENRE_OPTIONS: BookGenre[] = [
   "소설/시/희곡",
@@ -32,13 +32,15 @@ const GENRE_OPTIONS: BookGenre[] = [
 
 export default function SearchScreen() {
   const router = useRouter();
+  const { mode } = useLocalSearchParams<{ mode?: string }>();
+  const isReviewMode = mode === "review";
   const { books, isLoading, search } = useSearchBooks();
   const [keyword, setKeyword] = useState("");
   const [selectedGenres, setSelectedGenres] = useState<BookGenre[]>([]);
 
   const toggleGenre = (genre: BookGenre) => {
     setSelectedGenres((prev) =>
-      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre],
+      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre]
     );
   };
 
@@ -49,9 +51,25 @@ export default function SearchScreen() {
     search(keyword.trim(), selectedGenres.length > 0 ? selectedGenres : null);
   };
 
+  const handleBookPress = (book: any) => {
+    if (isReviewMode) {
+      router.push({
+        pathname: "/review/create",
+        params: {
+          bookTitle: book.title,
+          bookAuthor: book.author,
+          bookCover: book.cover,
+          bookIsbn: book.isbn,
+          bookCategory: book.category || "",
+        },
+      });
+    } else {
+      router.push(`/book/${book.isbn}` as any);
+    }
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-white" edges={["top"]}>
-      {/* 상단 검색바 */}
       <View className="flex-row items-center px-5 py-3 bg-white border-b border-gray-200">
         <TouchableOpacity activeOpacity={0.7} onPress={() => router.back()} className="mr-3">
           <GoBackIcon width={24} height={24} fill="#000000" />
@@ -73,7 +91,6 @@ export default function SearchScreen() {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* 카테고리별 찾기 섹션 */}
         <View className="px-5 py-4">
           <Text className="text-body-14-semibold text-gray-900 mb-3">카테고리별 찾기</Text>
           <View className="flex-row flex-wrap gap-2">
@@ -101,7 +118,6 @@ export default function SearchScreen() {
           </View>
         </View>
 
-        {/* 인기 도서 섹션 */}
         <View className="px-5 py-4">
           <Text className="text-body-14-semibold text-gray-900 mb-3">인기 도서</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -129,7 +145,6 @@ export default function SearchScreen() {
           </ScrollView>
         </View>
 
-        {/* 검색 결과 섹션 */}
         {isLoading ? (
           <View className="py-20 items-center justify-center">
             <ActivityIndicator size="large" color={colors.primary[600]} />
@@ -149,10 +164,8 @@ export default function SearchScreen() {
                   author={book.author}
                   cover={book.cover}
                   isLiked={book.isLiked}
-                  onPress={() => router.push(`/book/${book.isbn}` as any)}
-                  onLikePress={() => {
-                    // 좋아요 기능 구현 예정
-                  }}
+                  onPress={() => handleBookPress(book)}
+                  onLikePress={() => {}}
                 />
               ))}
           </View>

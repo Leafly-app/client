@@ -4,7 +4,6 @@ module.exports = {
     slug: "leafly",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./assets/images/splash-icon.png",
     scheme: "leafly",
     userInterfaceStyle: "automatic",
     newArchEnabled: true,
@@ -12,35 +11,14 @@ module.exports = {
       supportsTablet: true,
     },
     android: {
-      adaptiveIcon: {
-        backgroundColor: "#E6F4FE",
-        foregroundImage: "./assets/images/android-icon-foreground.png",
-        backgroundImage: "./assets/images/android-icon-background.png",
-        monochromeImage: "./assets/images/android-icon-monochrome.png",
-      },
       edgeToEdgeEnabled: true,
       predictiveBackGestureEnabled: false,
       usesCleartextTraffic: true,
     },
     web: {
       output: "static",
-      favicon: "./assets/images/favicon.png",
     },
-    plugins: [
-      "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          image: "./assets/images/splash-icon.png",
-          imageWidth: 200,
-          resizeMode: "contain",
-          backgroundColor: "#ffffff",
-          dark: {
-            backgroundColor: "#000000",
-          },
-        },
-      ],
-    ],
+    plugins: ["expo-router"],
     experiments: {
       typedRoutes: true,
       reactCompiler: true,
