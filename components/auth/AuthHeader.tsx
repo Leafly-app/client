@@ -1,7 +1,7 @@
-import { colors } from "@/styles/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
+import { colors } from "@/styles/colors";
 
 interface AuthHeaderProps {
   title: string;

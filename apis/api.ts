@@ -1,7 +1,7 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios";
-import { useAuthStore } from "@/store/useAuthStore";
-import { Alert } from "react-native";
 import { router } from "expo-router";
+import { Alert } from "react-native";
+import { useAuthStore } from "@/store/useAuthStore";
 
 const API = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_BASE_URL,

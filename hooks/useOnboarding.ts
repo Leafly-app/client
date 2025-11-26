@@ -1,8 +1,8 @@
-import { submitOnboarding } from "@/apis/auth";
-import type { OnboardingRequest } from "@/types/onboarding";
 import { router } from "expo-router";
 import { useState } from "react";
 import { Alert } from "react-native";
+import { submitOnboarding } from "@/apis/auth";
+import type { OnboardingRequest } from "@/types/onboarding";
 
 export const useOnboarding = () => {
   const [isLoading, setIsLoading] = useState(false);

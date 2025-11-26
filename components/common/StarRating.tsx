@@ -1,7 +1,7 @@
-import StarOffIcon from "@/assets/images/review/review_star_off.svg";
-import StarOnIcon from "@/assets/images/review/review_star_on.svg";
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
+import StarOffIcon from "@/assets/images/review/review_star_off.svg";
+import StarOnIcon from "@/assets/images/review/review_star_on.svg";
 
 interface StarRatingProps {
   rating: number;

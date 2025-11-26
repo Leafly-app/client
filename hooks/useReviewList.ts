@@ -1,6 +1,6 @@
+import { useEffect, useState } from "react";
 import { getReviews } from "@/apis/review";
 import type { Review } from "@/types/review";
-import { useEffect, useState } from "react";
 
 export const useReviewList = () => {
   const [reviews, setReviews] = useState<Review[]>([]);

@@ -64,8 +64,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       } else {
         set({ isLoading: false });
       }
-    } catch (err) {
-      console.error("Failed to load token:", err);
+    } catch {
       set({ isLoading: false });
     }
   },

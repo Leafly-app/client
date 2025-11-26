@@ -1,7 +1,7 @@
-import type { DraftReview } from "@/types/review";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useCallback, useState } from "react";
 import { Alert } from "react-native";
+import type { DraftReview } from "@/types/review";
 
 const DRAFT_KEY = "DRAFT_REVIEW";
 

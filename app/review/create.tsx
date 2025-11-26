@@ -1,3 +1,9 @@
+import { useFocusEffect } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useCallback, useEffect, useState } from "react";
+import { Alert, BackHandler, ScrollView, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "@/components/common/Button";
 import Header from "@/components/common/Header";
 import BookInfoCard from "@/components/review/BookInfoCard";
@@ -6,12 +12,6 @@ import ReviewFormCard from "@/components/review/ReviewFormCard";
 import { useCreateReview } from "@/hooks/useCreateReview";
 import { useDraftReview } from "@/hooks/useDraftReview";
 import { useReviewValidation } from "@/hooks/useReviewValidation";
-import { useFocusEffect } from "@react-navigation/native";
-import * as ImagePicker from "expo-image-picker";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import React, { useCallback, useEffect, useState } from "react";
-import { Alert, BackHandler, ScrollView, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function CreateReviewScreen() {
   const router = useRouter();
@@ -78,12 +78,16 @@ export default function CreateReviewScreen() {
       return;
     }
 
+    if (!selectedBook) {
+      return;
+    }
+
     const requestData = {
-      title: selectedBook!.title,
-      author: selectedBook!.author,
-      thumbnail: selectedBook!.cover,
+      title: selectedBook.title,
+      author: selectedBook.author,
+      thumbnail: selectedBook.cover,
       rating,
-      category: selectedBook!.category,
+      category: selectedBook.category,
       reviewTitle: title || undefined,
       content,
       images: images.length > 0 ? images : undefined,

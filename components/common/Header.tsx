@@ -1,6 +1,5 @@
-import GoBackIcon from "@/assets/images/goback.svg";
-import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import GoBackIcon from "@/assets/images/goback.svg";
 
 interface HeaderProps {
   title: string;
