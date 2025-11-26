@@ -31,6 +31,9 @@ export default function RootLayout() {
         <Stack.Screen name="login" options={{ headerShown: false }} />
         <Stack.Screen name="signup" options={{ headerShown: false }} />
         <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+        <Stack.Screen name="book/[isbn]" options={{ headerShown: false }} />
+        <Stack.Screen name="review/create" options={{ headerShown: false }} />
+        <Stack.Screen name="review/[id]" options={{ headerShown: false }} />
         <StatusBar style="auto" />
       </Stack>
     </SafeAreaProvider>

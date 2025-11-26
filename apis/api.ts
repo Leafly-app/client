@@ -1,5 +1,7 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios";
 import { useAuthStore } from "@/store/useAuthStore";
+import { Alert } from "react-native";
+import { router } from "expo-router";
 
 const API = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_BASE_URL,
@@ -11,7 +13,7 @@ const API = axios.create({
 
 API.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = useAuthStore.getState().accessToken;
+    const token = useAuthStore.getState().token;
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -30,7 +32,24 @@ API.interceptors.response.use(
         error.config?.url?.includes("/signin") || error.config?.url?.includes("/signup");
 
       if (error.response.status === 401 && !isAuthRequest) {
+        const errorMessage =
+          (error.response.data as any)?.message || "토큰이 만료되었습니다. 다시 로그인해주세요.";
+
         await useAuthStore.getState().logout();
+
+        Alert.alert(
+          "인증 만료",
+          errorMessage,
+          [
+            {
+              text: "확인",
+              onPress: () => {
+                router.replace("/");
+              },
+            },
+          ],
+          { cancelable: false },
+        );
       }
     }
 
