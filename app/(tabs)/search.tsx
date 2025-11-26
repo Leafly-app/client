@@ -40,7 +40,7 @@ export default function SearchScreen() {
 
   const toggleGenre = (genre: BookGenre) => {
     setSelectedGenres((prev) =>
-      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre]
+      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre],
     );
   };
 
