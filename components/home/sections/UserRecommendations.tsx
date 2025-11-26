@@ -1,13 +1,20 @@
+import BookCard from "@/components/common/BookCard";
+import { useRecommendedBooks } from "@/hooks/useRecommendedBooks";
+import { useLibraryUpdateStore } from "@/store/libraryUpdateStore";
+import { colors } from "@/styles/colors";
 import { useRouter } from "expo-router";
 import React from "react";
 import { ActivityIndicator, Text, View } from "react-native";
-import BookCard from "@/components/home/BookCard";
-import { useRecommendedBooks } from "@/hooks/useRecommendedBooks";
-import { colors } from "@/styles/colors";
 
 const UserRecommendations = React.memo(() => {
   const router = useRouter();
-  const { books, isLoading } = useRecommendedBooks();
+  const { books, isLoading, updateBookLikeStatus } = useRecommendedBooks();
+  const setNeedsUpdate = useLibraryUpdateStore((state) => state.setNeedsUpdate);
+
+  const handleLikeToggle = (isbn: string, isLiked: boolean) => {
+    updateBookLikeStatus(isbn, isLiked);
+    setNeedsUpdate(true);
+  };
 
   return (
     <View className="mt-10 px-5 pb-6">
@@ -20,17 +27,19 @@ const UserRecommendations = React.memo(() => {
           </Text>
         </View>
       ) : books.length > 0 ? (
-        books.map((book) => (
+        books.map((book, index) => (
           <BookCard
-            key={book.isbn}
+            key={`${book.isbn}-${index}`}
+            isbn={book.isbn}
             title={book.title}
             author={book.author}
             cover={book.cover}
             reason={book.reason}
             isLiked={book.isLiked}
+            rating={book.rating}
             showReason
             onPress={() => router.push(`/book/${book.isbn}`)}
-            onLikePress={() => {}}
+            onLikeToggle={handleLikeToggle}
           />
         ))
       ) : (

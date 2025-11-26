@@ -1,6 +1,6 @@
 import React from "react";
 import { FlatList, View } from "react-native";
-import BookCardV2 from "@/components/home/BookCardV2";
+import BookCardV2 from "@/components/common/BookCardV2";
 import type { Review } from "@/types/review";
 import { formatDate } from "@/utils/formatDate";
 

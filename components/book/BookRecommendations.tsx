@@ -1,5 +1,5 @@
 import { ScrollView, Text, View } from "react-native";
-import BookCardV2 from "@/components/home/BookCardV2";
+import BookCardV2 from "@/components/common/BookCardV2";
 
 interface BookRecommendationsProps {
   recommendations: {
