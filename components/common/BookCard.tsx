@@ -1,6 +1,6 @@
 import HeartIcon from "@/assets/images/ic_heart.svg";
 import StarIcon from "@/assets/images/ic_star.svg";
-import { useToggleBookmark } from "@/hooks/useToggleBookmark";
+import { useToggleLike } from "@/hooks/useToggleLike";
 import { colors } from "@/styles/colors";
 import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
@@ -31,7 +31,7 @@ const BookCard = React.memo<BookCardProps>(function BookCard({
   onLikeToggle,
 }: BookCardProps) {
   const [isLiked, setIsLiked] = useState(initialIsLiked);
-  const { toggle: toggleBookmark } = useToggleBookmark();
+  const { toggle: toggleLike } = useToggleLike();
 
   useEffect(() => {
     setIsLiked(initialIsLiked);
@@ -47,7 +47,7 @@ const BookCard = React.memo<BookCardProps>(function BookCard({
 
     // 2. 서버 요청 (취소 시에도 데이터 전송 권장)
     const bookInfo = { title, author, cover };
-    const result = await toggleBookmark(isbn, bookInfo);
+    const result = await toggleLike(isbn, bookInfo);
 
     if (result.success) {
       onLikeToggle?.(isbn, newIsLiked);
