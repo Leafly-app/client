@@ -1,6 +1,6 @@
+import { BirthYearBottomSheet } from "@/components/onboarding/BirthYearBottomSheet";
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { BirthYearBottomSheet } from "../BirthYearBottomSheet";
 
 interface BirthYearStepProps {
   onYearSelect?: (year: number | null) => void;
