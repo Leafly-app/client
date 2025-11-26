@@ -60,7 +60,7 @@ const BookInfoCard = React.memo<BookInfoCardProps>(
         </View>
       </View>
     );
-  }
+  },
 );
 
 BookInfoCard.displayName = "BookInfoCard";
