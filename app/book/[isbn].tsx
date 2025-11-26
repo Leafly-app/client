@@ -1,11 +1,13 @@
-import GoBackIcon from "@/assets/images/goback.svg";
-import HeartIcon from "@/assets/images/heart.svg";
-import BookCardV2 from "@/components/home/BookCardV2";
+import BookActionButtons from "@/components/book/BookActionButtons";
+import BookAISummaryCard from "@/components/book/BookAISummaryCard";
+import BookDetailCard from "@/components/book/BookDetailCard";
+import BookRecommendations from "@/components/book/BookRecommendations";
+import Header from "@/components/common/Header";
 import { useBookDetail } from "@/hooks/useBookDetail";
 import { colors } from "@/styles/colors";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
-import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function BookDetailScreen() {
@@ -16,16 +18,7 @@ export default function BookDetailScreen() {
   if (isLoading) {
     return (
       <SafeAreaView className="flex-1 bg-white" edges={["top", "bottom"]}>
-        <View className="flex-row items-center justify-center px-5 py-3 bg-white border-b border-gray-200">
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => router.back()}
-            className="absolute left-5"
-          >
-            <GoBackIcon width={24} height={24} fill="#000000" />
-          </TouchableOpacity>
-          <Text className="text-heading-20-bold text-gray-900">도서 정보</Text>
-        </View>
+        <Header title="도서 정보" onBackPress={() => router.back()} />
         <View className="flex-1 bg-gray-200 items-center justify-center">
           <ActivityIndicator size="large" color={colors.primary[600]} />
           <Text className="text-body-14-regular text-gray-500 mt-4">로딩 중...</Text>
@@ -37,16 +30,7 @@ export default function BookDetailScreen() {
   if (!bookData) {
     return (
       <SafeAreaView className="flex-1 bg-white" edges={["top", "bottom"]}>
-        <View className="flex-row items-center justify-center px-5 py-3 bg-white border-b border-gray-200">
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => router.back()}
-            className="absolute left-5"
-          >
-            <GoBackIcon width={24} height={24} fill="#000000" />
-          </TouchableOpacity>
-          <Text className="text-heading-20-bold text-gray-900">도서 정보</Text>
-        </View>
+        <Header title="도서 정보" onBackPress={() => router.back()} />
         <View className="flex-1 bg-gray-200 items-center justify-center">
           <Text className="text-body-14-regular text-gray-500">책 정보를 불러올 수 없습니다.</Text>
         </View>
@@ -55,121 +39,38 @@ export default function BookDetailScreen() {
   }
 
   const { bookDetail, aiSummary, aiTags, recommendations, isLiked } = bookData;
+  const hasRecommendations = recommendations && recommendations.length > 0;
 
   return (
     <SafeAreaView className="flex-1 bg-white" edges={["top", "bottom"]}>
-      <View className="flex-row items-center px-5 py-3 bg-white border-b border-gray-200">
-        <TouchableOpacity activeOpacity={0.7} onPress={() => router.back()} className="mr-3">
-          <GoBackIcon width={24} height={24} fill="#000000" />
-        </TouchableOpacity>
-        <Text className="text-heading-20-bold text-gray-900">도서 정보</Text>
-      </View>
+      <Header title="도서 정보" onBackPress={() => router.back()} />
 
       <ScrollView showsVerticalScrollIndicator={false} className="flex-1 bg-gray-200">
-        <View className="bg-white mx-4 mt-4 rounded-xl p-4" style={{ elevation: 2 }}>
-          <View className="flex-row">
-            <View
-              className="bg-gray-300 rounded-lg overflow-hidden mr-4"
-              style={{ width: 96, height: 160 }}
-            >
-              {bookDetail.cover ? (
-                <Image
-                  source={{ uri: bookDetail.cover }}
-                  className="w-full h-full"
-                  resizeMode="cover"
-                />
-              ) : (
-                <View className="flex-1 items-center justify-center">
-                  <View className="w-12 h-16 bg-gray-500 rounded" />
-                </View>
-              )}
-            </View>
+        <BookDetailCard bookDetail={bookDetail} />
 
-            <View className="flex-1">
-              <Text className="text-body-16-bold text-gray-900 mb-2" numberOfLines={2}>
-                {bookDetail.title}
-              </Text>
-              <Text className="text-body-14-regular text-gray-600 mb-2">{bookDetail.author}</Text>
-              <Text className="text-body-12-regular text-gray-500 mb-2">
-                {bookDetail.publisher} | {bookDetail.pubDate}
-              </Text>
-              {bookDetail.priceStandard && (
-                <Text className="text-body-14-semibold text-gray-900 mb-2">
-                  {bookDetail.priceStandard.toLocaleString()}원
-                </Text>
-              )}
-              <Text className="text-body-12-regular text-gray-500">ISBN: {bookDetail.isbn13}</Text>
-            </View>
-          </View>
+        {aiSummary && <BookAISummaryCard aiSummary={aiSummary} aiTags={aiTags} />}
 
-          {bookDetail.description && (
-            <View className="mt-4 pt-4 border-t border-gray-200">
-              <Text className="text-body-14-regular text-gray-700 leading-6">
-                {bookDetail.description}
-              </Text>
-            </View>
-          )}
-        </View>
+        <BookRecommendations
+          recommendations={recommendations || []}
+          onBookPress={(bookIsbn) => router.push(`/book/${bookIsbn}` as any)}
+        />
 
-        {aiSummary && (
-          <View className="bg-white mx-4 mt-4 rounded-xl p-4" style={{ elevation: 2 }}>
-            <Text className="text-body-16-bold text-gray-900 mb-3">AI 요약</Text>
-            <Text className="text-body-14-regular text-gray-700 leading-6">{aiSummary}</Text>
-            {aiTags && aiTags.length > 0 && (
-              <View className="flex-row flex-wrap gap-2 mt-3">
-                {aiTags.map((tag, index) => (
-                  <View key={index} className="bg-gray-200 rounded-full px-3 py-1">
-                    <Text className="text-body-12-regular text-gray-700">{tag}</Text>
-                  </View>
-                ))}
-              </View>
-            )}
+        {hasRecommendations && (
+          <View className="px-4 pb-6">
+            <BookActionButtons
+              isLiked={isLiked}
+              onAddToLibrary={() => {}}
+              onToggleLike={() => {}}
+            />
           </View>
         )}
-
-        {recommendations && recommendations.length > 0 && (
-          <View className="bg-white mx-4 mt-4 mb-4 rounded-xl p-4" style={{ elevation: 2 }}>
-            <Text className="text-body-16-bold text-gray-900 mb-3">이런 책은 어떠세요?</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View className="flex-row gap-4">
-                {recommendations.map((book) => (
-                  <BookCardV2
-                    key={book.isbn}
-                    title={book.title}
-                    author={book.author}
-                    cover={book.cover}
-                    onPress={() => router.push(`/book/${book.isbn}` as any)}
-                  />
-                ))}
-              </View>
-            </ScrollView>
-          </View>
-        )}
-
-        <View className="px-4 pb-6">
-          <View className="flex-row gap-3">
-            <TouchableOpacity
-              activeOpacity={0.7}
-              className="flex-1 bg-gray-600 rounded-xl py-4 items-center"
-              onPress={() => {}}
-            >
-              <Text className="text-body-16-bold text-white">내 서재에 추가</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              activeOpacity={0.7}
-              className="w-14 h-14 rounded-xl bg-gray-600 items-center justify-center"
-              onPress={() => {}}
-            >
-              <HeartIcon
-                width={24}
-                height={24}
-                fill={isLiked ? colors.primary[600] : colors.gray[400]}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
       </ScrollView>
+
+      {!hasRecommendations && (
+        <View className="px-4 pb-6 bg-gray-200">
+          <BookActionButtons isLiked={isLiked} onAddToLibrary={() => {}} onToggleLike={() => {}} />
+        </View>
+      )}
     </SafeAreaView>
   );
 }
