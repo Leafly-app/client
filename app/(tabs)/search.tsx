@@ -1,11 +1,12 @@
 import GoBackIcon from "@/assets/images/goback.svg";
 import SearchIcon from "@/assets/images/search/search_search.svg";
-import BookCard from "@/components/home/BookCard";
+import BookCard from "@/components/common/BookCard";
 import { useSearchBooks } from "@/hooks/useSearchBooks";
+import { useLibraryUpdateStore } from "@/store/libraryUpdateStore";
 import { colors } from "@/styles/colors";
 import type { BookGenre, SearchBook } from "@/types/book";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   ActivityIndicator,
   ScrollView,
@@ -34,9 +35,15 @@ export default function SearchScreen() {
   const router = useRouter();
   const { mode } = useLocalSearchParams<{ mode?: string }>();
   const isReviewMode = mode === "review";
-  const { books, isLoading, search } = useSearchBooks();
+  const { books, isLoading, search, updateBookLikeStatus } = useSearchBooks();
   const [keyword, setKeyword] = useState("");
   const [selectedGenres, setSelectedGenres] = useState<BookGenre[]>([]);
+  const setNeedsUpdate = useLibraryUpdateStore((state) => state.setNeedsUpdate);
+
+  const handleLikeToggle = (isbn: string, isLiked: boolean) => {
+    updateBookLikeStatus(isbn, isLiked);
+    setNeedsUpdate(true);
+  };
 
   const toggleGenre = (genre: BookGenre) => {
     setSelectedGenres((prev) =>
@@ -160,12 +167,13 @@ export default function SearchScreen() {
               .map((book) => (
                 <BookCard
                   key={book.isbn}
-                  title={book.title}
-                  author={book.author}
+                  isbn={book.isbn}
+                  title={book.title || "제목 없음"}
+                  author={book.author || "저자 없음"}
                   cover={book.cover}
                   isLiked={book.isLiked}
                   onPress={() => handleBookPress(book)}
-                  onLikePress={() => {}}
+                  onLikeToggle={handleLikeToggle}
                 />
               ))}
           </View>

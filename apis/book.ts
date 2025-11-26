@@ -1,5 +1,6 @@
 import type { ApiResponse } from "@/types/api";
 import type { Book, BookGenre, SearchBook } from "@/types/book";
+import type { ToggleLikeRequest, ToggleLikeResponse } from "@/types/book/like";
 import API from "./api";
 
 export const getRecommendedBooks = async (): Promise<ApiResponse<Book[]>> => {
@@ -29,5 +30,13 @@ export const searchBooks = async (
     `/api/books?keyword=${encodeURIComponent(keyword)}`,
     { genres },
   );
+  return response.data;
+};
+
+export const toggleLike = async (
+  isbn: string,
+  data: ToggleLikeRequest | null,
+): Promise<ApiResponse<ToggleLikeResponse>> => {
+  const response = await API.post<ApiResponse<ToggleLikeResponse>>(`/api/bookmarks/${isbn}`, data);
   return response.data;
 };
