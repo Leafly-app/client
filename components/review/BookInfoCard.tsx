@@ -21,7 +21,7 @@ const BookInfoCard = React.memo<BookInfoCardProps>(
       return (
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={onSelectBook}
+          onPress={onSelectBook || (() => {})}
           className="bg-white mx-4 mt-4 rounded-xl p-6 items-center justify-center"
           style={{ elevation: 2, minHeight: 150 }}
         >
@@ -60,7 +60,7 @@ const BookInfoCard = React.memo<BookInfoCardProps>(
         </View>
       </View>
     );
-  },
+  }
 );
 
 BookInfoCard.displayName = "BookInfoCard";

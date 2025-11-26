@@ -1,6 +1,6 @@
 import { deleteReview, getReviewDetail } from "@/apis/review";
 import type { ReviewDetail } from "@/types/review";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const useReviewDetail = (reviewId: number) => {
   const [reviewDetail, setReviewDetail] = useState<ReviewDetail | null>(null);
@@ -8,7 +8,7 @@ export const useReviewDetail = (reviewId: number) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchReviewDetail = async () => {
+  const fetchReviewDetail = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
@@ -31,7 +31,7 @@ export const useReviewDetail = (reviewId: number) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [reviewId]);
 
   const handleDeleteReview = async () => {
     try {
@@ -58,7 +58,7 @@ export const useReviewDetail = (reviewId: number) => {
     if (reviewId) {
       fetchReviewDetail();
     }
-  }, [reviewId]);
+  }, [reviewId, fetchReviewDetail]);
 
   return {
     reviewDetail,

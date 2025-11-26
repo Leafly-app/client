@@ -1,6 +1,6 @@
 import type { DraftReview } from "@/types/review";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Alert } from "react-native";
 
 const DRAFT_KEY = "DRAFT_REVIEW";
@@ -16,7 +16,7 @@ interface SelectedBook {
 export const useDraftReview = (hasBookParam: boolean) => {
   const [isLoadingDraft, setIsLoadingDraft] = useState(false);
 
-  const loadDraft = (onLoad: (draft: DraftReview) => void) => {
+  const loadDraft = useCallback((onLoad: (draft: DraftReview) => void) => {
     const load = async () => {
       try {
         setIsLoadingDraft(true);
@@ -39,9 +39,9 @@ export const useDraftReview = (hasBookParam: boolean) => {
     };
 
     load();
-  };
+  }, [hasBookParam]);
 
-  const saveDraft = async (
+  const saveDraft = useCallback(async (
     selectedBook: SelectedBook,
     rating: number,
     title: string,
@@ -63,13 +63,13 @@ export const useDraftReview = (hasBookParam: boolean) => {
     } catch {
       Alert.alert("오류", "임시저장에 실패했습니다.");
     }
-  };
+  }, []);
 
-  const clearDraft = async () => {
+  const clearDraft = useCallback(async () => {
     try {
       await AsyncStorage.removeItem(DRAFT_KEY);
     } catch {}
-  };
+  }, []);
 
   return { loadDraft, saveDraft, clearDraft, isLoadingDraft };
 };

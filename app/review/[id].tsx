@@ -3,6 +3,7 @@ import Header from "@/components/common/Header";
 import StarRating from "@/components/common/StarRating";
 import { useReviewDetail } from "@/hooks/useReviewDetail";
 import { colors } from "@/styles/colors";
+import { formatDate } from "@/utils/formatDate";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
 import { ActivityIndicator, Alert, Image, ScrollView, Text, View } from "react-native";
@@ -117,7 +118,7 @@ export default function ReviewDetailScreen() {
                 {reviewDetail.reviewTitle || "제목 없음"}
               </Text>
               <Text className="text-body-14-regular text-gray-500">
-                {reviewDetail.createAt.substring(0, 10)}
+                {formatDate(reviewDetail.createAt)}
               </Text>
             </View>
           </View>

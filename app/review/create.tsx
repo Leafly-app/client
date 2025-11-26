@@ -47,7 +47,7 @@ export default function CreateReviewScreen() {
       setContent(draft.content);
       setImages(draft.images);
     });
-  }, []);
+  }, [loadDraft]);
 
   useEffect(() => {
     if (params.bookTitle && params.bookAuthor && params.bookIsbn) {

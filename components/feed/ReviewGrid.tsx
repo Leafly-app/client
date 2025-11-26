@@ -1,5 +1,6 @@
 import BookCardV2 from "@/components/home/BookCardV2";
 import type { Review } from "@/types/review";
+import { formatDate } from "@/utils/formatDate";
 import React from "react";
 import { FlatList, View } from "react-native";
 
@@ -24,7 +25,7 @@ const ReviewGrid = React.memo<ReviewGridProps>(({ reviews, cardWidth, onReviewPr
             cover={item.thumbnail}
             width={cardWidth}
             rating={item.rating}
-            date={item.createAt.substring(0, 10)}
+            date={formatDate(item.createAt)}
             onPress={() => onReviewPress(item.reviewId)}
           />
         )}

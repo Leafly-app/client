@@ -36,17 +36,13 @@ export const createReview = async (data: CreateReviewRequest): Promise<CreateRev
     }
   }
 
-  try {
-    const response = await API.post<CreateReviewResponse>("/api/bookreviews", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+  const response = await API.post<CreateReviewResponse>("/api/bookreviews", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
-    return response.data;
-  } catch (error: any) {
-    throw error;
-  }
+  return response.data;
 };
 
 export const getReviews = async (): Promise<GetReviewsResponse> => {

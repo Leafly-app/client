@@ -3,7 +3,7 @@ import SearchIcon from "@/assets/images/search/search_search.svg";
 import BookCard from "@/components/home/BookCard";
 import { useSearchBooks } from "@/hooks/useSearchBooks";
 import { colors } from "@/styles/colors";
-import type { BookGenre } from "@/types/book";
+import type { BookGenre, SearchBook } from "@/types/book";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -51,7 +51,7 @@ export default function SearchScreen() {
     search(keyword.trim(), selectedGenres.length > 0 ? selectedGenres : null);
   };
 
-  const handleBookPress = (book: any) => {
+  const handleBookPress = (book: SearchBook) => {
     if (isReviewMode) {
       router.push({
         pathname: "/review/create",
