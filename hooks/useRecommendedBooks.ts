@@ -31,7 +31,7 @@ export const useRecommendedBooks = () => {
 
   const updateBookLikeStatus = (isbn: string, isLiked: boolean) => {
     setBooks((prevBooks) =>
-      prevBooks.map((book) => (book.isbn === isbn ? { ...book, isLiked } : book))
+      prevBooks.map((book) => (book.isbn === isbn ? { ...book, isLiked } : book)),
     );
   };
 

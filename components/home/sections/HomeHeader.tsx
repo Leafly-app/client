@@ -32,7 +32,7 @@ const HomeHeader = React.memo<HomeHeaderProps>(({ onLogoPress }) => {
           style: "destructive",
         },
       ],
-      { cancelable: true }
+      { cancelable: true },
     );
   };
 
