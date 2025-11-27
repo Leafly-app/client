@@ -1,7 +1,8 @@
-import { uploadOCRImage } from "@/apis/ocr";
+import { deleteAsync } from "expo-file-system";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert } from "react-native";
+import { uploadOCRImage } from "@/apis/ocr";
 
 export const useBookOCR = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,6 +29,11 @@ export const useBookOCR = () => {
       Alert.alert("인식 실패", "바코드를 정확히 비춰주세요.\n" + errorMessage);
     } finally {
       setIsLoading(false);
+      try {
+        await deleteAsync(imageUri);
+      } catch (e) {
+        console.error("Failed to delete temporary file", e);
+      }
     }
   };
 
