@@ -1,5 +1,5 @@
 import GoBackIcon from "@/assets/images/goback.svg";
-import SearchIcon from "@/assets/images/search/search_search.svg";
+import SearchIcon from "@/components/icons/IcSearch";
 import { TextInput, TouchableOpacity, View } from "react-native";
 
 interface SearchHeaderProps {
