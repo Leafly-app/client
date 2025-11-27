@@ -39,9 +39,9 @@ export function BottomSheet({ visible, onClose, title, children, height }: Botto
           <Animated.View
             style={{
               transform: [{ translateY: slideAnim }],
-              paddingBottom: insets.bottom || 0
+              paddingBottom: (height ? 0 : 24) + insets.bottom
             }}
-            className={`bg-white rounded-t-3xl ${height ? "" : "pb-6"}`}
+            className="bg-white rounded-t-3xl"
           >
             <View className="flex-row justify-between items-center px-6 py-4 border-b border-gray-200">
               <Text className="text-lg font-semibold">{title}</Text>
@@ -58,7 +58,6 @@ export function BottomSheet({ visible, onClose, title, children, height }: Botto
   );
 }
 
-// ... BottomSheetOption 코드는 그대로 유지 ...
 export function BottomSheetOption({
   label,
   isSelected,
