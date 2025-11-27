@@ -69,7 +69,14 @@ export default function BookDetailScreen() {
   if (isLoading) {
     return (
       <SafeAreaView className="flex-1 bg-white" edges={["top", "bottom"]}>
-        <Header title="도서 정보" onBackPress={() => router.back()} />
+        <Header
+          state="default"
+          hasBack={true}
+          hasSearch={false}
+          titleType="text"
+          title=""
+          onBackPress={() => router.back()}
+        />
         <View className="flex-1 bg-gray-200 items-center justify-center">
           <ActivityIndicator size="large" color={colors.primary[600]} />
           <Text className="text-body-14-regular text-gray-500 mt-4">로딩 중...</Text>
@@ -81,7 +88,14 @@ export default function BookDetailScreen() {
   if (!bookData) {
     return (
       <SafeAreaView className="flex-1 bg-white" edges={["top", "bottom"]}>
-        <Header title="도서 정보" onBackPress={() => router.back()} />
+        <Header
+          state="default"
+          hasBack={true}
+          hasSearch={false}
+          titleType="text"
+          title=""
+          onBackPress={() => router.back()}
+        />
         <View className="flex-1 bg-gray-200 items-center justify-center">
           <Text className="text-body-14-regular text-gray-500">책 정보를 불러올 수 없습니다.</Text>
         </View>
@@ -94,7 +108,14 @@ export default function BookDetailScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-white" edges={["top", "bottom"]}>
-      <Header title="도서 정보" onBackPress={() => router.back()} />
+      <Header
+        state="default"
+        hasBack={true}
+        hasSearch={false}
+        titleType="text"
+        title={bookDetail.title}
+        onBackPress={() => router.back()}
+      />
 
       <ScrollView showsVerticalScrollIndicator={false} className="flex-1 bg-gray-200">
         <BookDetailCard bookDetail={bookDetail} />
