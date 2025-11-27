@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
 import HeartIcon from "@/assets/images/ic_heart.svg";
 import StarIcon from "@/assets/images/ic_star.svg";
 import { useToggleLike } from "@/hooks/useToggleLike";
 import { colors } from "@/styles/colors";
 import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
+
 
 interface BookCardProps {
   isbn: string;

@@ -5,10 +5,6 @@ import { useAuthStore } from "@/store/useAuthStore";
 import { useRouter } from "expo-router";
 import React from "react";
 import { Alert, Text, TouchableOpacity, View } from "react-native";
-import SearchIcon from "@/assets/images/navbar/ic_search.svg";
-import LogoText from "@/assets/images/navbar/nav_logo.svg";
-import LogoImage from "@/assets/images/navbar/nav_logo_image.svg";
-import { useAuthStore } from "@/store/useAuthStore";
 
 interface HomeHeaderProps {
   onLogoPress?: () => void;
@@ -56,7 +52,7 @@ const HomeHeader = React.memo<HomeHeaderProps>(({ onLogoPress }) => {
           <Text className="text-body-12-semibold text-white">로그아웃</Text>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={0.7} onPress={() => router.push("/(tabs)/search")}>
-          <SearchIcon width={24} height={24} fill="#000000" />
+          <SearchIcon width={24} height={24} />
         </TouchableOpacity>
       </View>
     </View>

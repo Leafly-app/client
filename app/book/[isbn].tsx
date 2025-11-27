@@ -1,7 +1,3 @@
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
-import { ActivityIndicator, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import BookActionButtons from "@/components/book/BookActionButtons";
 import BookAISummaryCard from "@/components/book/BookAISummaryCard";
 import BookDetailCard from "@/components/book/BookDetailCard";
