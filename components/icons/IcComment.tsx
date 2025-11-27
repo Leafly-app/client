@@ -1,8 +1,15 @@
-import * as React from "react";
-import Svg, { Path } from "react-native-svg";
 import type { SvgProps } from "react-native-svg";
+import Svg, { Path } from "react-native-svg";
+
 const SvgIcComment = (props: SvgProps) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} fill="none" {...props}>
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={13}
+    height={13}
+    viewBox="0 0 13 13"
+    fill="none"
+    {...props}
+  >
     <Path
       fill="#000"
       d="M3.35 11.9 0 12.647l.746-3.352A6.15 6.15 0 0 1 0 6.323q0-1.29.493-2.466.48-1.125 1.36-2.004A6.3 6.3 0 0 1 3.855.493 6.3 6.3 0 0 1 6.322 0q1.29 0 2.465.493 1.125.48 2.004 1.36a6.3 6.3 0 0 1 1.36 2.004q.492 1.176.492 2.466T12.15 8.79a6.3 6.3 0 0 1-1.359 2.005 6.3 6.3 0 0 1-2.004 1.36 6.3 6.3 0 0 1-2.465.493A6.14 6.14 0 0 1 3.35 11.9m.178-1.327.417.215a5 5 0 0 0 2.377.594q1.378 0 2.554-.696a5 5 0 0 0 1.808-1.808 4.93 4.93 0 0 0 .695-2.555 4.93 4.93 0 0 0-.695-2.554A5 5 0 0 0 8.876 1.96a4.93 4.93 0 0 0-2.554-.695q-1.378 0-2.554.695A5 5 0 0 0 1.96 3.77a4.93 4.93 0 0 0-.696 2.554q0 1.265.595 2.378l.215.417-.405 1.86z"

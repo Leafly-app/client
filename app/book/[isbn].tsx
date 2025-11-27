@@ -1,18 +1,20 @@
 import BookActionButtons from "@/components/book/BookActionButtons";
-import BookAISummaryCard from "@/components/book/BookAISummaryCard";
-import BookDetailCard from "@/components/book/BookDetailCard";
-import BookRecommendations from "@/components/book/BookRecommendations";
+import BookAISummarySection from "@/components/book/BookAISummarySection";
+import BookDescriptionSection from "@/components/book/BookDescriptionSection";
+import BookInfoSection from "@/components/book/BookInfoSection";
+import BookRecommendationsSection from "@/components/book/BookRecommendationsSection";
+import ErrorView from "@/components/common/ErrorView";
 import Header from "@/components/common/Header";
 import LibraryStatusBottomSheet from "@/components/common/LibraryStatusBottomSheet";
+import LoadingView from "@/components/common/LoadingView";
 import { useAddToLibrary } from "@/hooks/useAddToLibrary";
 import { useBookDetail } from "@/hooks/useBookDetail";
 import { useToggleLike } from "@/hooks/useToggleLike";
 import { useLibraryUpdateStore } from "@/store/libraryUpdateStore";
-import { colors } from "@/styles/colors";
 import type { LibraryStatus } from "@/types/library/library";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
-import { ActivityIndicator, ScrollView, Text, View } from "react-native";
+import { useCallback, useState } from "react";
+import { ImageBackground, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function BookDetailScreen() {
@@ -24,28 +26,28 @@ export default function BookDetailScreen() {
   const { toggle: toggleLike } = useToggleLike();
   const setNeedsUpdate = useLibraryUpdateStore((state) => state.setNeedsUpdate);
 
-  const handleAddToLibrary = () => {
+  const handleAddToLibrary = useCallback(() => {
     setBottomSheetVisible(true);
-  };
+  }, []);
 
-  const handleStatusSelect = async (status: LibraryStatus) => {
-    setBottomSheetVisible(false);
+  const handleStatusSelect = useCallback(
+    async (status: LibraryStatus) => {
+      setBottomSheetVisible(false);
+      if (!bookData) return;
 
-    if (!bookData) return;
+      const result = await addToLibrary(isbn, {
+        title: bookData.bookDetail.title,
+        author: bookData.bookDetail.author,
+        cover: bookData.bookDetail.cover,
+        status,
+      });
 
-    const result = await addToLibrary(isbn, {
-      title: bookData.bookDetail.title,
-      author: bookData.bookDetail.author,
-      cover: bookData.bookDetail.cover,
-      status,
-    });
+      if (result.success) setNeedsUpdate(true);
+    },
+    [bookData, isbn, addToLibrary, setNeedsUpdate],
+  );
 
-    if (result.success) {
-      setNeedsUpdate(true);
-    }
-  };
-
-  const handleToggleLike = async () => {
+  const handleToggleLike = useCallback(async () => {
     if (!bookData) return;
 
     const previousIsLiked = bookData.isLiked;
@@ -64,41 +66,22 @@ export default function BookDetailScreen() {
     } else {
       updateIsLiked(previousIsLiked);
     }
-  };
+  }, [bookData, isbn, toggleLike, setNeedsUpdate, updateIsLiked]);
 
-  if (isLoading) {
+  const handleBackPress = useCallback(() => router.back(), [router]);
+
+  if (isLoading || !bookData) {
     return (
       <SafeAreaView className="flex-1 bg-white" edges={["top", "bottom"]}>
         <Header
           state="default"
-          hasBack={true}
+          hasBack
           hasSearch={false}
           titleType="text"
           title=""
-          onBackPress={() => router.back()}
+          onBackPress={handleBackPress}
         />
-        <View className="flex-1 bg-gray-200 items-center justify-center">
-          <ActivityIndicator size="large" color={colors.primary[600]} />
-          <Text className="text-body-14-regular text-gray-500 mt-4">로딩 중...</Text>
-        </View>
-      </SafeAreaView>
-    );
-  }
-
-  if (!bookData) {
-    return (
-      <SafeAreaView className="flex-1 bg-white" edges={["top", "bottom"]}>
-        <Header
-          state="default"
-          hasBack={true}
-          hasSearch={false}
-          titleType="text"
-          title=""
-          onBackPress={() => router.back()}
-        />
-        <View className="flex-1 bg-gray-200 items-center justify-center">
-          <Text className="text-body-14-regular text-gray-500">책 정보를 불러올 수 없습니다.</Text>
-        </View>
+        {isLoading ? <LoadingView /> : <ErrorView message="책 정보를 불러올 수 없습니다." />}
       </SafeAreaView>
     );
   }
@@ -110,43 +93,49 @@ export default function BookDetailScreen() {
     <SafeAreaView className="flex-1 bg-white" edges={["top", "bottom"]}>
       <Header
         state="default"
-        hasBack={true}
+        hasBack
         hasSearch={false}
         titleType="text"
         title={bookDetail.title}
-        onBackPress={() => router.back()}
+        onBackPress={handleBackPress}
       />
 
-      <ScrollView showsVerticalScrollIndicator={false} className="flex-1 bg-gray-200">
-        <BookDetailCard bookDetail={bookDetail} />
-
-        {aiSummary && <BookAISummaryCard aiSummary={aiSummary} aiTags={aiTags} />}
-
-        <BookRecommendations
-          recommendations={recommendations || []}
-          onBookPress={(bookIsbn) => router.push(`/book/${bookIsbn}` as any)}
-        />
-
-        {hasRecommendations && (
-          <View className="px-4 pb-6">
-            <BookActionButtons
-              isLiked={isLiked}
-              onAddToLibrary={handleAddToLibrary}
-              onToggleLike={handleToggleLike}
+      <ImageBackground
+        source={require("@/assets/images/bg_leaf.png")}
+        resizeMode="cover"
+        className="flex-1"
+      >
+        <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
+          <View className="pt-3 px-4 gap-5">
+            <BookInfoSection
+              cover={bookDetail.cover}
+              title={bookDetail.title}
+              author={bookDetail.author}
+              publisher={bookDetail.publisher}
+              pubDate={bookDetail.pubDate}
             />
-          </View>
-        )}
-      </ScrollView>
 
-      {!hasRecommendations && (
-        <View className="px-4 pb-6 bg-gray-200">
-          <BookActionButtons
-            isLiked={isLiked}
-            onAddToLibrary={handleAddToLibrary}
-            onToggleLike={handleToggleLike}
-          />
-        </View>
-      )}
+            {aiSummary && <BookAISummarySection summary={aiSummary} tags={aiTags} />}
+
+            {bookDetail.description && (
+              <BookDescriptionSection description={bookDetail.description} />
+            )}
+
+            {hasRecommendations && (
+              <BookRecommendationsSection
+                recommendations={recommendations || []}
+                onBookPress={(bookIsbn) => router.push(`/book/${bookIsbn}`)}
+              />
+            )}
+          </View>
+        </ScrollView>
+      </ImageBackground>
+
+      <BookActionButtons
+        isLiked={isLiked}
+        onAddToLibrary={handleAddToLibrary}
+        onToggleLike={handleToggleLike}
+      />
 
       <LibraryStatusBottomSheet
         visible={bottomSheetVisible}
