@@ -1,21 +1,13 @@
-import GoBackIcon from "@/assets/images/goback.svg";
-import SearchIcon from "@/assets/images/search/search_search.svg";
-import BookCard from "@/components/common/BookCard";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { ScrollView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { GenreFilter } from "@/components/search/GenreFilter";
+import { SearchHeader } from "@/components/search/SearchHeader";
+import { SearchResults } from "@/components/search/SearchResults";
 import { useSearchBooks } from "@/hooks/useSearchBooks";
 import { useLibraryUpdateStore } from "@/store/libraryUpdateStore";
-import { colors } from "@/styles/colors";
 import type { BookGenre, SearchBook } from "@/types/book";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
-import {
-  ActivityIndicator,
-  ScrollView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const GENRE_OPTIONS: BookGenre[] = [
   "소설/시/희곡",
@@ -33,12 +25,18 @@ const GENRE_OPTIONS: BookGenre[] = [
 
 export default function SearchScreen() {
   const router = useRouter();
-  const { mode } = useLocalSearchParams<{ mode?: string }>();
+  const { mode, keyword: urlKeyword } = useLocalSearchParams<{ mode?: string; keyword?: string }>();
   const isReviewMode = mode === "review";
   const { books, isLoading, search, updateBookLikeStatus } = useSearchBooks();
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState(urlKeyword || "");
   const [selectedGenres, setSelectedGenres] = useState<BookGenre[]>([]);
   const setNeedsUpdate = useLibraryUpdateStore((state) => state.setNeedsUpdate);
+
+  useEffect(() => {
+    if (urlKeyword && urlKeyword.trim().length >= 2) {
+      search(urlKeyword.trim(), null);
+    }
+  }, [urlKeyword]);
 
   const handleLikeToggle = (isbn: string, isLiked: boolean) => {
     updateBookLikeStatus(isbn, isLiked);
@@ -77,107 +75,25 @@ export default function SearchScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-white" edges={["top"]}>
-      <View className="flex-row items-center px-5 py-3 bg-white border-b border-gray-200">
-        <TouchableOpacity activeOpacity={0.7} onPress={() => router.back()} className="mr-3">
-          <GoBackIcon width={24} height={24} fill="#000000" />
-        </TouchableOpacity>
-        <View className="flex-1 flex-row items-center bg-gray-100 rounded-xl px-4 py-2">
-          <TextInput
-            className="flex-1 text-body-14-regular text-gray-900"
-            placeholder="도서명 · 저자 · ISBN 검색"
-            placeholderTextColor="#9CA3AF"
-            value={keyword}
-            onChangeText={setKeyword}
-            onSubmitEditing={handleSearch}
-            returnKeyType="search"
-          />
-          <TouchableOpacity activeOpacity={0.7} onPress={handleSearch}>
-            <SearchIcon width={24} height={24} fill="#000000" />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <SearchHeader
+        keyword={keyword}
+        onKeywordChange={setKeyword}
+        onSearch={handleSearch}
+        onBack={() => router.back()}
+      />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View className="px-5 py-4">
-          <Text className="text-body-14-semibold text-gray-900 mb-3">카테고리별 찾기</Text>
-          <View className="flex-row flex-wrap gap-2">
-            {GENRE_OPTIONS.map((genre) => {
-              const isSelected = selectedGenres.includes(genre);
-              return (
-                <TouchableOpacity
-                  key={genre}
-                  activeOpacity={0.7}
-                  onPress={() => toggleGenre(genre)}
-                  className={`rounded-full px-4 py-2 ${
-                    isSelected ? "bg-primary-600" : "bg-gray-100"
-                  }`}
-                >
-                  <Text
-                    className={`text-body-12-regular ${
-                      isSelected ? "text-white" : "text-gray-700"
-                    }`}
-                  >
-                    {genre}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-        </View>
-
-        <View className="px-5 py-4">
-          <Text className="text-body-14-semibold text-gray-900 mb-3">인기 도서</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {[1, 2, 3, 4].map((item) => (
-              <TouchableOpacity
-                key={item}
-                activeOpacity={0.7}
-                className="mr-4"
-                style={{ width: 130 }}
-              >
-                <View
-                  className="bg-gray-300 rounded-lg overflow-hidden mb-3"
-                  style={{ width: 130, height: 180 }}
-                >
-                  <View className="flex-1 items-center justify-center"></View>
-                </View>
-                <Text className="text-body-14-semibold text-gray-900 mb-1" numberOfLines={1}>
-                  데미안
-                </Text>
-                <Text className="text-body-12-regular text-gray-600" numberOfLines={1}>
-                  헤르만 헤세
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-        </View>
-
-        {isLoading ? (
-          <View className="py-20 items-center justify-center">
-            <ActivityIndicator size="large" color={colors.primary[600]} />
-            <Text className="text-body-14-regular text-gray-500 mt-4">검색 중...</Text>
-          </View>
-        ) : books.length > 0 ? (
-          <View className="px-5 py-4">
-            <Text className="text-body-14-semibold text-gray-900 mb-3">
-              검색 결과 ({books.length})
-            </Text>
-            {books
-              .filter((book) => book.isbn && book.isbn.trim() !== "")
-              .map((book) => (
-                <BookCard
-                  key={book.isbn}
-                  isbn={book.isbn}
-                  title={book.title || "제목 없음"}
-                  author={book.author || "저자 없음"}
-                  cover={book.cover}
-                  isLiked={book.isLiked}
-                  onPress={() => handleBookPress(book)}
-                  onLikeToggle={handleLikeToggle}
-                />
-              ))}
-          </View>
-        ) : null}
+        <GenreFilter
+          genres={GENRE_OPTIONS}
+          selectedGenres={selectedGenres}
+          onToggle={toggleGenre}
+        />
+        <SearchResults
+          books={books}
+          isLoading={isLoading}
+          onBookPress={handleBookPress}
+          onLikeToggle={handleLikeToggle}
+        />
       </ScrollView>
     </SafeAreaView>
   );

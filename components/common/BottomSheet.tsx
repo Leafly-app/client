@@ -1,6 +1,7 @@
 import type React from "react";
 import { useEffect, useRef } from "react";
 import { Animated, type DimensionValue, Modal, Text, TouchableOpacity, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface BottomSheetProps {
   visible: boolean;
@@ -12,6 +13,7 @@ interface BottomSheetProps {
 
 export function BottomSheet({ visible, onClose, title, children, height }: BottomSheetProps) {
   const slideAnim = useRef(new Animated.Value(300)).current;
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     if (visible) {
@@ -24,7 +26,7 @@ export function BottomSheet({ visible, onClose, title, children, height }: Botto
     } else {
       slideAnim.setValue(300);
     }
-  }, [visible]);
+  }, [visible, slideAnim]);
 
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
@@ -35,8 +37,11 @@ export function BottomSheet({ visible, onClose, title, children, height }: Botto
       >
         <TouchableOpacity activeOpacity={1} onPress={(e) => e.stopPropagation()}>
           <Animated.View
-            style={{ transform: [{ translateY: slideAnim }] }}
-            className={`bg-white rounded-t-3xl ${height ? "" : "pb-6"}`}
+            style={{
+              transform: [{ translateY: slideAnim }],
+              paddingBottom: (height ? 0 : 24) + insets.bottom
+            }}
+            className="bg-white rounded-t-3xl"
           >
             <View className="flex-row justify-between items-center px-6 py-4 border-b border-gray-200">
               <Text className="text-lg font-semibold">{title}</Text>
@@ -53,7 +58,6 @@ export function BottomSheet({ visible, onClose, title, children, height }: Botto
   );
 }
 
-// ... BottomSheetOption 코드는 그대로 유지 ...
 export function BottomSheetOption({
   label,
   isSelected,

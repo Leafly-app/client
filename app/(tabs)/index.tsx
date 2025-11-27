@@ -1,12 +1,13 @@
+import { useFocusEffect } from "expo-router";
+import React, { useRef } from "react";
+import { Alert, BackHandler, ScrollView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 import HomeBanner from "@/components/home/sections/HomeBanner";
 import HomeHeader from "@/components/home/sections/HomeHeader";
 import QuickActions from "@/components/home/sections/QuickActions";
 import TodayRecommendations from "@/components/home/sections/TodayRecommendations";
 import UserRecommendations from "@/components/home/sections/UserRecommendations";
-import { useFocusEffect } from "expo-router";
-import React, { useRef } from "react";
-import { Alert, BackHandler, ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home() {
   const scrollViewRef = useRef<ScrollView>(null);
