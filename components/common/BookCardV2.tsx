@@ -1,6 +1,7 @@
-import Star from "@/assets/images/review/review_star_on.svg";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
+import Star from "@/assets/images/review/review_star_on.svg";
+import { formatDate } from "@/utils/formatDate";
 
 interface BookCardV2Props {
   title: string;
@@ -46,7 +47,7 @@ const BookCardV2 = React.memo<BookCardV2Props>(function BookCardV2({
             <Star width={10} height={10} />
             <Text className="text-body-12-regular text-gray-600">{rating}</Text>
           </View>
-          <Text className="text-body-12-regular text-gray-600">{date}</Text>
+          <Text className="text-body-12-regular text-gray-600">{formatDate(date)}</Text>
         </View>
       ) : (
         <Text className="text-body-12-regular text-gray-600" numberOfLines={1}>

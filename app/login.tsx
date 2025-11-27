@@ -1,13 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { KeyboardAvoidingView, Platform, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AuthFooter from "@/components/auth/AuthFooter";
 import AuthHeader from "@/components/auth/AuthHeader";
-import Button from "@/components/common/Button";
 import { FormController } from "@/components/auth/FormController";
+import Button from "@/components/common/Button";
 import { useLogin } from "@/hooks/useLogin";
 import { type LoginFormData, loginSchema } from "@/schemas/auth";
 

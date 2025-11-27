@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { createReview } from "@/apis/review";
 import type { CreateReviewRequest } from "@/types/review";
-import { useState } from "react";
 
 export const useCreateReview = () => {
   const [isLoading, setIsLoading] = useState(false);

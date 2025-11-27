@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { Alert } from "react-native";
 import { getRecommendedBooks } from "@/apis/book";
 import type { Book } from "@/types/book";
+import { useEffect, useState } from "react";
+import { Alert } from "react-native";
 
 export const useRecommendedBooks = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -29,6 +29,13 @@ export const useRecommendedBooks = () => {
     }
   };
 
+  const updateBookLikeStatus = (isbn: string, isLiked: boolean) => {
+    setBooks((prevBooks) =>
+      prevBooks.map((book) => (book.isbn === isbn ? { ...book, isLiked } : book)),
+    );
+  };
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: fetchBooks는 안정적인 함수이므로 의존성에서 제외
   useEffect(() => {
     fetchBooks();
   }, []);
@@ -38,5 +45,6 @@ export const useRecommendedBooks = () => {
     isLoading,
     error,
     refetch: fetchBooks,
+    updateBookLikeStatus,
   };
 };

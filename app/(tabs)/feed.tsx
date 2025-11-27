@@ -1,13 +1,13 @@
+import { useRouter } from "expo-router";
+import { useMemo, useState } from "react";
+import { ActivityIndicator, Dimensions, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import FilterSection from "@/components/feed/FilterSection";
 import ReviewGrid from "@/components/feed/ReviewGrid";
 import SortDropdown, { type SortOption } from "@/components/feed/SortDropdown";
 import HomeHeader from "@/components/home/sections/HomeHeader";
 import { useReviewList } from "@/hooks/useReviewList";
 import { colors } from "@/styles/colors";
-import { useRouter } from "expo-router";
-import React, { useMemo, useState } from "react";
-import { ActivityIndicator, Dimensions, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CARD_WIDTH = (SCREEN_WIDTH - 40 - 32) / 3;

@@ -1,6 +1,6 @@
-import { colors } from "@/styles/colors";
 import React from "react";
 import { Text, TextInput, View } from "react-native";
+import { colors } from "@/styles/colors";
 
 interface ReviewFormCardProps {
   title: string;

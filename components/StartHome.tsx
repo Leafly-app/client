@@ -1,8 +1,7 @@
-import React from "react";
+import LogoText from "@/assets/images/navbar/nav_logo.svg";
+import LogoImage from "@/assets/images/navbar/nav_logo_image.svg";
 import { Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import LogoText from "@/assets/images/home/home_logo.svg";
-import LogoImage from "@/assets/images/home/home_logo_image.svg";
 
 type Props = {
   onLogin?: () => void;

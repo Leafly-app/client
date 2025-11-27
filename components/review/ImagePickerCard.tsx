@@ -1,7 +1,7 @@
-import CameraIcon from "@/assets/images/review/review_camera.svg";
-import { colors } from "@/styles/colors";
 import React from "react";
 import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
+import CameraIcon from "@/assets/images/review/review_camera.svg";
+import { colors } from "@/styles/colors";
 
 interface ImagePickerCardProps {
   images: string[];

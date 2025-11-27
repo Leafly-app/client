@@ -1,6 +1,6 @@
-import FilterIcon from "@/assets/images/feed/list_filter.svg";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import FilterIcon from "@/assets/images/feed/list_filter.svg";
 
 interface FilterSectionProps {
   onFilterPress: () => void;

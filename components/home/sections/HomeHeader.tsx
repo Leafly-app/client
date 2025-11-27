@@ -1,12 +1,16 @@
+import SearchIcon from "@/assets/images/navbar/ic_search.svg";
+import LogoText from "@/assets/images/navbar/nav_logo.svg";
+import LogoImage from "@/assets/images/navbar/nav_logo_image.svg";
+import { useAuthStore } from "@/store/useAuthStore";
 import { useRouter } from "expo-router";
 import React from "react";
 import { Alert, Text, TouchableOpacity, View } from "react-native";
-import LogoText from "@/assets/images/home/home_logo.svg";
-import LogoImage from "@/assets/images/home/home_logo_image.svg";
-import SearchIcon from "@/assets/images/home/home_search.svg";
-import { useAuthStore } from "@/store/useAuthStore";
 
-const HomeHeader = React.memo(() => {
+interface HomeHeaderProps {
+  onLogoPress?: () => void;
+}
+
+const HomeHeader = React.memo<HomeHeaderProps>(({ onLogoPress }) => {
   const router = useRouter();
   const { logout } = useAuthStore();
 
@@ -34,10 +38,11 @@ const HomeHeader = React.memo(() => {
 
   return (
     <View className="flex-row items-center justify-between px-5 py-4 bg-white">
-      <View className="flex-row items-center">
+      <TouchableOpacity activeOpacity={0.7} onPress={onLogoPress} className="flex-row items-center">
         <LogoImage width={32} height={24} />
         <LogoText width={80} height={32} style={{ marginLeft: 8 }} />
-      </View>
+      </TouchableOpacity>
+
       <View className="flex-row items-center gap-3">
         <TouchableOpacity
           activeOpacity={0.7}

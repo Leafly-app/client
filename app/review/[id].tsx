@@ -1,13 +1,12 @@
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { ActivityIndicator, Alert, Image, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "@/components/common/Button";
 import Header from "@/components/common/Header";
 import StarRating from "@/components/common/StarRating";
 import { useReviewDetail } from "@/hooks/useReviewDetail";
 import { colors } from "@/styles/colors";
 import { formatDate } from "@/utils/formatDate";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import React from "react";
-import { ActivityIndicator, Alert, Image, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ReviewDetailScreen() {
   const router = useRouter();
@@ -99,8 +98,8 @@ export default function ReviewDetailScreen() {
 
                 {reviewDetail.tags && reviewDetail.tags.length > 0 && (
                   <View className="flex-row flex-wrap gap-1 mb-2">
-                    {reviewDetail.tags.map((tag, index) => (
-                      <View key={index} className="bg-gray-200 rounded px-2 py-1">
+                    {reviewDetail.tags.map((tag) => (
+                      <View key={tag} className="bg-gray-200 rounded px-2 py-1">
                         <Text className="text-body-12-regular text-gray-700">{tag}</Text>
                       </View>
                     ))}
@@ -133,8 +132,8 @@ export default function ReviewDetailScreen() {
             <View className="bg-white mx-4 mt-4 rounded-xl p-4" style={{ elevation: 2 }}>
               <Text className="text-body-14-semibold text-gray-900 mb-3">첨부 이미지</Text>
               <View className="flex-row flex-wrap gap-2">
-                {reviewDetail.images.map((imageUrl, index) => (
-                  <View key={index} style={{ width: 100, height: 100 }}>
+                {reviewDetail.images.map((imageUrl) => (
+                  <View key={imageUrl} style={{ width: 100, height: 100 }}>
                     <Image
                       source={{ uri: imageUrl }}
                       className="w-full h-full rounded-lg"

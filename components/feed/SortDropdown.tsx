@@ -1,6 +1,6 @@
-import DownArrowIcon from "@/assets/images/feed/list_down.svg";
 import React, { useRef } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import DownArrowIcon from "@/assets/images/feed/list_down.svg";
 
 export type SortOption = "latest" | "oldest" | "highRating" | "lowRating";
 

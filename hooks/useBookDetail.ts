@@ -33,9 +33,19 @@ export const useBookDetail = (isbn: string) => {
     fetchBookData();
   }, [isbn]);
 
+  const updateIsLiked = (newIsLiked: boolean) => {
+    if (bookData) {
+      setBookData({
+        ...bookData,
+        isLiked: newIsLiked,
+      });
+    }
+  };
+
   return {
     bookData,
     isLoading,
     error,
+    updateIsLiked,
   };
 };

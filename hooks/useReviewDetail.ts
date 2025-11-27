@@ -1,6 +1,6 @@
+import { useCallback, useEffect, useState } from "react";
 import { deleteReview, getReviewDetail } from "@/apis/review";
 import type { ReviewDetail } from "@/types/review";
-import { useCallback, useEffect, useState } from "react";
 
 export const useReviewDetail = (reviewId: number) => {
   const [reviewDetail, setReviewDetail] = useState<ReviewDetail | null>(null);
