@@ -6,7 +6,7 @@ export const useToggleLike = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const toggle = async (isbn: string, bookData: ToggleLikeRequest | null) => {
+  const toggle = async (isbn: string, bookData: ToggleLikeRequest) => {
     setIsLoading(true);
     setError(null);
 

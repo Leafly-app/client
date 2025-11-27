@@ -119,11 +119,10 @@ const BookCard = React.memo<BookCardProps>(function BookCard({
         activeOpacity={0.7}
         onPress={handleLikePress}
         className="absolute"
-        // 컨테이너 패딩(py-2)을 고려하여 top 위치 조정 (top-2 = 0.5rem)
         style={{ top: 8, right: 8, zIndex: 10 }}
         hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
       >
-        <HeartIcon className="w-3 h-3" fill={isLiked ? "#EF4444" : colors.gray[400]} />
+        <HeartIcon width={12} height={12} fill={isLiked ? "#EF4444" : colors.gray[400]} />
       </TouchableOpacity>
     </TouchableOpacity>
   );

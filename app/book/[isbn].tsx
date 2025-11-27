@@ -51,13 +51,11 @@ export default function BookDetailScreen() {
     const previousIsLiked = bookData.isLiked;
     updateIsLiked(!previousIsLiked);
 
-    const bookInfo = !previousIsLiked
-      ? {
-          title: bookData.bookDetail.title,
-          author: bookData.bookDetail.author,
-          cover: bookData.bookDetail.cover,
-        }
-      : null;
+    const bookInfo = {
+      title: bookData.bookDetail.title,
+      author: bookData.bookDetail.author,
+      cover: bookData.bookDetail.cover,
+    };
 
     const result = await toggleLike(isbn, bookInfo);
 
