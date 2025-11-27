@@ -5,7 +5,6 @@ import { colors } from "@/styles/colors";
 import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
-
 interface BookCardProps {
   isbn: string;
   title: string;
@@ -62,7 +61,6 @@ const BookCard = React.memo<BookCardProps>(function BookCard({
       className="relative flex-row justify-between px-3 py-2 mb-3 bg-white border border-gray-300 rounded-lg"
       style={{ elevation: 1 }}
     >
-
       <View
         className="bg-gray-300 rounded-sm overflow-hidden flex-shrink-0 mr-3"
         style={{ width: 64, height: 91.5, aspectRatio: 64 / 91.5 }}
@@ -75,7 +73,6 @@ const BookCard = React.memo<BookCardProps>(function BookCard({
           </View>
         )}
       </View>
-
 
       <View className="flex-1 justify-center">
         <Text className="text-body-12-bold text-gray-900 pr-6" numberOfLines={1}>
@@ -96,7 +93,7 @@ const BookCard = React.memo<BookCardProps>(function BookCard({
         {showReason && reason && (
           <View
             className="bg-primary-500 px-2 self-start justify-center"
-            style={{ borderRadius: 100, height: 20 }} 
+            style={{ borderRadius: 100, height: 20 }}
           >
             <Text className="text-body-10-regular text-white" numberOfLines={1}>
               {reason}

@@ -1,5 +1,5 @@
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import IcCamera from "@/assets/images/ic_camera.svg";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 
 interface ScanControlsProps {
   onManualInput: () => void;
@@ -22,7 +22,7 @@ export function ScanControls({ onManualInput, onCapture, isLoading }: ScanContro
           activeOpacity={0.7}
         >
           <View
-            className="w-16 h-16 rounded-full bg-brand items-center justify-center"
+            className="w-16 h-16 rounded-full bg-white items-center justify-center"
             style={isLoading ? { opacity: 0.5 } : undefined}
           >
             {isLoading ? (

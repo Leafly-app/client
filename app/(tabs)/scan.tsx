@@ -1,18 +1,17 @@
-import type { FlashMode } from "expo-camera";
-import { CameraView, useCameraPermissions } from "expo-camera";
-import { useRouter } from "expo-router";
-import { useRef, useState } from "react";
-import { Alert, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { CameraPermissionView } from "@/components/scan/CameraPermissionView";
 import { ISBNInputBottomSheet } from "@/components/scan/ISBNInputBottomSheet";
 import { ScanControls } from "@/components/scan/ScanControls";
 import { ScanFrame } from "@/components/scan/ScanFrame";
 import { ScanHeader } from "@/components/scan/ScanHeader";
 import { useBookOCR } from "@/hooks/useBookOCR";
+import { CameraView, useCameraPermissions } from "expo-camera";
+import { useRouter } from "expo-router";
+import { useRef, useState } from "react";
+import { Alert, StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Scan() {
-  const [flash, setFlash] = useState<FlashMode>("off");
+  const [enableTorch, setEnableTorch] = useState(false);
   const [permission, requestPermission] = useCameraPermissions();
   const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
   const cameraRef = useRef<CameraView>(null);
@@ -28,7 +27,7 @@ export default function Scan() {
   }
 
   const toggleFlash = () => {
-    setFlash((current) => (current === "off" ? "on" : "off"));
+    setEnableTorch((current) => !current);
   };
 
   const takePicture = async () => {
@@ -54,17 +53,26 @@ export default function Scan() {
 
   return (
     <View className="flex-1 bg-black">
-      <CameraView ref={cameraRef} className="absolute inset-0" facing="back" flash={flash}>
-        <SafeAreaView className="flex-1">
-          <ScanHeader onBackPress={() => router.back()} flash={flash} onFlashToggle={toggleFlash} />
-          <ScanFrame />
-          <ScanControls
-            onManualInput={() => setIsBottomSheetVisible(true)}
-            onCapture={takePicture}
-            isLoading={isLoading}
-          />
-        </SafeAreaView>
-      </CameraView>
+      <CameraView
+        ref={cameraRef}
+        style={StyleSheet.absoluteFill}
+        facing="back"
+        enableTorch={enableTorch}
+      />
+
+      <SafeAreaView className="flex-1 bg-transparent">
+        <ScanHeader
+          onBackPress={() => router.back()}
+          enableTorch={enableTorch}
+          onFlashToggle={toggleFlash}
+        />
+        <ScanFrame />
+        <ScanControls
+          onManualInput={() => setIsBottomSheetVisible(true)}
+          onCapture={takePicture}
+          isLoading={isLoading}
+        />
+      </SafeAreaView>
 
       <ISBNInputBottomSheet
         visible={isBottomSheetVisible}

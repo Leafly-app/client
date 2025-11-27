@@ -24,6 +24,7 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
+      <StatusBar style="auto" />
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -34,7 +35,6 @@ export default function RootLayout() {
         <Stack.Screen name="book/[isbn]" options={{ headerShown: false }} />
         <Stack.Screen name="review/create" options={{ headerShown: false }} />
         <Stack.Screen name="review/[id]" options={{ headerShown: false }} />
-        <StatusBar style="auto" />
       </Stack>
     </SafeAreaProvider>
   );

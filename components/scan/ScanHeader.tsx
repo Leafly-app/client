@@ -1,15 +1,14 @@
-import type { FlashMode } from "expo-camera";
-import { TouchableOpacity, View } from "react-native";
 import GoBackIcon from "@/assets/images/goback.svg";
 import ScanZapIcon from "@/assets/images/scan/scan_zap.svg";
+import { TouchableOpacity, View } from "react-native";
 
 interface ScanHeaderProps {
   onBackPress: () => void;
-  flash: FlashMode;
+  enableTorch: boolean;
   onFlashToggle: () => void;
 }
 
-export function ScanHeader({ onBackPress, flash, onFlashToggle }: ScanHeaderProps) {
+export function ScanHeader({ onBackPress, enableTorch, onFlashToggle }: ScanHeaderProps) {
   return (
     <View className="flex-row justify-between items-center px-5 py-3">
       <TouchableOpacity onPress={onBackPress} className="p-2" activeOpacity={0.7}>
@@ -17,9 +16,7 @@ export function ScanHeader({ onBackPress, flash, onFlashToggle }: ScanHeaderProp
       </TouchableOpacity>
 
       <TouchableOpacity onPress={onFlashToggle} className="p-2" activeOpacity={0.7}>
-        <View className={flash === "on" ? "opacity-100" : "opacity-50"}>
-          <ScanZapIcon width={24} height={24} />
-        </View>
+        <ScanZapIcon width={24} height={24} fill={enableTorch ? "#0BAE39" : "#FFFFFF"} />
       </TouchableOpacity>
     </View>
   );

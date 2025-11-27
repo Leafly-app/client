@@ -1,4 +1,4 @@
-import { deleteAsync } from "expo-file-system";
+import { deleteAsync } from "expo-file-system/legacy";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert } from "react-native";
