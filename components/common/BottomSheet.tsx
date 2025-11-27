@@ -39,7 +39,7 @@ export function BottomSheet({ visible, onClose, title, children, height }: Botto
           <Animated.View
             style={{
               transform: [{ translateY: slideAnim }],
-              paddingBottom: (height ? 0 : 24) + insets.bottom
+              paddingBottom: (height ? 0 : 24) + insets.bottom,
             }}
             className="bg-white rounded-t-3xl"
           >

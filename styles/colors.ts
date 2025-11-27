@@ -1,7 +1,6 @@
 export const colors = {
-
   brand: "#0D4D21",
-  "on-brand-bg": "#F4E9D1", 
+  "on-brand-bg": "#F4E9D1",
   black: "#000000",
   white: "#FFFFFF",
 
@@ -62,16 +61,16 @@ export const colors = {
   },
 
   error: {
-    DEFAULT: "#B3261E", 
-    on: "#FFFFFF",     
-    ctr: "#F9DEDC",    
-    "on-ctr": "#8C1D18" 
+    DEFAULT: "#B3261E",
+    on: "#FFFFFF",
+    ctr: "#F9DEDC",
+    "on-ctr": "#8C1D18",
   },
-  
+
   success: {
-    DEFAULT: "#25A249", 
-    on: "#FFFFFF",    
-    ctr: "#A7DAB6",    
-    "on-ctr": "#14632B" 
-  }
+    DEFAULT: "#25A249",
+    on: "#FFFFFF",
+    ctr: "#A7DAB6",
+    "on-ctr": "#14632B",
+  },
 };
