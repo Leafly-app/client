@@ -1,15 +1,15 @@
-import { CameraPermissionView } from "@/components/scan/CameraPermissionView";
-import { ISBNInputBottomSheet } from "@/components/scan/ISBNInputBottomSheet";
-import { ScanControls } from "@/components/scan/ScanControls";
-import { ScanFrame } from "@/components/scan/ScanFrame";
-import { ScanHeader } from "@/components/scan/ScanHeader";
-import { useBookOCR } from "@/hooks/useBookOCR";
 import type { FlashMode } from "expo-camera";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
 import { Alert, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { CameraPermissionView } from "@/components/scan/CameraPermissionView";
+import { ISBNInputBottomSheet } from "@/components/scan/ISBNInputBottomSheet";
+import { ScanControls } from "@/components/scan/ScanControls";
+import { ScanFrame } from "@/components/scan/ScanFrame";
+import { ScanHeader } from "@/components/scan/ScanHeader";
+import { useBookOCR } from "@/hooks/useBookOCR";
 
 export default function Scan() {
   const [flash, setFlash] = useState<FlashMode>("off");

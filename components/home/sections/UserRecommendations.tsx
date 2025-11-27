@@ -1,10 +1,10 @@
+import { useRouter } from "expo-router";
+import React from "react";
+import { ActivityIndicator, Text, View } from "react-native";
 import BookCard from "@/components/common/BookCard";
 import { useRecommendedBooks } from "@/hooks/useRecommendedBooks";
 import { useLibraryUpdateStore } from "@/store/libraryUpdateStore";
 import { colors } from "@/styles/colors";
-import { useRouter } from "expo-router";
-import React from "react";
-import { ActivityIndicator, Text, View } from "react-native";
 
 const UserRecommendations = React.memo(() => {
   const router = useRouter();

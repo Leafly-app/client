@@ -1,5 +1,5 @@
-import IcCamera from "@/assets/images/ic_camera.svg";
 import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import IcCamera from "@/assets/images/ic_camera.svg";
 
 interface ScanControlsProps {
   onManualInput: () => void;

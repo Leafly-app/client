@@ -1,6 +1,6 @@
+import { ActivityIndicator, Text, View } from "react-native";
 import BookCard from "@/components/common/BookCard";
 import type { SearchBook } from "@/types/book";
-import { ActivityIndicator, Text, View } from "react-native";
 
 interface SearchResultsProps {
   books: SearchBook[];

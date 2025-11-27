@@ -1,5 +1,5 @@
-import type { BookGenre } from "@/types/book";
 import { Text, TouchableOpacity, View } from "react-native";
+import type { BookGenre } from "@/types/book";
 
 interface GenreFilterProps {
   genres: BookGenre[];
