@@ -1,3 +1,7 @@
+import SearchIcon from "@/assets/images/navbar/ic_search.svg";
+import LogoText from "@/assets/images/navbar/nav_logo.svg";
+import LogoImage from "@/assets/images/navbar/nav_logo_image.svg";
+import { useAuthStore } from "@/store/useAuthStore";
 import { useRouter } from "expo-router";
 import React from "react";
 import { Alert, Text, TouchableOpacity, View } from "react-native";

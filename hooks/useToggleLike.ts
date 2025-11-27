@@ -1,12 +1,12 @@
-import { useState } from "react";
 import { toggleLike } from "@/apis/book";
 import type { ToggleLikeRequest } from "@/types/book/like";
+import { useState } from "react";
 
 export const useToggleLike = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const toggle = async (isbn: string, bookData: ToggleLikeRequest | null) => {
+  const toggle = async (isbn: string, bookData: ToggleLikeRequest) => {
     setIsLoading(true);
     setError(null);
 

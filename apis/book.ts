@@ -35,7 +35,7 @@ export const searchBooks = async (
 
 export const toggleLike = async (
   isbn: string,
-  data: ToggleLikeRequest | null,
+  data: ToggleLikeRequest,
 ): Promise<ApiResponse<ToggleLikeResponse>> => {
   const response = await API.post<ApiResponse<ToggleLikeResponse>>(`/api/bookmarks/${isbn}`, data);
   return response.data;

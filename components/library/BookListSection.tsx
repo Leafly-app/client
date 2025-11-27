@@ -1,6 +1,6 @@
-import { ScrollView, Text, View } from "react-native";
 import BookCardV2 from "@/components/common/BookCardV2";
 import type { LibraryBook } from "@/types/member/member";
+import { ScrollView, Text, View } from "react-native";
 
 interface BookListSectionProps {
   books: LibraryBook[];
@@ -20,10 +20,10 @@ export default function BookListSection({ books, onBookPress }: BookListSectionP
     <View className="bg-white rounded-xl py-3 mx-4">
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View className="flex-row px-4">
-          {books.map((book, index) => (
-            <View key={`${book.isbn}-${index}`} className="mr-3">
+          {books.map((book) => (
+            <View key={`${book.isbn}`} className="mr-3">
               <BookCardV2
-                title={book.title || "제목 없음"}
+                title={book.title}
                 cover={book.coverUrl}
                 width={100}
                 onPress={() => onBookPress(book.isbn)}

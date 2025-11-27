@@ -14,6 +14,10 @@ import { useToggleLike } from "@/hooks/useToggleLike";
 import { useLibraryUpdateStore } from "@/store/libraryUpdateStore";
 import { colors } from "@/styles/colors";
 import type { LibraryStatus } from "@/types/library/library";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useState } from "react";
+import { ActivityIndicator, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function BookDetailScreen() {
   const router = useRouter();
@@ -51,13 +55,11 @@ export default function BookDetailScreen() {
     const previousIsLiked = bookData.isLiked;
     updateIsLiked(!previousIsLiked);
 
-    const bookInfo = !previousIsLiked
-      ? {
-          title: bookData.bookDetail.title,
-          author: bookData.bookDetail.author,
-          cover: bookData.bookDetail.cover,
-        }
-      : null;
+    const bookInfo = {
+      title: bookData.bookDetail.title,
+      author: bookData.bookDetail.author,
+      cover: bookData.bookDetail.cover,
+    };
 
     const result = await toggleLike(isbn, bookInfo);
 
