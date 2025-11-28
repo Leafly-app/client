@@ -25,7 +25,6 @@ export default function BookListSection({ books, onBookPress }: BookListSectionP
               <BookCardV2
                 title={book.title}
                 cover={book.coverUrl}
-                width={100}
                 onPress={() => onBookPress(book.isbn)}
               />
             </View>

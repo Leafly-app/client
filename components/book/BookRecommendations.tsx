@@ -1,5 +1,6 @@
-import { ScrollView, Text, View } from "react-native";
 import BookCardV2 from "@/components/common/BookCardV2";
+import { LinearGradient } from "expo-linear-gradient";
+import { ScrollView, View } from "react-native";
 
 interface BookRecommendationsProps {
   recommendations: {
@@ -20,9 +21,17 @@ export default function BookRecommendations({
   }
 
   return (
-    <View className="bg-white mx-4 mt-4 mb-4 rounded-xl p-4" style={{ elevation: 2 }}>
-      <Text className="text-body-16-bold text-gray-900 mb-3">이런 책은 어떠세요?</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+    <LinearGradient
+      colors={["#CFE8CA", "rgba(255, 255, 255, 0.00)"]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+      className="rounded-lg py-4 overflow-hidden"
+    >
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: 12 }}
+      >
         <View className="flex-row gap-4">
           {recommendations.map((book) => (
             <BookCardV2
@@ -35,6 +44,6 @@ export default function BookRecommendations({
           ))}
         </View>
       </ScrollView>
-    </View>
+    </LinearGradient>
   );
 }

@@ -8,7 +8,6 @@ interface BookCardV2Props {
   author?: string;
   cover: string;
   onPress?: () => void;
-  width?: number;
   rating?: number;
   date?: string;
 }
@@ -18,17 +17,14 @@ const BookCardV2 = React.memo<BookCardV2Props>(function BookCardV2({
   author,
   cover,
   onPress,
-  width = 130,
   rating,
   date,
 }) {
-  const imageHeight = width * 1.38;
-
   return (
-    <TouchableOpacity activeOpacity={0.7} onPress={onPress} style={{ width }}>
+    <TouchableOpacity activeOpacity={0.7} onPress={onPress} style={{ width: 80 }}>
       <View
-        className="bg-gray-300 rounded-lg overflow-hidden mb-3"
-        style={{ width, height: imageHeight }}
+        className="bg-gray-300 rounded overflow-hidden mb-1"
+        style={{ width: 80, height: 115, aspectRatio: 16 / 23 }}
       >
         {cover ? (
           <Image source={{ uri: cover }} className="w-full h-full" resizeMode="cover" />
@@ -38,19 +34,19 @@ const BookCardV2 = React.memo<BookCardV2Props>(function BookCardV2({
           </View>
         )}
       </View>
-      <Text className="text-body-14-semibold text-gray-900 mb-1" numberOfLines={1}>
+      <Text className="text-body-10-bold text-gray-900" numberOfLines={1}>
         {title}
       </Text>
       {rating !== undefined && date ? (
         <View className="flex-row items-center justify-between">
           <View className="flex-row items-center gap-1">
             <Star width={10} height={10} />
-            <Text className="text-body-12-regular text-gray-600">{rating}</Text>
+            <Text className="text-body-8-regular text-gray-700">{rating}</Text>
           </View>
-          <Text className="text-body-12-regular text-gray-600">{formatDate(date)}</Text>
+          <Text className="text-body-8-regular text-gray-700">{formatDate(date)}</Text>
         </View>
       ) : (
-        <Text className="text-body-12-regular text-gray-600" numberOfLines={1}>
+        <Text className="text-body-8-regular text-gray-700" numberOfLines={1}>
           {author}
         </Text>
       )}

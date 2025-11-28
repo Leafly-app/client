@@ -1,7 +1,8 @@
-import { TouchableOpacity, View } from "react-native";
-import HeartIcon from "@/assets/images/ic_heart.svg";
-import Button from "@/components/common/Button";
+import ActionButton from "@/components/common/ActionButton";
+import IcHeartFilled from "@/components/icons/IcHeartFilled";
+import IcHeartOutline from "@/components/icons/IcHeartOutline";
 import { colors } from "@/styles/colors";
+import { TouchableOpacity, View } from "react-native";
 
 interface BookActionButtonsProps {
   isLiked: boolean;
@@ -15,16 +16,27 @@ export default function BookActionButtons({
   onToggleLike,
 }: BookActionButtonsProps) {
   return (
-    <View className="flex-row gap-3">
-      <Button text="내 서재에 추가" onPress={onAddToLibrary} variant="primary" />
-
+    <View className="flex-row items-center px-3 py-2 gap-2">
       <TouchableOpacity
         activeOpacity={0.7}
-        className="w-14 h-14 rounded-xl bg-gray-600 items-center justify-center"
         onPress={onToggleLike}
+        className={`w-[3.375rem] h-[3.25rem] rounded-lg flex items-center justify-center bg-primary-500`}
       >
-        <HeartIcon width={24} height={24} fill={isLiked ? "#EF4444" : colors.gray[400]} />
+        <View className="items-center justify-center">
+          {isLiked ? (
+            <IcHeartFilled
+              width={20}
+              height={20}
+              fill={colors.error.DEFAULT}
+              stroke={colors.error.DEFAULT}
+            />
+          ) : (
+            <IcHeartOutline width={20} height={20} stroke={colors.white} />
+          )}
+        </View>
       </TouchableOpacity>
+
+      <ActionButton text="내 서재에 추가" onPress={onAddToLibrary} />
     </View>
   );
 }
