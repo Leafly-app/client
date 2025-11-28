@@ -11,7 +11,7 @@ const SvgIcHeartOutline = (props: SvgProps) => (
     {...props}
   >
     <Path
-      stroke="#000"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.4}
