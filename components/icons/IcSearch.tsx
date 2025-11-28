@@ -1,5 +1,5 @@
-import Svg, { Path } from "react-native-svg";
 import type { SvgProps } from "react-native-svg";
+import Svg, { Path } from "react-native-svg";
 
 const SvgIcSearch = (props: SvgProps) => (
   <Svg
@@ -11,6 +11,7 @@ const SvgIcSearch = (props: SvgProps) => (
     {...props}
   >
     <Path
+      stroke={props.stroke}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}

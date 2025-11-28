@@ -1,6 +1,6 @@
-import * as React from "react";
-import Svg, { Path } from "react-native-svg";
 import type { SvgProps } from "react-native-svg";
+import Svg, { Path } from "react-native-svg";
+
 const SvgIcHeartFilled = (props: SvgProps) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
@@ -11,6 +11,7 @@ const SvgIcHeartFilled = (props: SvgProps) => (
     {...props}
   >
     <Path
+      fill={props.fill}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.4}
