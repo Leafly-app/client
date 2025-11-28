@@ -1,5 +1,5 @@
-import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
 import { colors } from "@/styles/colors";
+import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
 
 interface ActionButtonProps {
   text: string;
@@ -20,6 +20,9 @@ export default function ActionButton({
 
   return (
     <TouchableOpacity
+    accessibilityRole="button"
+      accessibilityLabel={text}
+     accessibilityState={{ disabled: isDisabled }}
       activeOpacity={0.7}
       onPress={onPress}
       disabled={isDisabled}
