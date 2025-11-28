@@ -20,9 +20,9 @@ export default function ActionButton({
 
   return (
     <TouchableOpacity
-    accessibilityRole="button"
+      accessibilityRole="button"
       accessibilityLabel={text}
-     accessibilityState={{ disabled: isDisabled }}
+      accessibilityState={{ disabled: isDisabled }}
       activeOpacity={0.7}
       onPress={onPress}
       disabled={isDisabled}
