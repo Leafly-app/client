@@ -14,6 +14,7 @@ interface HeaderProps {
   title: string;
   onBackPress?: () => void;
   onSearchPress?: () => void;
+  onLogoPress?: () => void;
 }
 
 export default function Header({
@@ -24,6 +25,7 @@ export default function Header({
   title,
   onBackPress,
   onSearchPress,
+  onLogoPress,
 }: HeaderProps) {
   const isSticky = state === "sticky";
 
@@ -49,10 +51,14 @@ export default function Header({
 
     if (titleType === "logo") {
       return (
-        <View className="flex-row items-center gap-1">
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={onLogoPress}
+          className="flex-row items-center gap-1"
+        >
           <NavLogoImage width={32} height={32} />
           <NavLogo width={60} height={20} />
-        </View>
+        </TouchableOpacity>
       );
     }
 

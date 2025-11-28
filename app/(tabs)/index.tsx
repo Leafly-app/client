@@ -1,15 +1,16 @@
-import { useFocusEffect } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import React, { useRef } from "react";
 import { Alert, BackHandler, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import Header from "@/components/common/Header";
 import HomeBanner from "@/components/home/sections/HomeBanner";
-import HomeHeader from "@/components/home/sections/HomeHeader";
 import QuickActions from "@/components/home/sections/QuickActions";
 import TodayRecommendations from "@/components/home/sections/TodayRecommendations";
 import UserRecommendations from "@/components/home/sections/UserRecommendations";
 
 export default function Home() {
+  const router = useRouter();
   const scrollViewRef = useRef<ScrollView>(null);
   const scrollToTop = () => {
     scrollViewRef.current?.scrollTo({ y: 0, animated: true });
@@ -44,7 +45,15 @@ export default function Home() {
 
   return (
     <SafeAreaView className="flex-1 bg-white" edges={["top"]}>
-      <HomeHeader onLogoPress={scrollToTop} />
+      <Header
+        state="default"
+        hasBack={false}
+        hasSearch
+        titleType="logo"
+        title=""
+        onLogoPress={scrollToTop}
+        onSearchPress={() => router.push("/(tabs)/search")}
+      />
       <ScrollView ref={scrollViewRef} showsVerticalScrollIndicator={false}>
         <HomeBanner />
         <QuickActions />
