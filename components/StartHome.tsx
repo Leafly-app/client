@@ -22,7 +22,7 @@ export default function SplashHome({ onLogin, onSignup }: Props) {
         </View>
       </View>
 
-      <View className="w-full items-center space-y-4 pb-6">
+      <View className="w-full items-center gap-4 flex flex-col pb-6">
         <TouchableOpacity
           onPress={onLogin}
           activeOpacity={0.8}
