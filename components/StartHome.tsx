@@ -1,7 +1,7 @@
-import LogoImage from "@/assets/icons/ic_logo.svg";
-import LogoText from "@/assets/images/navbar/nav_logo.svg";
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import LogoImage from "@/assets/icons/ic_logo.svg";
+import LogoText from "@/assets/images/navbar/nav_logo.svg";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 const BACKGROUND_IMAGE = require("@/assets/images/leaf_background.png");
