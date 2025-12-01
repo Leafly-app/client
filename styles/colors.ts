@@ -73,4 +73,18 @@ export const colors = {
     ctr: "#A7DAB6",
     "on-ctr": "#14632B",
   },
+
+  category: {
+    literature: "#CD7BE1",
+    essay: "#4C87F6",
+    development: "#44DB87",
+    science: "#948AF9",
+    history: "#FA884C",
+    economy: "#FFC43B",
+    art: "#F672A8",
+    humanity: "#AF89FB",
+    lifestyle: "#5DC9FF",
+    trip: "#2AD4CD",
+    health: "#42DC94",
+  },
 };
