@@ -6,7 +6,7 @@ import Logo from "../../assets/icons/ic_logo.svg";
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 const SPLASH_DURATION = 3000;
-const BACKGROUND_IMAGE = require("../../assets/images/leaf_background.png");
+const BACKGROUND_IMAGE = require("../../assets/images/bg_leaves.png");
 
 interface AnimatedSplashProps {
   onAnimationEnd: () => void;

@@ -4,7 +4,7 @@ import LogoImage from "@/assets/icons/ic_logo.svg";
 import LogoText from "@/assets/images/navbar/nav_logo.svg";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
-const BACKGROUND_IMAGE = require("@/assets/images/leaf_background.png");
+const BACKGROUND_IMAGE = require("@/assets/images/bg_leaves.png");
 
 type Props = {
   onLogin?: () => void;
@@ -34,7 +34,7 @@ export default function SplashHome({ onLogin, onSignup }: Props) {
         <TouchableOpacity
           onPress={onSignup}
           activeOpacity={0.8}
-          className="w-full py-4 bg-primary-500 rounded-lg items-center justify-center mt-4"
+          className="w-full py-4 bg-primary-500 rounded-lg items-center justify-center"
         >
           <Text className="text-white text-body-16-semibold">회원가입</Text>
         </TouchableOpacity>
@@ -48,6 +48,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT,
-    opacity: 0.8,
+    opacity: 0.5,
   },
 });
