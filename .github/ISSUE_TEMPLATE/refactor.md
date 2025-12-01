@@ -1,13 +1,13 @@
 ---
 name: Refactor
 about: "♻️ 코드 개선이나 구조 변경이 필요한가요?"
-title: "[Refactor/#]"
+title: "[Refactor]"
 labels: ''
 assignees: ''
 
 ---
 
-<!-- 이슈 제목은 `[Refactor/#이슈넘버] 리팩터링 요약` 형태로 작성해주세요. -->
+<!-- 이슈 제목은 `[Refactor] 리팩터링 요약` 형태로 작성해주세요. -->
 
 ## Describe
 
