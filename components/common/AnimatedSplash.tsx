@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Dimensions, Image, StyleSheet, View } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
-import Logo from "../../assets/images/ic_logo.svg";
+import Logo from "../../assets/icons/ic_logo.svg";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
