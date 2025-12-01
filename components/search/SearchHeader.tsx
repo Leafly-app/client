@@ -1,6 +1,6 @@
+import { TextInput, TouchableOpacity, View } from "react-native";
 import GoBackIcon from "@/assets/images/goback.svg";
 import SearchIcon from "@/components/icons/IcSearch";
-import { TextInput, TouchableOpacity, View } from "react-native";
 
 interface SearchHeaderProps {
   keyword: string;

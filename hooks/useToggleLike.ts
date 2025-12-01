@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { toggleLike } from "@/apis/book";
 import type { ToggleLikeRequest } from "@/types/book/like";
-import { useState } from "react";
 
 export const useToggleLike = () => {
   const [isLoading, setIsLoading] = useState(false);

@@ -1,5 +1,5 @@
-import { colors } from "@/styles/colors";
 import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
+import { colors } from "@/styles/colors";
 
 interface ActionButtonProps {
   text: string;
