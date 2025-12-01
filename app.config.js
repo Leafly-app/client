@@ -7,6 +7,9 @@ module.exports = {
     scheme: "leafly",
     userInterfaceStyle: "automatic",
     newArchEnabled: true,
+    splash: {
+      backgroundColor: "#FCFDE8",
+    },
     ios: {
       supportsTablet: true,
       infoPlist: {

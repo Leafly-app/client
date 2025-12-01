@@ -1,7 +1,10 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import LogoImage from "@/assets/icons/ic_logo.svg";
 import LogoText from "@/assets/images/navbar/nav_logo.svg";
-import LogoImage from "@/assets/images/navbar/nav_logo_image.svg";
+
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
+const BACKGROUND_IMAGE = require("@/assets/images/bg_leaves.png");
 
 type Props = {
   onLogin?: () => void;
@@ -10,11 +13,12 @@ type Props = {
 
 export default function SplashHome({ onLogin, onSignup }: Props) {
   return (
-    <SafeAreaView className="flex-1 bg-white items-center justify-around px-4">
+    <SafeAreaView className="flex-1 bg-secondary-50 items-center justify-around px-4">
+      <Image source={BACKGROUND_IMAGE} style={styles.backgroundImage} resizeMode="cover" />
       <View className="flex-1 flex-col w-full items-center justify-center">
         <View className="flex-row items-center">
-          <LogoImage width={61} height={48} />
-          <LogoText width={120} height={40} style={{ marginLeft: 16 }} />
+          <LogoImage width={90} height={71} />
+          <LogoText width={147.5} height={59} style={{ marginLeft: 16 }} />
         </View>
       </View>
 
@@ -22,19 +26,28 @@ export default function SplashHome({ onLogin, onSignup }: Props) {
         <TouchableOpacity
           onPress={onLogin}
           activeOpacity={0.8}
-          className="w-full h-12 bg-gray-600 rounded-md items-center justify-center"
+          className="w-full py-4 bg-primary-500 rounded-lg items-center justify-center"
         >
-          <Text className="text-white text-base">로그인</Text>
+          <Text className="text-white text-body-16-semibold">로그인</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={onSignup}
           activeOpacity={0.8}
-          className="w-full h-12 bg-gray-600 rounded-md items-center justify-center mt-4"
+          className="w-full py-4 bg-primary-500 rounded-lg items-center justify-center"
         >
-          <Text className="text-white text-base">회원가입</Text>
+          <Text className="text-white text-body-16-semibold">회원가입</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  backgroundImage: {
+    position: "absolute",
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
+    opacity: 0.5,
+  },
+});
