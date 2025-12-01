@@ -1,6 +1,6 @@
+import { TouchableOpacity, View } from "react-native";
 import GoBackIcon from "@/assets/images/goback.svg";
 import ScanZapIcon from "@/assets/images/scan/scan_zap.svg";
-import { TouchableOpacity, View } from "react-native";
 
 interface ScanHeaderProps {
   onBackPress: () => void;

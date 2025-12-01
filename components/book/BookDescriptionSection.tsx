@@ -1,6 +1,6 @@
+import { Text, View } from "react-native";
 import IcComment from "@/components/icons/IcComment";
 import { colors } from "@/styles/colors";
-import { Text, View } from "react-native";
 
 interface BookDescriptionSectionProps {
   description: string;

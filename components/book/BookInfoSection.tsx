@@ -1,7 +1,7 @@
+import { Image, Text, View } from "react-native";
 import IcCalendar from "@/components/icons/IcCalendar";
 import IcCompany from "@/components/icons/IcCompany";
 import { colors } from "@/styles/colors";
-import { Image, Text, View } from "react-native";
 
 interface BookInfoSectionProps {
   cover: string;

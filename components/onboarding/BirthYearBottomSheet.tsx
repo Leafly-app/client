@@ -1,5 +1,5 @@
-import { BottomSheet, BottomSheetOption } from "@/components/common/BottomSheet";
 import { ScrollView } from "react-native";
+import { BottomSheet, BottomSheetOption } from "@/components/common/BottomSheet";
 
 interface BirthYearBottomSheetProps {
   visible: boolean;

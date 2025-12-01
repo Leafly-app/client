@@ -1,10 +1,10 @@
+import { BlurView } from "expo-blur";
+import { Platform, Text, TouchableOpacity, View } from "react-native";
 import NavLogo from "@/assets/images/navbar/nav_logo.svg";
 import NavLogoImage from "@/assets/images/navbar/nav_logo_image.svg";
 import IcChevronLeft from "@/components/icons/IcChevronLeft";
 import IcSearch from "@/components/icons/IcSearch";
 import { colors } from "@/styles/colors";
-import { BlurView } from "expo-blur";
-import { Platform, Text, TouchableOpacity, View } from "react-native";
 
 interface HeaderProps {
   state: "default" | "sticky";

@@ -1,7 +1,7 @@
-import { getRecommendedBooks } from "@/apis/book";
-import type { Book } from "@/types/book";
 import { useEffect, useState } from "react";
 import { Alert } from "react-native";
+import { getRecommendedBooks } from "@/apis/book";
+import type { Book } from "@/types/book";
 
 export const useRecommendedBooks = () => {
   const [books, setBooks] = useState<Book[]>([]);

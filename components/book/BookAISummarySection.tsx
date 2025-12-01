@@ -1,7 +1,7 @@
-import IcTwinkle from "@/components/icons/IcTwinkle";
-import { colors } from "@/styles/colors";
 import { LinearGradient } from "expo-linear-gradient";
 import { Text, View } from "react-native";
+import IcTwinkle from "@/components/icons/IcTwinkle";
+import { colors } from "@/styles/colors";
 
 interface BookAISummarySectionProps {
   summary: string;

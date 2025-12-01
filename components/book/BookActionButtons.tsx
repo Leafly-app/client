@@ -1,8 +1,8 @@
+import { TouchableOpacity, View } from "react-native";
 import ActionButton from "@/components/common/ActionButton";
 import IcHeartFilled from "@/components/icons/IcHeartFilled";
 import IcHeartOutline from "@/components/icons/IcHeartOutline";
 import { colors } from "@/styles/colors";
-import { TouchableOpacity, View } from "react-native";
 
 interface BookActionButtonsProps {
   isLiked: boolean;

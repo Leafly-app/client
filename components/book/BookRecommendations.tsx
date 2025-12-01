@@ -1,6 +1,6 @@
-import BookCardV2 from "@/components/common/BookCardV2";
 import { LinearGradient } from "expo-linear-gradient";
 import { ScrollView, View } from "react-native";
+import BookCardV2 from "@/components/common/BookCardV2";
 
 interface BookRecommendationsProps {
   recommendations: {

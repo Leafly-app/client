@@ -1,3 +1,7 @@
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useCallback, useState } from "react";
+import { ImageBackground, ScrollView, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import BookActionButtons from "@/components/book/BookActionButtons";
 import BookAISummarySection from "@/components/book/BookAISummarySection";
 import BookDescriptionSection from "@/components/book/BookDescriptionSection";
@@ -12,10 +16,6 @@ import { useBookDetail } from "@/hooks/useBookDetail";
 import { useToggleLike } from "@/hooks/useToggleLike";
 import { useLibraryUpdateStore } from "@/store/libraryUpdateStore";
 import type { LibraryStatus } from "@/types/library/library";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { useCallback, useState } from "react";
-import { ImageBackground, ScrollView, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function BookDetailScreen() {
   const router = useRouter();

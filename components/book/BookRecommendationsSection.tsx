@@ -1,6 +1,6 @@
+import { Text, View } from "react-native";
 import BookRecommendations from "@/components/book/BookRecommendations";
 import IcRelation from "@/components/icons/IcRelation";
-import { Text, View } from "react-native";
 
 interface BookRecommendationsSectionProps {
   recommendations: {
