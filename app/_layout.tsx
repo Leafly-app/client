@@ -1,9 +1,10 @@
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "react-native-reanimated";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import AnimatedSplash from "../components/common/AnimatedSplash";
 import "../global.css";
 import { useCustomFonts } from "../hooks/useCustomFonts";
 
@@ -11,6 +12,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const fontsLoaded = useCustomFonts();
+  const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
     if (fontsLoaded) {
@@ -18,8 +20,16 @@ export default function RootLayout() {
     }
   }, [fontsLoaded]);
 
+  const handleSplashEnd = useCallback(() => {
+    setShowSplash(false);
+  }, []);
+
   if (!fontsLoaded) {
     return null;
+  }
+
+  if (showSplash) {
+    return <AnimatedSplash onAnimationEnd={handleSplashEnd} />;
   }
 
   return (
