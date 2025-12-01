@@ -1,8 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
 import { useForm } from "react-hook-form";
-import { KeyboardAvoidingView, Platform, View } from "react-native";
+import { Dimensions, Image, KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
+const BACKGROUND_IMAGE = require("@/assets/images/bg_leaves.png");
+
 import AuthFooter from "@/components/auth/AuthFooter";
 import AuthHeader from "@/components/auth/AuthHeader";
 import { FormController } from "@/components/auth/FormController";
@@ -35,7 +39,8 @@ export default function LoginScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white" edges={["top", "bottom"]}>
+    <SafeAreaView className="flex-1 bg-gray-50" edges={["top", "bottom"]}>
+      <Image source={BACKGROUND_IMAGE} style={styles.backgroundImage} resizeMode="cover" />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         className="flex-1"
@@ -80,3 +85,12 @@ export default function LoginScreen() {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  backgroundImage: {
+    position: "absolute",
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
+    opacity: 0.5,
+  },
+});
