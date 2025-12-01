@@ -1,13 +1,13 @@
 ---
 name: Feature
 about: "✨ 새로운 기능 또는 명세가 있나요?"
-title: "[Feat/#] "
+title: "[Feat] "
 labels: ''
 assignees: ''
 
 ---
 
-<!--이슈 제목은 `[Feat/#이슈넘버] 이슈 요약` 형태로 작성해주세요. -->
+<!--이슈 제목은 `[Feat] 이슈 요약` 형태로 작성해주세요. -->
 
 ## Describe
 
