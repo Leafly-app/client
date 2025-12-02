@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { GenreFilter } from "@/components/search/GenreFilter";
-import { SearchHeader } from "@/components/search/SearchHeader";
+import SearchHeader from "@/components/common/SearchHeader";
 import { SearchResults } from "@/components/search/SearchResults";
 import { useSearchBooks } from "@/hooks/useSearchBooks";
 import { useLibraryUpdateStore } from "@/store/libraryUpdateStore";
@@ -79,8 +79,8 @@ export default function SearchScreen() {
       <SearchHeader
         keyword={keyword}
         onKeywordChange={setKeyword}
-        onSearch={handleSearch}
-        onBack={() => router.back()}
+        onBackPress={() => router.back()}
+        onSubmit={handleSearch}
       />
 
       <ScrollView showsVerticalScrollIndicator={false}>
