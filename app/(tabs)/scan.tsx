@@ -2,7 +2,7 @@ import { CameraView, useCameraPermissions } from "expo-camera";
 import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
 import { Alert, StyleSheet, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { CameraPermissionView } from "@/components/scan/CameraPermissionView";
 import { ISBNInputBottomSheet } from "@/components/scan/ISBNInputBottomSheet";
 import { ScanControls } from "@/components/scan/ScanControls";
@@ -17,6 +17,7 @@ export default function Scan() {
   const cameraRef = useRef<CameraView>(null);
   const router = useRouter();
   const { scanBook, isLoading } = useBookOCR();
+  const insets = useSafeAreaInsets();
 
   if (!permission) {
     return <CameraPermissionView isLoading onRequestPermission={requestPermission} />;
@@ -60,7 +61,7 @@ export default function Scan() {
         enableTorch={enableTorch}
       />
 
-      <SafeAreaView className="flex-1 bg-transparent">
+      <View className="flex-1 bg-transparent" style={{ paddingTop: insets.top }}>
         <ScanHeader
           onBackPress={() => router.back()}
           enableTorch={enableTorch}
@@ -72,7 +73,7 @@ export default function Scan() {
           onCapture={takePicture}
           isLoading={isLoading}
         />
-      </SafeAreaView>
+      </View>
 
       <ISBNInputBottomSheet
         visible={isBottomSheetVisible}

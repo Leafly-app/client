@@ -1,7 +1,7 @@
 import { useFocusEffect, useRouter } from "expo-router";
 import React, { useRef } from "react";
-import { Alert, BackHandler, ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Alert, BackHandler, ScrollView, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import Header from "@/components/common/Header";
 import HomeBanner from "@/components/home/sections/HomeBanner";
@@ -12,6 +12,7 @@ import UserRecommendations from "@/components/home/sections/UserRecommendations"
 export default function Home() {
   const router = useRouter();
   const scrollViewRef = useRef<ScrollView>(null);
+  const insets = useSafeAreaInsets();
   const scrollToTop = () => {
     scrollViewRef.current?.scrollTo({ y: 0, animated: true });
   };
@@ -44,7 +45,7 @@ export default function Home() {
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-white" edges={["top"]}>
+    <View className="flex-1 bg-white" style={{ paddingTop: insets.top }}>
       <Header
         state="default"
         hasBack={false}
@@ -60,6 +61,6 @@ export default function Home() {
         <TodayRecommendations />
         <UserRecommendations />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

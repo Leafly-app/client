@@ -1,7 +1,7 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 import { ImageBackground, ScrollView, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import BookActionButtons from "@/components/book/BookActionButtons";
 import BookAISummarySection from "@/components/book/BookAISummarySection";
 import BookDescriptionSection from "@/components/book/BookDescriptionSection";
@@ -25,6 +25,7 @@ export default function BookDetailScreen() {
   const { addToLibrary } = useAddToLibrary();
   const { toggle: toggleLike } = useToggleLike();
   const setNeedsUpdate = useLibraryUpdateStore((state) => state.setNeedsUpdate);
+  const insets = useSafeAreaInsets();
 
   const handleAddToLibrary = useCallback(() => {
     setBottomSheetVisible(true);
@@ -72,7 +73,10 @@ export default function BookDetailScreen() {
 
   if (isLoading || !bookData) {
     return (
-      <SafeAreaView className="flex-1 bg-white" edges={["top", "bottom"]}>
+      <View
+        className="flex-1 bg-white"
+        style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
+      >
         <Header
           state="default"
           hasBack
@@ -82,7 +86,7 @@ export default function BookDetailScreen() {
           onBackPress={handleBackPress}
         />
         {isLoading ? <LoadingView /> : <ErrorView message="책 정보를 불러올 수 없습니다." />}
-      </SafeAreaView>
+      </View>
     );
   }
 
@@ -90,7 +94,10 @@ export default function BookDetailScreen() {
   const hasRecommendations = recommendations && recommendations.length > 0;
 
   return (
-    <SafeAreaView className="flex-1 bg-white" edges={["top", "bottom"]}>
+    <View
+      className="flex-1 bg-white"
+      style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
+    >
       <Header
         state="default"
         hasBack
@@ -142,6 +149,6 @@ export default function BookDetailScreen() {
         onClose={() => setBottomSheetVisible(false)}
         onSelect={handleStatusSelect}
       />
-    </SafeAreaView>
+    </View>
   );
 }

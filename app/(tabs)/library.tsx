@@ -1,7 +1,7 @@
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useRef } from "react";
 import { ActivityIndicator, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import HomeHeader from "@/components/home/sections/HomeHeader";
 import BookListSection from "@/components/library/BookListSection";
 import ProfileCard from "@/components/library/ProfileCard";
@@ -14,6 +14,7 @@ export default function LibraryScreen() {
   const scrollViewRef = useRef<ScrollView>(null);
   const { profile, isLoading, error, refetch } = useMemberProfile();
   const { needsUpdate, setNeedsUpdate } = useLibraryUpdateStore();
+  const insets = useSafeAreaInsets();
 
   useFocusEffect(
     useCallback(() => {
@@ -34,31 +35,31 @@ export default function LibraryScreen() {
 
   if (isLoading) {
     return (
-      <SafeAreaView className="flex-1 bg-gray-200" edges={["top"]}>
+      <View className="flex-1 bg-gray-200" style={{ paddingTop: insets.top }}>
         <HomeHeader onLogoPress={scrollToTop} />
         <View className="flex-1 items-center justify-center">
           <ActivityIndicator size="large" color={colors.primary[600]} />
           <Text className="text-body-14-regular text-gray-500 mt-4">로딩 중...</Text>
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 
   if (error || !profile) {
     return (
-      <SafeAreaView className="flex-1 bg-gray-200" edges={["top"]}>
+      <View className="flex-1 bg-gray-200" style={{ paddingTop: insets.top }}>
         <HomeHeader onLogoPress={scrollToTop} />
         <View className="flex-1 items-center justify-center">
           <Text className="text-body-14-regular text-gray-500">
             {error || "프로필 정보를 불러올 수 없습니다."}
           </Text>
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-200" edges={["top"]}>
+    <View className="flex-1 bg-gray-200" style={{ paddingTop: insets.top }}>
       <HomeHeader onLogoPress={scrollToTop} />
 
       <ScrollView ref={scrollViewRef} showsVerticalScrollIndicator={false} className="flex-1">
@@ -87,6 +88,6 @@ export default function LibraryScreen() {
 
         <View className="h-6" />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

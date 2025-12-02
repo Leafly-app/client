@@ -1,5 +1,5 @@
-import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface CameraPermissionViewProps {
   isLoading?: boolean;
@@ -10,17 +10,25 @@ export function CameraPermissionView({
   isLoading,
   onRequestPermission,
 }: CameraPermissionViewProps) {
+  const insets = useSafeAreaInsets();
+
   if (isLoading) {
     return (
-      <SafeAreaView className="flex-1 bg-black items-center justify-center">
+      <View
+        className="flex-1 bg-black items-center justify-center"
+        style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
+      >
         <ActivityIndicator size="large" color="#0D4D21" />
         <Text className="text-white mt-4 text-body-14-regular">권한 확인 중...</Text>
-      </SafeAreaView>
+      </View>
     );
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-black items-center justify-center px-6">
+    <View
+      className="flex-1 bg-black items-center justify-center px-6"
+      style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
+    >
       <Text className="text-white text-center mb-6 text-heading-20-semibold">
         카메라 권한이 필요합니다
       </Text>
@@ -30,6 +38,6 @@ export function CameraPermissionView({
       >
         <Text className="text-white text-body-16-semibold">권한 허용하기</Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 }

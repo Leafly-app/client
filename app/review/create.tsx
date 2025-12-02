@@ -3,7 +3,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import { Alert, BackHandler, ScrollView, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Button from "@/components/common/Button";
 import Header from "@/components/common/Header";
 import BookInfoCard from "@/components/review/BookInfoCard";
@@ -26,6 +26,7 @@ export default function CreateReviewScreen() {
   const { submit, isLoading } = useCreateReview();
   const { validate } = useReviewValidation();
   const { loadDraft, saveDraft, clearDraft } = useDraftReview(!!params.bookTitle);
+  const insets = useSafeAreaInsets();
 
   const [rating, setRating] = useState(0);
   const [title, setTitle] = useState("");
@@ -142,7 +143,10 @@ export default function CreateReviewScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-200" edges={["top", "bottom"]}>
+    <View
+      className="flex-1 bg-gray-200"
+      style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
+    >
       <Header title="독후감 작성" onBackPress={() => router.push("/(tabs)")} />
 
       <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
@@ -173,6 +177,6 @@ export default function CreateReviewScreen() {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

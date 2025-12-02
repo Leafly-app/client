@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import { useMemo, useState } from "react";
 import { ActivityIndicator, Dimensions, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import FilterSection from "@/components/feed/FilterSection";
 import ReviewGrid from "@/components/feed/ReviewGrid";
 import SortDropdown, { type SortOption } from "@/components/feed/SortDropdown";
@@ -17,6 +17,7 @@ export default function FeedScreen() {
   const { reviews, count, isLoading, error } = useReviewList();
   const [selectedSort, setSelectedSort] = useState<SortOption>("latest");
   const [showSortDropdown, setShowSortDropdown] = useState(false);
+  const insets = useSafeAreaInsets();
 
   const sortedReviews = useMemo(() => {
     const sorted = [...reviews];
@@ -45,7 +46,7 @@ export default function FeedScreen() {
   const handleFilterPress = () => {};
 
   return (
-    <SafeAreaView className="flex-1 bg-white" edges={["top"]}>
+    <View className="flex-1 bg-white" style={{ paddingTop: insets.top }}>
       <HomeHeader />
 
       <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
@@ -84,6 +85,6 @@ export default function FeedScreen() {
           </View>
         )}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
