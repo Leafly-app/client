@@ -1,7 +1,7 @@
+import LogoText from "@/assets/images/navbar/nav_logo.svg";
+import { IcLogo } from "@/components/icons";
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import LogoImage from "@/assets/icons/ic_logo.svg";
-import LogoText from "@/assets/images/navbar/nav_logo.svg";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 const BACKGROUND_IMAGE = require("@/assets/images/bg_leaves.png");
@@ -17,7 +17,7 @@ export default function SplashHome({ onLogin, onSignup }: Props) {
       <Image source={BACKGROUND_IMAGE} style={styles.backgroundImage} resizeMode="cover" />
       <View className="flex-1 flex-col w-full items-center justify-center">
         <View className="flex-row items-center">
-          <LogoImage width={90} height={71} />
+          <IcLogo width={90} height={71} />
           <LogoText width={147.5} height={59} style={{ marginLeft: 16 }} />
         </View>
       </View>
