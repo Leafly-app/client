@@ -1,3 +1,4 @@
+import XIcon from "@/assets/icons/ic_close.svg";
 import type React from "react";
 import { useEffect, useRef } from "react";
 import { Animated, type DimensionValue, Modal, Text, TouchableOpacity, View } from "react-native";
@@ -41,12 +42,12 @@ export function BottomSheet({ visible, onClose, title, children, height }: Botto
               transform: [{ translateY: slideAnim }],
               paddingBottom: (height ? 0 : 24) + insets.bottom,
             }}
-            className="bg-white rounded-t-3xl"
+            className="bg-white rounded-t-3xl p-4"
           >
-            <View className="flex-row justify-between items-center px-6 py-4 border-b border-gray-200">
-              <Text className="text-lg font-semibold">{title}</Text>
+            <View className="flex-row justify-between items-center pb-4 border-b border-gray-300">
+              <Text className="text-body-16-bold text-gray-900">{title}</Text>
               <TouchableOpacity onPress={onClose}>
-                <Text className="text-gray-500 text-xl">✕</Text>
+                <XIcon />
               </TouchableOpacity>
             </View>
 
