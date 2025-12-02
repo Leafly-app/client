@@ -1,4 +1,4 @@
-import XIcon from "@/assets/icons/ic_close.svg";
+import { IcClose } from "@/components/icons";
 import type React from "react";
 import { useEffect, useRef } from "react";
 import { Animated, type DimensionValue, Modal, Text, TouchableOpacity, View } from "react-native";
@@ -47,7 +47,7 @@ export function BottomSheet({ visible, onClose, title, children, height }: Botto
             <View className="flex-row justify-between items-center pb-4 border-b border-gray-300">
               <Text className="text-body-16-bold text-gray-900">{title}</Text>
               <TouchableOpacity onPress={onClose}>
-                <XIcon />
+                <IcClose />
               </TouchableOpacity>
             </View>
 
