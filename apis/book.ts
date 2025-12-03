@@ -1,5 +1,5 @@
 import type { ApiResponse } from "@/types/api";
-import type { Book, BookGenre, SearchBook } from "@/types/book";
+import type { Book, SearchBook } from "@/types/book";
 import type { ToggleLikeRequest, ToggleLikeResponse } from "@/types/book/like";
 import API from "./api";
 
@@ -24,11 +24,11 @@ export const getRecommendedBooks = async (): Promise<ApiResponse<Book[]>> => {
 
 export const searchBooks = async (
   keyword: string,
-  genres: BookGenre[] | null,
+  categories: string[] | null,
 ): Promise<ApiResponse<SearchBook[]>> => {
   const response = await API.post<ApiResponse<SearchBook[]>>(
     `/api/books?keyword=${encodeURIComponent(keyword)}`,
-    { genres },
+    { categories },
   );
   return response.data;
 };
