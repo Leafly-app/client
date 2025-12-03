@@ -1,8 +1,9 @@
+import DownArrowIcon from "@/assets/images/feed/list_down.svg";
+import { SORT_OPTIONS, type SortOption } from "@/constants/sort";
 import React, { useRef } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import DownArrowIcon from "@/assets/images/feed/list_down.svg";
 
-export type SortOption = "latest" | "oldest" | "highRating" | "lowRating";
+export type { SortOption };
 
 interface SortDropdownProps {
   selectedSort: SortOption;
@@ -10,13 +11,6 @@ interface SortDropdownProps {
   showDropdown: boolean;
   onToggleDropdown: () => void;
 }
-
-export const SORT_OPTIONS: { value: SortOption; label: string }[] = [
-  { value: "latest", label: "최신순" },
-  { value: "oldest", label: "오래된순" },
-  { value: "highRating", label: "별점 높은순" },
-  { value: "lowRating", label: "별점 낮은순" },
-];
 
 const SortDropdown = React.memo<SortDropdownProps>(
   ({ selectedSort, onSortChange, showDropdown, onToggleDropdown }) => {
