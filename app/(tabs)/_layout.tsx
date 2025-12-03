@@ -103,6 +103,7 @@ export default function TabLayout() {
         name="search"
         options={{
           href: null,
+          tabBarStyle: { display: "none" },
         }}
       />
     </Tabs>

@@ -16,7 +16,7 @@ function CategoryCard({ category, isSelected = false, onPress }: CategoryCardPro
   return (
     <TouchableOpacity
       onPress={onPress}
-      className={`w-[48%] h-[4.5rem] bg-white rounded-lg px-4 py-5 ${isSelected ? "opacity-70" : ""}`}
+      className={`w-[48%] h-[4.5rem] rounded-lg px-4 py-5 ${isSelected ? "opacity-70 bg-gray-200" : "bg-white"}`}
       activeOpacity={0.7}
     >
       <View className="flex-row items-center gap-2">
