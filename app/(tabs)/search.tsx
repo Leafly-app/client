@@ -1,27 +1,28 @@
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
-import { ScrollView, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { GenreFilter } from "@/components/search/GenreFilter";
+import { CategoryList, type CategoryType } from "@/components/common/CategoryList";
 import SearchHeader from "@/components/common/SearchHeader";
 import { SearchResults } from "@/components/search/SearchResults";
 import { useSearchBooks } from "@/hooks/useSearchBooks";
 import { useLibraryUpdateStore } from "@/store/libraryUpdateStore";
 import type { BookGenre, SearchBook } from "@/types/book";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { ScrollView, Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const GENRE_OPTIONS: BookGenre[] = [
-  "소설/시/희곡",
-  "에세이",
-  "자기계발",
-  "과학",
-  "역사",
-  "경제경영",
-  "예술/대중문화",
-  "인문학",
-  "가정/요리/뷰티",
-  "여행",
-  "건강/취미/레저",
-];
+const CATEGORY_TO_GENRE_MAP: Record<CategoryType, BookGenre> = {
+  all: "전체",
+  literature: "소설/시/희곡",
+  essay: "에세이",
+  development: "자기계발",
+  science: "과학",
+  history: "역사",
+  economy: "경제경영",
+  art: "예술/대중문화",
+  humanity: "인문학",
+  lifestyle: "가정/요리/뷰티",
+  trip: "여행",
+  health: "건강/취미/레저",
+};
 
 export default function SearchScreen() {
   const router = useRouter();
@@ -29,7 +30,7 @@ export default function SearchScreen() {
   const isReviewMode = mode === "review";
   const { books, isLoading, search, updateBookLikeStatus } = useSearchBooks();
   const [keyword, setKeyword] = useState(urlKeyword || "");
-  const [selectedGenres, setSelectedGenres] = useState<BookGenre[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<CategoryType[]>([]);
   const setNeedsUpdate = useLibraryUpdateStore((state) => state.setNeedsUpdate);
   const insets = useSafeAreaInsets();
 
@@ -44,9 +45,9 @@ export default function SearchScreen() {
     setNeedsUpdate(true);
   };
 
-  const toggleGenre = (genre: BookGenre) => {
-    setSelectedGenres((prev) =>
-      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre],
+  const toggleCategory = (category: CategoryType) => {
+    setSelectedCategories((prev) =>
+      prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category],
     );
   };
 
@@ -54,7 +55,11 @@ export default function SearchScreen() {
     if (keyword.trim().length < 2) {
       return;
     }
-    search(keyword.trim(), selectedGenres.length > 0 ? selectedGenres : null);
+    const selectedGenres =
+      selectedCategories.length > 0
+        ? selectedCategories.filter((cat) => cat !== "all").map((cat) => CATEGORY_TO_GENRE_MAP[cat])
+        : null;
+    search(keyword.trim(), selectedGenres);
   };
 
   const handleBookPress = (book: SearchBook) => {
@@ -75,7 +80,7 @@ export default function SearchScreen() {
   };
 
   return (
-    <View className="flex-1 bg-white" style={{ paddingTop: insets.top }}>
+    <View className="flex-1 bg-gray-200" style={{ paddingTop: insets.top }}>
       <SearchHeader
         keyword={keyword}
         onKeywordChange={setKeyword}
@@ -84,11 +89,10 @@ export default function SearchScreen() {
       />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <GenreFilter
-          genres={GENRE_OPTIONS}
-          selectedGenres={selectedGenres}
-          onToggle={toggleGenre}
-        />
+        <View className="px-5 py-4">
+          <Text className="text-body-16-semibold text-gray-900 mb-2">카테고리별 찾기</Text>
+          <CategoryList selectedCategories={selectedCategories} onCategoryPress={toggleCategory} />
+        </View>
         <SearchResults
           books={books}
           isLoading={isLoading}

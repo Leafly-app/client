@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
 import { READING_FREQUENCY_OPTIONS } from "@/constants/onboarding";
 import type { ReadingFrequency } from "@/types/onboarding";
+import { useState } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 
 interface ReadingFrequencyStepProps {
   onFrequencySelect?: (frequency: ReadingFrequency | null) => void;
@@ -36,8 +36,8 @@ export function ReadingFrequencyStep({
           <Text
             className={
               selectedFrequency === option.value
-                ? "text-base font-pretendard-semibold text-primary-600"
-                : "text-base font-pretendard-regular text-gray-800"
+                ? "text-body-16-semibold text-primary-600"
+                : "text-body-16-regular text-gray-800"
             }
           >
             {option.label}

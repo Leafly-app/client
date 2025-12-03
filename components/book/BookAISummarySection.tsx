@@ -1,7 +1,7 @@
-import { LinearGradient } from "expo-linear-gradient";
-import { Text, View } from "react-native";
 import IcTwinkle from "@/components/icons/IcTwinkle";
 import { colors } from "@/styles/colors";
+import { LinearGradient } from "expo-linear-gradient";
+import { Text, View } from "react-native";
 
 interface BookAISummarySectionProps {
   summary: string;
@@ -26,7 +26,7 @@ export default function BookAISummarySection({ summary, tags }: BookAISummarySec
       <Text className="text-body-12-regular text-gray-700 mb-3">{summary}</Text>
 
       {tags && tags.length > 0 && (
-        <View className="flex-row flex-wrap gap-[0.62rem]">
+        <View className="flex-row flex-wrap gap-2.5">
           {tags.map((tag) => (
             <View
               key={tag}

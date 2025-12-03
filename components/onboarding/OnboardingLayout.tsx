@@ -39,7 +39,7 @@ export function OnboardingLayout({
         {onBack && (
           <View className="pt-4 pb-4">
             <TouchableOpacity onPress={onBack} className="w-8 h-8">
-              <Text className="text-2xl font-pretendard-regular text-gray-800">&lt;</Text>
+              <Text className="text-heading-24-regular text-gray-800">&lt;</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -48,9 +48,9 @@ export function OnboardingLayout({
           <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
         </View>
 
-        <Text className="text-2xl font-pretendard-bold mb-2">{title}</Text>
+        <Text className="text-heading-24-bold mb-2">{title}</Text>
 
-        <Text className="text-xs font-pretendard-regular text-gray-600 mb-8">{description}</Text>
+        <Text className="text-body-12-regular text-gray-600 mb-8">{description}</Text>
 
         <View className="flex-1">{children}</View>
 
@@ -64,10 +64,10 @@ export function OnboardingLayout({
             activeOpacity={0.8}
           >
             {isLoading ? (
-              <Text className="text-base font-pretendard-semibold text-gray-500">로딩 중...</Text>
+              <Text className="text-body-16-semibold text-gray-500">로딩 중...</Text>
             ) : (
               <Text
-                className={`text-base font-pretendard-semibold ${isNextDisabled ? "text-gray-500" : "text-white"}`}
+                className={`text-body-16-semibold ${isNextDisabled ? "text-gray-500" : "text-white"}`}
               >
                 {isLastStep ? "완료" : "다음"}
               </Text>

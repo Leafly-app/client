@@ -86,5 +86,6 @@ export const colors = {
     lifestyle: "#5DC9FF",
     trip: "#2AD4CD",
     health: "#42DC94",
+    all: "#C8C8C8",
   },
 };

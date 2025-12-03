@@ -1,7 +1,7 @@
+import { colors } from "@/styles/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
-import { colors } from "@/styles/colors";
 
 interface AuthHeaderProps {
   title: string;
@@ -23,7 +23,7 @@ export default function AuthHeader({ title }: AuthHeaderProps) {
       <TouchableOpacity onPress={handleBackPress} className="p-2">
         <Ionicons name="arrow-back" size={24} color={colors.gray[900]} />
       </TouchableOpacity>
-      <Text className="text-2xl font-pretendard-bold">{title}</Text>
+      <Text className="text-heading-24-bold">{title}</Text>
       <View className="w-8" />
     </View>
   );

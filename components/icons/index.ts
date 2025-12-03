@@ -9,6 +9,7 @@ export { default as IcCategoryEssay } from "./IcCategoryEssay";
 export { default as IcCategoryHealth } from "./IcCategoryHealth";
 export { default as IcCategoryHistory } from "./IcCategoryHistory";
 export { default as IcCategoryHumanity } from "./IcCategoryHumanity";
+export { default as IcCategoryLifestyle } from "./IcCategoryLifestyle";
 export { default as IcCategoryLiterature } from "./IcCategoryLiterature";
 export { default as IcCategoryScience } from "./IcCategoryScience";
 export { default as IcCategoryTrip } from "./IcCategoryTrip";
