@@ -86,7 +86,7 @@ const BookCard = React.memo<BookCardProps>(function BookCard({
 
         {rating !== undefined && (
           <View className="flex-row items-center gap-1 mb-2">
-            <IcStarFilled width={13} height={13} />
+            <IcStarFilled width={13} height={13} color="#FACC15" />
             <Text className="text-body-10-regular text-gray-900">{rating}</Text>
           </View>
         )}
