@@ -19,6 +19,7 @@ export interface SearchBook {
 }
 
 export type BookGenre =
+  | "전체"
   | "소설/시/희곡"
   | "에세이"
   | "자기계발"
