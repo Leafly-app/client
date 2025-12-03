@@ -1,6 +1,5 @@
-import { LinearGradient } from "expo-linear-gradient";
-import { ScrollView, View } from "react-native";
-import BookCardV2 from "@/components/common/BookCardV2";
+import type { Book } from "@/components/common/BookCarousel";
+import BookCarousel from "@/components/common/BookCarousel";
 
 interface BookRecommendationsProps {
   recommendations: {
@@ -20,30 +19,13 @@ export default function BookRecommendations({
     return null;
   }
 
-  return (
-    <LinearGradient
-      colors={["#CFE8CA", "rgba(255, 255, 255, 0.00)"]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 0, y: 1 }}
-      className="rounded-lg py-4 overflow-hidden"
-    >
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 12 }}
-      >
-        <View className="flex-row gap-4">
-          {recommendations.map((book) => (
-            <BookCardV2
-              key={book.isbn}
-              title={book.title}
-              author={book.author}
-              cover={book.cover}
-              onPress={() => onBookPress(book.isbn)}
-            />
-          ))}
-        </View>
-      </ScrollView>
-    </LinearGradient>
-  );
+  const books: Book[] = recommendations.map((book) => ({
+    id: book.isbn,
+    title: book.title,
+    author: book.author,
+    cover: book.cover,
+    onPress: () => onBookPress(book.isbn),
+  }));
+
+  return <BookCarousel books={books} />;
 }
