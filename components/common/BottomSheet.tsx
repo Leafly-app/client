@@ -76,7 +76,7 @@ export function BottomSheetOption({
       onPress={onPress}
     >
       <Text
-        className={`text-base ${isSelected ? "text-primary-600 font-semibold" : "text-gray-800"}`}
+        className={`${isSelected ? "text-body-16-semibold text-primary-600" : "text-body-16-regular text-gray-800"}`}
       >
         {label}
       </Text>

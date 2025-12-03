@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
 import { GENDER_OPTIONS } from "@/constants/onboarding";
 import type { Gender } from "@/types/onboarding";
+import { useState } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 
 interface GenderStepProps {
   onGenderSelect?: (gender: Gender | null) => void;
@@ -29,8 +29,8 @@ export function GenderStep({ onGenderSelect, initialGender }: GenderStepProps) {
           <Text
             className={
               selectedGender === option.value
-                ? "text-base font-pretendard-semibold text-primary-600"
-                : "text-base font-pretendard-regular text-gray-800"
+                ? "text-body-16-semibold text-primary-600"
+                : "text-body-16-regular text-gray-800"
             }
           >
             {option.label}

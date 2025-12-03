@@ -89,7 +89,7 @@ export default function Header({
 
   const headerContent = (
     <View className="flex-row items-center justify-between">
-      <View className="flex-row items-center gap-[0.62rem] flex-1">{renderTitle()}</View>
+      <View className="flex-row items-center gap-2.5 flex-1">{renderTitle()}</View>
 
       {hasSearch && (
         <TouchableOpacity activeOpacity={0.7} onPress={onSearchPress}>

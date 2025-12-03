@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
 import { GENRE_OPTIONS } from "@/constants/onboarding";
 import type { GenreType } from "@/types/onboarding";
+import { useState } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 
 interface GenreStepProps {
   onGenresSelect?: (genres: GenreType[]) => void;
@@ -35,10 +35,8 @@ export function GenreStep({ onGenresSelect, initialGenres }: GenreStepProps) {
             onPress={() => handleToggle(option.value)}
           >
             <Text
-              className={`text-base text-center ${
-                selectedGenres.includes(option.value)
-                  ? "text-primary-600 font-semibold"
-                  : "text-gray-800"
+              className={`text-body-16-semibold text-center ${
+                selectedGenres.includes(option.value) ? "text-primary-600" : "text-gray-800"
               }`}
             >
               {option.label}

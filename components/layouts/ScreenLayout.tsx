@@ -69,7 +69,7 @@ export default function ScreenLayout({
       onScroll={enableStickyHeader ? handleScroll : undefined}
       scrollEventThrottle={enableStickyHeader ? 16 : undefined}
     >
-      {hasHeader && enableStickyHeader && <View className="h-[3rem]" />}
+      {hasHeader && enableStickyHeader && <View className="h-12" />}
       {children}
     </ScrollView>
   ) : (

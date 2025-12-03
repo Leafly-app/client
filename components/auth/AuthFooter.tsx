@@ -10,9 +10,9 @@ interface AuthFooterProps {
 export default function AuthFooter({ text, linkText, href }: AuthFooterProps) {
   return (
     <View className="flex-row justify-center mt-4">
-      <Text className="text-gray-500 text-sm font-pretendard-regular">{text} </Text>
+      <Text className="text-body-14-regular text-gray-500">{text} </Text>
       <Link href={href}>
-        <Text className="text-primary-600 text-sm font-pretendard-bold">{linkText}</Text>
+        <Text className="text-body-14-bold text-primary-600">{linkText}</Text>
       </Link>
     </View>
   );
