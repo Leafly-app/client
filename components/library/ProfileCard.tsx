@@ -1,4 +1,6 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { useAuthStore } from "@/store/useAuthStore";
+import { useRouter } from "expo-router";
+import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 
 interface ProfileCardProps {
   nickName: string;
@@ -6,6 +8,31 @@ interface ProfileCardProps {
 }
 
 export default function ProfileCard({ nickName, profileImage }: ProfileCardProps) {
+  const router = useRouter();
+  const { logout } = useAuthStore();
+
+  const handleLogout = async () => {
+    Alert.alert(
+      "로그아웃",
+      "로그아웃 하시겠습니까?",
+      [
+        {
+          text: "취소",
+          style: "cancel",
+        },
+        {
+          text: "로그아웃",
+          onPress: async () => {
+            await logout();
+            router.replace("/");
+          },
+          style: "destructive",
+        },
+      ],
+      { cancelable: true },
+    );
+  };
+
   return (
     <View className="bg-white rounded-xl p-5 mx-4 mt-4 mb-3">
       <View className="flex-row items-center">
@@ -25,6 +52,14 @@ export default function ProfileCard({ nickName, profileImage }: ProfileCardProps
           <Text className="text-body-14-semibold text-gray-700">정보수정</Text>
         </TouchableOpacity>
       </View>
+
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={handleLogout}
+        className="bg-secondary-600 px-4 py-2 rounded-lg mt-3"
+      >
+        <Text className="text-body-14-semibold text-white text-center">로그아웃</Text>
+      </TouchableOpacity>
     </View>
   );
 }

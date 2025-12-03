@@ -1,21 +1,20 @@
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { useCallback, useState } from "react";
-import { ImageBackground, ScrollView, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import BookActionButtons from "@/components/book/BookActionButtons";
 import BookAISummarySection from "@/components/book/BookAISummarySection";
 import BookDescriptionSection from "@/components/book/BookDescriptionSection";
 import BookInfoSection from "@/components/book/BookInfoSection";
 import BookRecommendationsSection from "@/components/book/BookRecommendationsSection";
 import ErrorView from "@/components/common/ErrorView";
-import Header from "@/components/common/Header";
 import LibraryStatusBottomSheet from "@/components/common/LibraryStatusBottomSheet";
 import LoadingView from "@/components/common/LoadingView";
+import ScreenLayout from "@/components/layouts/ScreenLayout";
 import { useAddToLibrary } from "@/hooks/useAddToLibrary";
 import { useBookDetail } from "@/hooks/useBookDetail";
 import { useToggleLike } from "@/hooks/useToggleLike";
 import { useLibraryUpdateStore } from "@/store/libraryUpdateStore";
 import type { LibraryStatus } from "@/types/library/library";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useCallback, useState } from "react";
+import { ImageBackground, View } from "react-native";
 
 export default function BookDetailScreen() {
   const router = useRouter();
@@ -72,17 +71,17 @@ export default function BookDetailScreen() {
 
   if (isLoading || !bookData) {
     return (
-      <SafeAreaView className="flex-1 bg-white" edges={["top", "bottom"]}>
-        <Header
-          state="default"
-          hasBack
-          hasSearch={false}
-          titleType="text"
-          title=""
-          onBackPress={handleBackPress}
-        />
+      <ScreenLayout
+        scrollable={false}
+        headerConfig={{
+          hasBack: true,
+          titleType: "text",
+          title: "",
+          onBackPress: handleBackPress,
+        }}
+      >
         {isLoading ? <LoadingView /> : <ErrorView message="책 정보를 불러올 수 없습니다." />}
-      </SafeAreaView>
+      </ScreenLayout>
     );
   }
 
@@ -90,23 +89,23 @@ export default function BookDetailScreen() {
   const hasRecommendations = recommendations && recommendations.length > 0;
 
   return (
-    <SafeAreaView className="flex-1 bg-white" edges={["top", "bottom"]}>
-      <Header
-        state="default"
-        hasBack
-        hasSearch={false}
-        titleType="text"
-        title={bookDetail.title}
-        onBackPress={handleBackPress}
-      />
-
-      <ImageBackground
-        source={require("@/assets/images/bg_leaf.png")}
-        resizeMode="cover"
-        className="flex-1"
+    <>
+      <ScreenLayout
+        enableStickyHeader
+        hasBottomInset
+        headerConfig={{
+          hasBack: true,
+          titleType: "text",
+          title: bookDetail.title,
+          onBackPress: handleBackPress,
+        }}
       >
-        <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
-          <View className="pt-3 px-4 gap-5">
+        <ImageBackground
+          source={require("@/assets/images/bg_leaf.png")}
+          resizeMode="cover"
+          className="flex-1"
+        >
+          <View className="pt-3 px-4 gap-5 pb-4">
             <BookInfoSection
               cover={bookDetail.cover}
               title={bookDetail.title}
@@ -127,21 +126,21 @@ export default function BookDetailScreen() {
                 onBookPress={(bookIsbn) => router.push(`/book/${bookIsbn}`)}
               />
             )}
-          </View>
-        </ScrollView>
-      </ImageBackground>
 
-      <BookActionButtons
-        isLiked={isLiked}
-        onAddToLibrary={handleAddToLibrary}
-        onToggleLike={handleToggleLike}
-      />
+            <BookActionButtons
+              isLiked={isLiked}
+              onAddToLibrary={handleAddToLibrary}
+              onToggleLike={handleToggleLike}
+            />
+          </View>
+        </ImageBackground>
+      </ScreenLayout>
 
       <LibraryStatusBottomSheet
         visible={bottomSheetVisible}
         onClose={() => setBottomSheetVisible(false)}
         onSelect={handleStatusSelect}
       />
-    </SafeAreaView>
+    </>
   );
 }

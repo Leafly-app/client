@@ -1,10 +1,12 @@
-import { BlurView } from "expo-blur";
-import { Platform, Text, TouchableOpacity, View } from "react-native";
 import NavLogo from "@/assets/images/navbar/nav_logo.svg";
 import NavLogoImage from "@/assets/images/navbar/nav_logo_image.svg";
 import IcChevronLeft from "@/components/icons/IcChevronLeft";
 import IcSearch from "@/components/icons/IcSearch";
 import { colors } from "@/styles/colors";
+import { BlurView } from "expo-blur";
+import type React from "react";
+import { useEffect, useRef } from "react";
+import { Animated, Platform, Text, TouchableOpacity, View } from "react-native";
 
 interface HeaderProps {
   state: "default" | "sticky";
@@ -12,10 +14,19 @@ interface HeaderProps {
   hasSearch: boolean;
   titleType: "logo" | "text";
   title: string;
+  searchIcon?: React.ReactNode;
   onBackPress?: () => void;
   onSearchPress?: () => void;
   onLogoPress?: () => void;
 }
+
+const TitleText = ({ children }: { children: string }) => (
+  <Text className="text-body-16-bold text-gray-900 flex-1" numberOfLines={1} ellipsizeMode="tail">
+    {children}
+  </Text>
+);
+
+const BLUR_INTENSITY = Platform.OS === "ios" ? 50 : 80;
 
 export default function Header({
   state,
@@ -23,11 +34,30 @@ export default function Header({
   hasSearch,
   titleType,
   title,
+  searchIcon,
   onBackPress,
   onSearchPress,
   onLogoPress,
 }: HeaderProps) {
-  const isSticky = state === "sticky";
+  const animValue = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(animValue, {
+      toValue: state === "sticky" ? 1 : 0,
+      duration: 250,
+      useNativeDriver: false,
+    }).start();
+  }, [state, animValue]);
+
+  const backgroundColor = animValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [colors.white, "rgba(255, 255, 255, 0.7)"],
+  });
+
+  const blurOpacity = animValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 1],
+  });
 
   const renderTitle = () => {
     if (hasBack) {
@@ -36,15 +66,7 @@ export default function Header({
           <TouchableOpacity activeOpacity={0.7} onPress={onBackPress}>
             <IcChevronLeft width={24} height={24} stroke={colors.gray[900]} />
           </TouchableOpacity>
-          {titleType === "text" && (
-            <Text
-              className="text-body-16-bold text-gray-900 flex-1"
-              numberOfLines={1}
-              ellipsizeMode="tail"
-            >
-              {title}
-            </Text>
-          )}
+          {titleType === "text" && <TitleText>{title}</TitleText>}
         </>
       );
     }
@@ -62,15 +84,7 @@ export default function Header({
       );
     }
 
-    return (
-      <Text
-        className="text-body-16-bold text-gray-900 flex-1"
-        numberOfLines={1}
-        ellipsizeMode="tail"
-      >
-        {title}
-      </Text>
-    );
+    return <TitleText>{title}</TitleText>;
   };
 
   const headerContent = (
@@ -79,21 +93,28 @@ export default function Header({
 
       {hasSearch && (
         <TouchableOpacity activeOpacity={0.7} onPress={onSearchPress}>
-          <IcSearch width={24} height={24} stroke={colors.gray[900]} />
+          {searchIcon || <IcSearch width={24} height={24} stroke={colors.gray[900]} />}
         </TouchableOpacity>
       )}
     </View>
   );
 
   return (
-    <View
-      style={{ backgroundColor: isSticky ? "rgba(255, 255, 255, 0.50)" : colors.white }}
-      className="py-3 px-5"
-    >
-      {isSticky && Platform.OS === "ios" && (
-        <BlurView intensity={10} tint="light" style={{ position: "absolute", inset: 0 }} />
-      )}
-      {headerContent}
-    </View>
+    <Animated.View style={{ backgroundColor }} className="py-3 px-5 overflow-hidden">
+      <Animated.View
+        style={{
+          opacity: blurOpacity,
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+        }}
+      >
+        <BlurView intensity={BLUR_INTENSITY} tint="light" style={{ flex: 1 }} />
+      </Animated.View>
+
+      <View style={{ position: "relative", zIndex: 1 }}>{headerContent}</View>
+    </Animated.View>
   );
 }

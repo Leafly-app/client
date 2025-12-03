@@ -1,4 +1,4 @@
-import XIcon from "@/assets/icons/ic_close.svg";
+import { IcClose } from "@/components/icons";
 import type React from "react";
 import { useEffect, useRef } from "react";
 import { Animated, type DimensionValue, Modal, Text, TouchableOpacity, View } from "react-native";
@@ -12,8 +12,10 @@ interface BottomSheetProps {
   height?: DimensionValue;
 }
 
+const SLIDE_ANIMATION_OFFSET = 300;
+
 export function BottomSheet({ visible, onClose, title, children, height }: BottomSheetProps) {
-  const slideAnim = useRef(new Animated.Value(300)).current;
+  const slideAnim = useRef(new Animated.Value(SLIDE_ANIMATION_OFFSET)).current;
   const insets = useSafeAreaInsets();
 
   useEffect(() => {
@@ -25,9 +27,9 @@ export function BottomSheet({ visible, onClose, title, children, height }: Botto
         friction: 11,
       }).start();
     } else {
-      slideAnim.setValue(300);
+      slideAnim.setValue(SLIDE_ANIMATION_OFFSET);
     }
-  }, [visible, slideAnim]);
+  }, [visible]);
 
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
@@ -47,7 +49,7 @@ export function BottomSheet({ visible, onClose, title, children, height }: Botto
             <View className="flex-row justify-between items-center pb-4 border-b border-gray-300">
               <Text className="text-body-16-bold text-gray-900">{title}</Text>
               <TouchableOpacity onPress={onClose}>
-                <XIcon />
+                <IcClose />
               </TouchableOpacity>
             </View>
 

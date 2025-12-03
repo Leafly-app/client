@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
-import HeartIcon from "@/assets/images/ic_heart.svg";
-import StarIcon from "@/assets/images/ic_star.svg";
+import { IcHeartFilled, IcStarFilled } from "@/components/icons";
 import { useToggleLike } from "@/hooks/useToggleLike";
 import { colors } from "@/styles/colors";
+import React, { useEffect, useState } from "react";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 
 interface BookCardProps {
   isbn: string;
@@ -37,8 +36,10 @@ const BookCard = React.memo<BookCardProps>(function BookCard({
     setIsLiked(initialIsLiked);
   }, [initialIsLiked]);
 
-  const handleLikePress = async (e: any) => {
-    e.stopPropagation();
+  const handleLikePress = async (e: unknown) => {
+    if (typeof e === "object" && e !== null && "stopPropagation" in e) {
+      (e as { stopPropagation: () => void }).stopPropagation();
+    }
     const previousIsLiked = isLiked;
     const newIsLiked = !previousIsLiked;
     setIsLiked(newIsLiked);
@@ -85,7 +86,7 @@ const BookCard = React.memo<BookCardProps>(function BookCard({
 
         {rating !== undefined && (
           <View className="flex-row items-center gap-1 mb-2">
-            <StarIcon />
+            <IcStarFilled width={13} height={13} />
             <Text className="text-body-10-regular text-gray-900">{rating}</Text>
           </View>
         )}
@@ -108,7 +109,7 @@ const BookCard = React.memo<BookCardProps>(function BookCard({
         style={{ top: 8, right: 8, zIndex: 10 }}
         hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
       >
-        <HeartIcon width={12} height={12} fill={isLiked ? "#EF4444" : colors.gray[400]} />
+        <IcHeartFilled width={12} height={12} fill={isLiked ? "#EF4444" : colors.gray[400]} />
       </TouchableOpacity>
     </TouchableOpacity>
   );

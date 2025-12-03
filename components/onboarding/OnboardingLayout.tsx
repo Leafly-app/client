@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ProgressBar } from "./ProgressBar";
 
 interface OnboardingLayoutProps {
@@ -28,8 +28,13 @@ export function OnboardingLayout({
   isNextDisabled = false,
   isLoading = false,
 }: OnboardingLayoutProps) {
+  const insets = useSafeAreaInsets();
+
   return (
-    <SafeAreaView className="flex-1 bg-white" edges={["top", "bottom"]}>
+    <View
+      className="flex-1 bg-white"
+      style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
+    >
       <View className="flex-1 px-6">
         {onBack && (
           <View className="pt-4 pb-4">
@@ -70,6 +75,6 @@ export function OnboardingLayout({
           </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

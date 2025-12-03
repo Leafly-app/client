@@ -6,7 +6,6 @@ interface LibraryStatusBottomSheetProps {
   visible: boolean;
   onClose: () => void;
   onSelect: (status: LibraryStatus) => void;
-  selectedStatus?: LibraryStatus;
 }
 
 const STATUS_OPTIONS: LibraryStatus[] = ["완독", "읽고 싶어요"];
@@ -15,7 +14,6 @@ export default function LibraryStatusBottomSheet({
   visible,
   onClose,
   onSelect,
-  selectedStatus,
 }: LibraryStatusBottomSheetProps) {
   const handleSelect = (status: LibraryStatus) => {
     onSelect(status);

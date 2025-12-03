@@ -1,7 +1,7 @@
+import { IcLogo } from "@/components/icons";
 import { useEffect } from "react";
 import { Dimensions, Image, StyleSheet, View } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
-import Logo from "../../assets/icons/ic_logo.svg";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
@@ -36,7 +36,7 @@ export default function AnimatedSplash({ onAnimationEnd }: AnimatedSplashProps) 
       </Animated.View>
 
       <View style={styles.logoContainer}>
-        <Logo width={120} height={120} />
+        <IcLogo width={120} height={120} />
       </View>
     </View>
   );

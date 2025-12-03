@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
 import { useForm } from "react-hook-form";
 import { Dimensions, Image, KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 const BACKGROUND_IMAGE = require("@/assets/images/bg_leaves.png");
@@ -17,6 +17,7 @@ import { type LoginFormData, loginSchema } from "@/schemas/auth";
 export default function LoginScreen() {
   const router = useRouter();
   const { handleLogin, isLoading } = useLogin();
+  const insets = useSafeAreaInsets();
 
   const {
     control,
@@ -39,7 +40,10 @@ export default function LoginScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-50" edges={["top", "bottom"]}>
+    <View
+      className="flex-1 bg-gray-50"
+      style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
+    >
       <Image source={BACKGROUND_IMAGE} style={styles.backgroundImage} resizeMode="cover" />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -82,7 +86,7 @@ export default function LoginScreen() {
           <AuthFooter text="아직 계정이 없으신가요?" linkText="회원가입" href="/signup" />
         </View>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
   );
 }
 
