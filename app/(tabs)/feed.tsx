@@ -1,13 +1,13 @@
-import { useRouter } from "expo-router";
-import { useMemo, useState } from "react";
-import { ActivityIndicator, Dimensions, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import ScreenLayout from "@/components/layouts/ScreenLayout";
 import FilterSection from "@/components/feed/FilterSection";
 import ReviewGrid from "@/components/feed/ReviewGrid";
 import SortDropdown, { type SortOption } from "@/components/feed/SortDropdown";
-import HomeHeader from "@/components/home/sections/HomeHeader";
+import { IcFilter } from "@/components/icons";
 import { useReviewList } from "@/hooks/useReviewList";
 import { colors } from "@/styles/colors";
+import { useRouter } from "expo-router";
+import { useMemo, useState } from "react";
+import { ActivityIndicator, Dimensions, Text, View } from "react-native";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CARD_WIDTH = (SCREEN_WIDTH - 40 - 32) / 3;
@@ -45,45 +45,49 @@ export default function FeedScreen() {
   const handleFilterPress = () => {};
 
   return (
-    <SafeAreaView className="flex-1 bg-white" edges={["top"]}>
-      <HomeHeader />
+    <ScreenLayout
+      enableStickyHeader
+      headerConfig={{
+        hasSearch: true,
+        titleType: "logo",
+        searchIcon: <IcFilter width={24} height={24} />,
+        onSearchPress: handleFilterPress,
+      }}
+    >
+      <FilterSection onFilterPress={handleFilterPress} />
 
-      <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
-        <FilterSection onFilterPress={handleFilterPress} />
+      <View className="flex-row items-center justify-between px-5 py-3">
+        <Text className="text-body-14-regular text-gray-700">
+          총 <Text className="text-body-14-bold text-primary-600">{count}</Text>권
+        </Text>
+        <SortDropdown
+          selectedSort={selectedSort}
+          onSortChange={setSelectedSort}
+          showDropdown={showSortDropdown}
+          onToggleDropdown={() => setShowSortDropdown(!showSortDropdown)}
+        />
+      </View>
 
-        <View className="flex-row items-center justify-between px-5 py-3">
-          <Text className="text-body-14-regular text-gray-700">
-            총 <Text className="text-body-14-bold text-primary-600">{count}</Text>권
-          </Text>
-          <SortDropdown
-            selectedSort={selectedSort}
-            onSortChange={setSelectedSort}
-            showDropdown={showSortDropdown}
-            onToggleDropdown={() => setShowSortDropdown(!showSortDropdown)}
-          />
+      {isLoading ? (
+        <View className="py-20 items-center justify-center">
+          <ActivityIndicator size="large" color={colors.primary[600]} />
+          <Text className="text-body-14-regular text-gray-500 mt-4">독후감을 불러오는 중...</Text>
         </View>
-
-        {isLoading ? (
-          <View className="py-20 items-center justify-center">
-            <ActivityIndicator size="large" color={colors.primary[600]} />
-            <Text className="text-body-14-regular text-gray-500 mt-4">독후감을 불러오는 중...</Text>
-          </View>
-        ) : error ? (
-          <View className="py-20 items-center justify-center">
-            <Text className="text-body-14-regular text-gray-500">{error}</Text>
-          </View>
-        ) : sortedReviews.length > 0 ? (
-          <ReviewGrid
-            reviews={sortedReviews}
-            cardWidth={CARD_WIDTH}
-            onReviewPress={handleReviewPress}
-          />
-        ) : (
-          <View className="py-20 items-center justify-center">
-            <Text className="text-body-14-regular text-gray-500">독후감이 없습니다.</Text>
-          </View>
-        )}
-      </ScrollView>
-    </SafeAreaView>
+      ) : error ? (
+        <View className="py-20 items-center justify-center">
+          <Text className="text-body-14-regular text-gray-500">{error}</Text>
+        </View>
+      ) : sortedReviews.length > 0 ? (
+        <ReviewGrid
+          reviews={sortedReviews}
+          cardWidth={CARD_WIDTH}
+          onReviewPress={handleReviewPress}
+        />
+      ) : (
+        <View className="py-20 items-center justify-center">
+          <Text className="text-body-14-regular text-gray-500">독후감이 없습니다.</Text>
+        </View>
+      )}
+    </ScreenLayout>
   );
 }

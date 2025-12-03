@@ -1,9 +1,9 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { GenreFilter } from "@/components/search/GenreFilter";
-import { SearchHeader } from "@/components/search/SearchHeader";
+import SearchHeader from "@/components/common/SearchHeader";
 import { SearchResults } from "@/components/search/SearchResults";
 import { useSearchBooks } from "@/hooks/useSearchBooks";
 import { useLibraryUpdateStore } from "@/store/libraryUpdateStore";
@@ -31,6 +31,7 @@ export default function SearchScreen() {
   const [keyword, setKeyword] = useState(urlKeyword || "");
   const [selectedGenres, setSelectedGenres] = useState<BookGenre[]>([]);
   const setNeedsUpdate = useLibraryUpdateStore((state) => state.setNeedsUpdate);
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     if (urlKeyword && urlKeyword.trim().length >= 2) {
@@ -74,12 +75,12 @@ export default function SearchScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white" edges={["top"]}>
+    <View className="flex-1 bg-white" style={{ paddingTop: insets.top }}>
       <SearchHeader
         keyword={keyword}
         onKeywordChange={setKeyword}
-        onSearch={handleSearch}
-        onBack={() => router.back()}
+        onBackPress={() => router.back()}
+        onSubmit={handleSearch}
       />
 
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -95,6 +96,6 @@ export default function SearchScreen() {
           onLikeToggle={handleLikeToggle}
         />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

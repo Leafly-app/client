@@ -1,17 +1,16 @@
-import { useFocusEffect } from "@react-navigation/native";
-import * as ImagePicker from "expo-image-picker";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { useCallback, useEffect, useState } from "react";
-import { Alert, BackHandler, ScrollView, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "@/components/common/Button";
-import Header from "@/components/common/Header";
+import ScreenLayout from "@/components/layouts/ScreenLayout";
 import BookInfoCard from "@/components/review/BookInfoCard";
 import ImagePickerCard from "@/components/review/ImagePickerCard";
 import ReviewFormCard from "@/components/review/ReviewFormCard";
 import { useCreateReview } from "@/hooks/useCreateReview";
 import { useDraftReview } from "@/hooks/useDraftReview";
 import { useReviewValidation } from "@/hooks/useReviewValidation";
+import { useFocusEffect } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useCallback, useEffect, useState } from "react";
+import { Alert, BackHandler, View } from "react-native";
 
 export default function CreateReviewScreen() {
   const router = useRouter();
@@ -142,37 +141,43 @@ export default function CreateReviewScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-200" edges={["top", "bottom"]}>
-      <Header title="독후감 작성" onBackPress={() => router.push("/(tabs)")} />
+    <ScreenLayout
+      bgColor="bg-gray-200"
+      enableStickyHeader
+      hasBottomInset
+      headerConfig={{
+        hasBack: true,
+        titleType: "text",
+        title: "독후감 작성",
+        onBackPress: () => router.push("/(tabs)"),
+      }}
+    >
+      <BookInfoCard
+        book={selectedBook}
+        rating={rating}
+        onRatingChange={setRating}
+        onSelectBook={() => router.push("/search?mode=review")}
+      />
 
-      <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
-        <BookInfoCard
-          book={selectedBook}
-          rating={rating}
-          onRatingChange={setRating}
-          onSelectBook={() => router.push("/search?mode=review")}
-        />
+      <ReviewFormCard
+        title={title}
+        content={content}
+        onTitleChange={setTitle}
+        onContentChange={setContent}
+      />
 
-        <ReviewFormCard
-          title={title}
-          content={content}
-          onTitleChange={setTitle}
-          onContentChange={setContent}
-        />
+      <ImagePickerCard
+        images={images}
+        onImageAdd={handleImagePick}
+        onImageRemove={handleImageRemove}
+      />
 
-        <ImagePickerCard
-          images={images}
-          onImageAdd={handleImagePick}
-          onImageRemove={handleImageRemove}
-        />
-
-        <View className="px-4 py-4">
-          <View className="flex-row gap-3">
-            <Button label="임시저장" onPress={handleTempSave} variant="secondary" />
-            <Button label="저장" onPress={handleSave} variant="primary" loading={isLoading} />
-          </View>
+      <View className="px-4 py-4">
+        <View className="flex-row gap-3">
+          <Button label="임시저장" onPress={handleTempSave} variant="secondary" />
+          <Button label="저장" onPress={handleSave} variant="primary" loading={isLoading} />
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+    </ScreenLayout>
   );
 }
