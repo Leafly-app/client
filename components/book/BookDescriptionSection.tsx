@@ -1,14 +1,14 @@
+import he from "he";
+import { Text, View } from "react-native";
 import IcComment from "@/components/icons/IcComment";
 import { colors } from "@/styles/colors";
-import { decodeHtmlEntities } from "@/utils/decodeHtmlEntities";
-import { Text, View } from "react-native";
 
 interface BookDescriptionSectionProps {
   description: string;
 }
 
 export default function BookDescriptionSection({ description }: BookDescriptionSectionProps) {
-  const ddescription = decodeHtmlEntities(description);
+  const decodedDescription = he.decode(description);
 
   return (
     <View className="bg-secondary-50 rounded-lg py-5 px-4 shadow-md">
@@ -16,7 +16,7 @@ export default function BookDescriptionSection({ description }: BookDescriptionS
         <IcComment width={16} height={16} stroke={colors.secondary[700]} />
         <Text className="text-body-14-semibold text-gray-900">책 소개</Text>
       </View>
-      <Text className="text-body-12-regular text-gray-700">{ddescription}</Text>
+      <Text className="text-body-12-regular text-gray-700">{decodedDescription}</Text>
     </View>
   );
 }
