@@ -1,7 +1,7 @@
+import { useAuthStore } from "@/store/useAuthStore";
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios";
 import { router } from "expo-router";
 import { Alert } from "react-native";
-import { useAuthStore } from "@/store/useAuthStore";
 
 const API = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_BASE_URL,
@@ -36,6 +36,7 @@ API.interceptors.response.use(
           (error.response.data as any)?.message || "토큰이 만료되었습니다. 다시 로그인해주세요.";
 
         await useAuthStore.getState().logout();
+        await new Promise((resolve) => setTimeout(resolve, 200));
 
         Alert.alert(
           "인증 만료",
@@ -44,7 +45,18 @@ API.interceptors.response.use(
             {
               text: "확인",
               onPress: () => {
-                router.replace("/");
+                try {
+                  if (router.canDismiss()) {
+                    router.dismissAll();
+                  }
+                } catch {}
+                setTimeout(() => {
+                  try {
+                    router.replace("/");
+                  } catch {
+                    router.push("/");
+                  }
+                }, 50);
               },
             },
           ],

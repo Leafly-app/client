@@ -25,11 +25,20 @@ export default function ProfileCard({ nickName, profileImage }: ProfileCardProps
           text: "로그아웃",
           onPress: async () => {
             await logout();
-            if (router.canDismiss()) {
-              router.dismissAll();
-            }
+            await new Promise((resolve) => setTimeout(resolve, 200));
+
+            try {
+              if (router.canDismiss()) {
+                router.dismissAll();
+              }
+            } catch {}
+
             setTimeout(() => {
-              router.replace("/");
+              try {
+                router.replace("/");
+              } catch {
+                router.push("/");
+              }
             }, 50);
           },
           style: "destructive",
@@ -60,7 +69,7 @@ export default function ProfileCard({ nickName, profileImage }: ProfileCardProps
           <Text className="text-body-10-regular text-gray-900">정보수정</Text>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={0.7} onPress={handleLogout}>
-          <Text className="text-body-10-regular px-3 py-2 " style={{ color: colors.error.DEFAULT }}>
+          <Text className="text-body-10-regular px-3 py-2" style={{ color: colors.error.DEFAULT }}>
             로그아웃
           </Text>
         </TouchableOpacity>
