@@ -87,9 +87,11 @@ export default function SearchResultsScreen() {
 
     if (!keyword || keyword.trim().length < 2) return;
 
-    const categoryFilter = categories.length > 0 && !categories.includes("all") ? categories : null;
+    const hasAll = categories.includes("all");
+    const genres: BookGenre[] | null =
+      categories.length > 0 && !hasAll ? categories.map((cat) => CATEGORY_TO_GENRE_MAP[cat]) : null;
 
-    search(keyword.trim(), categoryFilter);
+    search(keyword.trim(), genres);
   };
 
   return (
