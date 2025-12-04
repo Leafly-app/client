@@ -62,6 +62,7 @@ export default function SearchScreen() {
 
   const handleSearch = (searchKeyword?: string) => {
     const keywordToSearch = searchKeyword || keyword;
+
     if (!keywordToSearch || keywordToSearch.trim().length < 2) {
       return;
     }
@@ -74,7 +75,7 @@ export default function SearchScreen() {
       params.append("categories", selectedCategories.join(","));
     }
 
-    router.push(`/search-results?${params.toString()}`);
+    router.push(`/search-results?${params.toString()}` as any);
   };
 
   const handleKeywordPress = (searchKeyword: string) => {

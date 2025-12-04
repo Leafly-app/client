@@ -1,12 +1,12 @@
 import { useFocusEffect, useRouter } from "expo-router";
 import React from "react";
-import { Alert, BackHandler } from "react-native";
+import { Alert, BackHandler, View } from "react-native";
 
 import ScreenLayout from "@/components/layouts/ScreenLayout";
-import HomeBanner from "@/components/home/sections/HomeBanner";
-import QuickActions from "@/components/home/sections/QuickActions";
-import TodayRecommendations from "@/components/home/sections/TodayRecommendations";
-import UserRecommendations from "@/components/home/sections/UserRecommendations";
+import EditorPickSection from "@/components/home/sections/EditorPickSection";
+import ForYouSection from "@/components/home/sections/ForYouSection";
+import PopularByAgeSection from "@/components/home/sections/PopularByAgeSection";
+import RecommendedBooksSection from "@/components/home/sections/RecommendedBooksSection";
 
 export default function Home() {
   const router = useRouter();
@@ -48,10 +48,12 @@ export default function Home() {
         onSearchPress: () => router.push("/(tabs)/search"),
       }}
     >
-      <HomeBanner />
-      <QuickActions />
-      <TodayRecommendations />
-      <UserRecommendations />
+      <View className="py-3 px-4 gap-4">
+        <EditorPickSection />
+        <ForYouSection />
+        <PopularByAgeSection />
+        <RecommendedBooksSection />
+      </View>
     </ScreenLayout>
   );
 }
