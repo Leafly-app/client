@@ -115,7 +115,7 @@ export default function SearchResultsScreen() {
           <SearchResultBookCard
             book={item}
             onPress={() => handleBookPress(item)}
-            onLikeToggle={() => handleLikeToggle(item.isbn, !item.isLiked)}
+            onLikeToggle={handleLikeToggle}
           />
         )}
         contentContainerStyle={{

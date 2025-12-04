@@ -9,7 +9,7 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 interface SearchResultBookCardProps {
   book: SearchBook;
   onPress: () => void;
-  onLikeToggle?: () => void;
+  onLikeToggle?: (isbn: string, isLiked: boolean) => void;
 }
 
 export function SearchResultBookCard({ book, onPress, onLikeToggle }: SearchResultBookCardProps) {
@@ -36,7 +36,7 @@ export function SearchResultBookCard({ book, onPress, onLikeToggle }: SearchResu
     const result = await toggleLike(book.isbn, bookInfo);
 
     if (result.success) {
-      onLikeToggle?.();
+      onLikeToggle?.(book.isbn, newIsLiked);
     } else {
       console.error("좋아요 실패:", result.error);
       setIsLiked(previousIsLiked);
