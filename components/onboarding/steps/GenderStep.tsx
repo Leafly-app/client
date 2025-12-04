@@ -21,8 +21,8 @@ export function GenderStep({ onGenderSelect, initialGender }: GenderStepProps) {
       {GENDER_OPTIONS.map((option) => (
         <TouchableOpacity
           key={option.value}
-          className={`border border-gray-900 rounded-2xl px-3 py-3 items-center ${
-            selectedGender === option.value ? "border-primary-600 bg-primary-50" : "border-gray-300"
+          className={`border rounded-2xl px-3 py-3 items-center ${
+            selectedGender === option.value ? "border-primary-600 bg-primary-50" : "border-gray-900"
           }`}
           onPress={() => handleSelect(option.value)}
         >
