@@ -1,19 +1,38 @@
-import Button from "@/components/common/Button";
-import ScreenLayout from "@/components/layouts/ScreenLayout";
-import BookInfoCard from "@/components/review/BookInfoCard";
-import ImagePickerCard from "@/components/review/ImagePickerCard";
-import ReviewFormCard from "@/components/review/ReviewFormCard";
-import { useCreateReview } from "@/hooks/useCreateReview";
-import { useDraftReview } from "@/hooks/useDraftReview";
-import { useReviewValidation } from "@/hooks/useReviewValidation";
 import { useFocusEffect } from "@react-navigation/native";
+import { BlurView } from "expo-blur";
 import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
-import { Alert, BackHandler, View } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  BackHandler,
+  Dimensions,
+  Image,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import CameraIcon from "@/assets/images/review/review_camera.svg";
+import StarRating from "@/components/common/StarRating";
+import { IcPlus } from "@/components/icons";
+import IcChevronLeft from "@/components/icons/IcChevronLeft";
+import { useCreateReview } from "@/hooks/useCreateReview";
+import { useDraftReview } from "@/hooks/useDraftReview";
+import { useReviewValidation } from "@/hooks/useReviewValidation";
+import { colors } from "@/styles/colors";
+
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
+const BACKGROUND_IMAGE = require("@/assets/images/bg_blur.png");
 
 export default function CreateReviewScreen() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const params = useLocalSearchParams<{
     bookTitle?: string;
     bookAuthor?: string;
@@ -118,6 +137,11 @@ export default function CreateReviewScreen() {
   };
 
   const handleImagePick = async () => {
+    if (images.length >= 3) {
+      Alert.alert("알림", "이미지는 최대 3장까지 첨부할 수 있습니다.");
+      return;
+    }
+
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
       Alert.alert("권한 필요", "갤러리 접근 권한이 필요합니다.");
@@ -141,43 +165,213 @@ export default function CreateReviewScreen() {
   };
 
   return (
-    <ScreenLayout
-      bgColor="bg-gray-200"
-      enableStickyHeader
-      hasBottomInset
-      headerConfig={{
-        hasBack: true,
-        titleType: "text",
-        title: "독후감 작성",
-        onBackPress: () => router.push("/(tabs)"),
-      }}
-    >
-      <BookInfoCard
-        book={selectedBook}
-        rating={rating}
-        onRatingChange={setRating}
-        onSelectBook={() => router.push("/search?mode=review")}
-      />
+    <View className="flex-1 bg-gray-50" style={{ paddingTop: insets.top }}>
+      {/* 배경 이미지 */}
+      <Image source={BACKGROUND_IMAGE} style={styles.backgroundImage} resizeMode="cover" />
 
-      <ReviewFormCard
-        title={title}
-        content={content}
-        onTitleChange={setTitle}
-        onContentChange={setContent}
-      />
-
-      <ImagePickerCard
-        images={images}
-        onImageAdd={handleImagePick}
-        onImageRemove={handleImageRemove}
-      />
-
-      <View className="px-4 py-4">
-        <View className="flex-row gap-3">
-          <Button label="임시저장" onPress={handleTempSave} variant="secondary" />
-          <Button label="저장" onPress={handleSave} variant="primary" loading={isLoading} />
-        </View>
+      {/* 헤더 */}
+      <View className="h-12 px-5 py-3 bg-white flex-row items-center">
+        <TouchableOpacity onPress={() => router.push("/(tabs)")} className="mr-2">
+          <IcChevronLeft width={24} height={24} color={colors.gray[900]} />
+        </TouchableOpacity>
+        <Text className="flex-1 text-body-16-bold text-gray-900">독후감 작성</Text>
       </View>
-    </ScreenLayout>
+
+      <ScrollView
+        className="flex-1"
+        contentContainerStyle={{ paddingBottom: 100 }}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* 책 선택 영역 */}
+        <View className="pt-3 px-4">
+          <View className="py-5 items-center">
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => router.push("/search?mode=review")}
+              className="w-44 h-64 bg-gray-100 rounded-xl border border-gray-200 justify-center items-center overflow-hidden"
+            >
+              {selectedBook?.cover ? (
+                <Image
+                  source={{ uri: selectedBook.cover }}
+                  className="w-full h-full"
+                  resizeMode="cover"
+                />
+              ) : (
+                <View className="w-12 h-12 bg-gray-300 rounded-full justify-center items-center">
+                  <IcPlus width={16} height={16} color={colors.gray[500]} />
+                </View>
+              )}
+            </TouchableOpacity>
+
+            {selectedBook ? (
+              <View className="mt-2 items-center">
+                <Text className="text-body-16-bold text-gray-900" numberOfLines={1}>
+                  {selectedBook.title}
+                </Text>
+                <Text className="text-body-14-regular text-gray-600 mt-1">
+                  {selectedBook.author}
+                </Text>
+                <View className="mt-2">
+                  <StarRating rating={rating} onRatingChange={setRating} />
+                </View>
+              </View>
+            ) : (
+              <View className="mt-2 items-center">
+                <Text className="text-body-16-bold text-gray-700">
+                  독후감을 작성할 도서를 선택해주세요
+                </Text>
+              </View>
+            )}
+          </View>
+        </View>
+
+        {/* 폼 영역 */}
+        <View className="px-4 py-5">
+          {/* 독후감 제목 */}
+          <View className="mb-4">
+            <Text className="text-gray-900 text-body-16-semibold mb-2">독후감 제목</Text>
+            <View className="bg-white/90 rounded-lg border border-gray-300 px-3 py-2.5">
+              <TextInput
+                placeholder="제목을 입력해주세요"
+                placeholderTextColor={colors.gray[500]}
+                value={title}
+                onChangeText={(text) => setTitle(text.slice(0, 20))}
+                className="text-body-14-regular text-gray-900 p-0"
+              />
+            </View>
+            <Text className="text-body-8-regular text-gray-700 text-right mt-1">
+              {title.length}/20 자
+            </Text>
+          </View>
+
+          {/* 독후감 내용 */}
+          <View className="mb-4">
+            <Text className="text-body-16-semibold text-gray-900 mb-2">
+              독후감 내용 <Text className="text-error">*</Text>
+            </Text>
+            <View className="bg-white/90 rounded-lg border border-gray-300 px-3 py-2.5 h-36">
+              <TextInput
+                placeholder="이 책에 대한 생각을 자유롭게 적어보세요 (최소 10자)"
+                placeholderTextColor={colors.gray[500]}
+                value={content}
+                onChangeText={(text) => setContent(text.slice(0, 500))}
+                multiline
+                textAlignVertical="top"
+                className="flex-1 text-body-14-regular text-gray-900 p-0"
+              />
+            </View>
+            <Text className="text-body-8-regular text-gray-700 text-right mt-1">
+              {content.length}/500 자
+            </Text>
+          </View>
+
+          {/* 이미지 첨부 */}
+          <View>
+            <Text className="text-body-12-semibold text-gray-900 mb-3">이미지 첨부 (최대 3장)</Text>
+            <View className="flex-row gap-3">
+              {images.map((image, index) => (
+                <View key={image} className="w-24 h-24 rounded-lg overflow-hidden">
+                  <Image source={{ uri: image }} className="w-full h-full" resizeMode="cover" />
+                  <TouchableOpacity
+                    activeOpacity={0.7}
+                    onPress={() => handleImageRemove(index)}
+                    className="absolute top-1 right-1 bg-black/60 rounded-full w-6 h-6 justify-center items-center"
+                  >
+                    <Text className="text-body-12-bold text-white">×</Text>
+                  </TouchableOpacity>
+                </View>
+              ))}
+              {images.length < 3 && (
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={handleImagePick}
+                  className="w-24 h-24 rounded-lg border border-gray-500 justify-center items-center gap-2"
+                >
+                  <CameraIcon width={24} height={24} color={colors.gray[500]} />
+                  <Text className="text-body-12-semibold text-gray-500">추가</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+
+      {/* 하단 버튼 영역 */}
+      {Platform.OS === "ios" ? (
+        <BlurView
+          intensity={20}
+          tint="light"
+          className="absolute bottom-0 left-0 right-0"
+          style={{ paddingBottom: insets.bottom }}
+        >
+          <View className="flex-row px-3 py-2 bg-white/50">
+            <View className="flex-1 p-2">
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={handleTempSave}
+                className="bg-gray-500 rounded-lg py-4 items-center"
+              >
+                <Text className="text-body-16-semibold text-white">임시저장</Text>
+              </TouchableOpacity>
+            </View>
+            <View className="flex-1 p-2">
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={handleSave}
+                disabled={isLoading}
+                className="bg-primary-500 rounded-lg py-4 items-center"
+              >
+                {isLoading ? (
+                  <ActivityIndicator color="white" />
+                ) : (
+                  <Text className="text-body-16-semibold text-white">저장</Text>
+                )}
+              </TouchableOpacity>
+            </View>
+          </View>
+        </BlurView>
+      ) : (
+        <View
+          className="absolute bottom-0 left-0 right-0 bg-white/90"
+          style={{ paddingBottom: insets.bottom }}
+        >
+          <View className="flex-row px-3 py-2">
+            <View className="flex-1 p-2">
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={handleTempSave}
+                className="bg-gray-500 rounded-lg py-4 items-center"
+              >
+                <Text className="text-body-16-semibold text-white">임시저장</Text>
+              </TouchableOpacity>
+            </View>
+            <View className="flex-1 p-2">
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={handleSave}
+                disabled={isLoading}
+                className="bg-primary-500 rounded-lg py-4 items-center"
+              >
+                {isLoading ? (
+                  <ActivityIndicator color="white" />
+                ) : (
+                  <Text className="text-body-16-semibold text-white">저장</Text>
+                )}
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      )}
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  backgroundImage: {
+    position: "absolute",
+    top: 48,
+    left: 0,
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
+  },
+});
