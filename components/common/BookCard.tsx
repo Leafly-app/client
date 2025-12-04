@@ -1,7 +1,7 @@
 import { IcHeartFilled, IcStarFilled } from "@/components/icons";
-import { useToggleLike } from "@/hooks/useToggleLike";
+import { useLikeToggle } from "@/hooks/useLikeToggle";
 import { colors } from "@/styles/colors";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
 interface BookCardProps {
@@ -29,31 +29,12 @@ const BookCard = React.memo<BookCardProps>(function BookCard({
   showReason = false,
   onLikeToggle,
 }: BookCardProps) {
-  const [isLiked, setIsLiked] = useState(initialIsLiked);
-  const { toggle: toggleLike } = useToggleLike();
-
-  useEffect(() => {
-    setIsLiked(initialIsLiked);
-  }, [initialIsLiked]);
-
-  const handleLikePress = async (e: unknown) => {
-    if (typeof e === "object" && e !== null && "stopPropagation" in e) {
-      (e as { stopPropagation: () => void }).stopPropagation();
-    }
-    const previousIsLiked = isLiked;
-    const newIsLiked = !previousIsLiked;
-    setIsLiked(newIsLiked);
-
-    const bookInfo = { title, author, cover };
-    const result = await toggleLike(isbn, bookInfo);
-
-    if (result.success) {
-      onLikeToggle?.(isbn, newIsLiked);
-    } else {
-      console.error("좋아요 실패:", result.error);
-      setIsLiked(previousIsLiked);
-    }
-  };
+  const { isLiked, handleLikePress } = useLikeToggle(
+    isbn,
+    { title, author, cover },
+    initialIsLiked,
+    onLikeToggle,
+  );
 
   return (
     <TouchableOpacity

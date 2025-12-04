@@ -1,6 +1,12 @@
 export const formatDate = (dateString: string): string => {
   try {
-    return dateString.split("T")[0];
+    if (dateString.includes("T")) {
+      return dateString.split("T")[0];
+    }
+    if (dateString.includes(" ")) {
+      return dateString.split(" ")[0];
+    }
+    return dateString;
   } catch {
     return dateString;
   }
