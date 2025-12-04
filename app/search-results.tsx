@@ -32,9 +32,10 @@ const CATEGORY_TO_GENRE_MAP: Record<CategoryType, BookGenre> = {
 
 export default function SearchResultsScreen() {
   const router = useRouter();
-  const { keyword, categories: categoriesParam } = useLocalSearchParams<{
+  const { keyword, categories: categoriesParam, mode } = useLocalSearchParams<{
     keyword: string;
     categories?: string;
+    mode?: string;
   }>();
   const { books, isLoading, search, updateBookLikeStatus } = useSearchBooks();
   const setNeedsUpdate = useLibraryUpdateStore((state) => state.setNeedsUpdate);
@@ -74,7 +75,20 @@ export default function SearchResultsScreen() {
   };
 
   const handleBookPress = (book: SearchBook) => {
-    router.push(`/book/${book.isbn}` as any);
+    if (mode === "review") {
+      router.replace({
+        pathname: "/review/create",
+        params: {
+          bookTitle: book.title,
+          bookAuthor: book.author,
+          bookCover: book.cover,
+          bookIsbn: book.isbn,
+          bookCategory: book.categoryName || "",
+        },
+      });
+    } else {
+      router.push(`/book/${book.isbn}` as any);
+    }
   };
 
   const handleFilterPress = () => {
