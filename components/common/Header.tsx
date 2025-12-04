@@ -4,8 +4,7 @@ import IcChevronLeft from "@/components/icons/IcChevronLeft";
 import IcSearch from "@/components/icons/IcSearch";
 import { colors } from "@/styles/colors";
 import { BlurView } from "expo-blur";
-import type React from "react";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Animated, Platform, Text, TouchableOpacity, View } from "react-native";
 
 interface HeaderProps {
@@ -15,6 +14,7 @@ interface HeaderProps {
   titleType: "logo" | "text";
   title: string;
   searchIcon?: React.ReactNode;
+  isFilterActive?: boolean;
   onBackPress?: () => void;
   onSearchPress?: () => void;
   onLogoPress?: () => void;
@@ -35,6 +35,7 @@ export default function Header({
   titleType,
   title,
   searchIcon,
+  isFilterActive = false,
   onBackPress,
   onSearchPress,
   onLogoPress,
@@ -84,7 +85,7 @@ export default function Header({
       );
     }
 
-    return <TitleText>{title}</TitleText>;
+    return <Text className="text-body-16-bold text-gray-900">{title}</Text>;
   };
 
   const headerContent = (
@@ -93,7 +94,15 @@ export default function Header({
 
       {hasSearch && (
         <TouchableOpacity activeOpacity={0.7} onPress={onSearchPress}>
-          {searchIcon || <IcSearch width={24} height={24} stroke={colors.gray[900]} />}
+          {searchIcon ? (
+            <View style={{ opacity: 1 }}>
+              {React.cloneElement(searchIcon as React.ReactElement<{ fill?: string }>, {
+                fill: isFilterActive ? colors.primary[500] : colors.gray[900],
+              })}
+            </View>
+          ) : (
+            <IcSearch width={24} height={24} stroke={colors.gray[900]} />
+          )}
         </TouchableOpacity>
       )}
     </View>

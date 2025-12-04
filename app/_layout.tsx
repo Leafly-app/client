@@ -45,6 +45,7 @@ export default function RootLayout() {
         <Stack.Screen name="book/[isbn]" options={{ headerShown: false }} />
         <Stack.Screen name="review/create" options={{ headerShown: false }} />
         <Stack.Screen name="review/[id]" options={{ headerShown: false }} />
+        <Stack.Screen name="search-results" options={{ headerShown: false }} />
       </Stack>
     </SafeAreaProvider>
   );

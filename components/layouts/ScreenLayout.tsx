@@ -10,6 +10,7 @@ interface HeaderConfig {
   titleType?: "logo" | "text";
   title?: string;
   searchIcon?: ReactNode;
+  isFilterActive?: boolean;
   onBackPress?: () => void;
   onSearchPress?: () => void;
   onLogoPress?: () => void;
@@ -42,6 +43,7 @@ export default function ScreenLayout({
     titleType = "logo",
     title = "",
     searchIcon,
+    isFilterActive = false,
     onBackPress,
     onSearchPress,
     onLogoPress,
@@ -56,6 +58,7 @@ export default function ScreenLayout({
     titleType,
     title,
     searchIcon,
+    isFilterActive,
     onBackPress,
     onSearchPress,
     onLogoPress,

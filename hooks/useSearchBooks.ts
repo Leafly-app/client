@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { Alert } from "react-native";
 import { searchBooks } from "@/apis/book";
-import type { BookGenre, SearchBook } from "@/types/book";
+import type { SearchBook } from "@/types/book";
+import { useCallback, useState } from "react";
+import { Alert } from "react-native";
 
 export const useSearchBooks = () => {
   const [books, setBooks] = useState<SearchBook[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const search = async (keyword: string, genres: BookGenre[] | null) => {
+  const search = useCallback(async (keyword: string, categories: string[] | null) => {
     if (keyword.length < 2) {
       Alert.alert("알림", "검색어는 2글자 이상 입력해주세요.");
       return;
@@ -17,7 +17,7 @@ export const useSearchBooks = () => {
     try {
       setIsLoading(true);
       setError(null);
-      const response = await searchBooks(keyword, genres);
+      const response = await searchBooks(keyword, categories);
 
       if (response.isSuccess && response.data) {
         setBooks(response.data);
@@ -34,18 +34,18 @@ export const useSearchBooks = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  const clearSearch = () => {
+  const clearSearch = useCallback(() => {
     setBooks([]);
     setError(null);
-  };
+  }, []);
 
-  const updateBookLikeStatus = (isbn: string, isLiked: boolean) => {
+  const updateBookLikeStatus = useCallback((isbn: string, isLiked: boolean) => {
     setBooks((prevBooks) =>
       prevBooks.map((book) => (book.isbn === isbn ? { ...book, isLiked } : book)),
     );
-  };
+  }, []);
 
   return {
     books,

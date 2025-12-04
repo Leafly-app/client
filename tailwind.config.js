@@ -1,3 +1,4 @@
+import plugin from "tailwindcss/plugin";
 import { colors } from "./styles/colors";
 
 /** @type {import('tailwindcss').Config} */
@@ -18,32 +19,122 @@ module.exports = {
         "pretendard-semibold": ["Pretendard-SemiBold"],
         "pretendard-bold": ["Pretendard-Bold"],
       },
-      fontSize: {
-        "heading-24-bold": ["24px", { lineHeight: "36px", fontFamily: "Pretendard-Bold" }],
-        "heading-24-semibold": ["24px", { lineHeight: "36px", fontFamily: "Pretendard-SemiBold" }],
-        "heading-24-regular": ["24px", { lineHeight: "36px", fontFamily: "Pretendard-Regular" }],
-        "heading-20-bold": ["20px", { lineHeight: "28px", fontFamily: "Pretendard-Bold" }],
-        "heading-20-semibold": ["20px", { lineHeight: "28px", fontFamily: "Pretendard-SemiBold" }],
-        "heading-20-regular": ["20px", { lineHeight: "28px", fontFamily: "Pretendard-Regular" }],
-
-        "body-16-bold": ["16px", { lineHeight: "24px", fontFamily: "Pretendard-Bold" }],
-        "body-16-semibold": ["16px", { lineHeight: "24px", fontFamily: "Pretendard-SemiBold" }],
-        "body-16-regular": ["16px", { lineHeight: "24px", fontFamily: "Pretendard-Regular" }],
-        "body-14-bold": ["14px", { lineHeight: "20px", fontFamily: "Pretendard-Bold" }],
-        "body-14-semibold": ["14px", { lineHeight: "20px", fontFamily: "Pretendard-SemiBold" }],
-        "body-14-medium": ["14px", { lineHeight: "20px", fontFamily: "Pretendard-Medium" }],
-        "body-14-regular": ["14px", { lineHeight: "20px", fontFamily: "Pretendard-Regular" }],
-        "body-12-bold": ["12px", { lineHeight: "18px", fontFamily: "Pretendard-Bold" }],
-        "body-12-semibold": ["12px", { lineHeight: "18px", fontFamily: "Pretendard-SemiBold" }],
-        "body-12-regular": ["12px", { lineHeight: "18px", fontFamily: "Pretendard-Regular" }],
-        "body-10-bold": ["10px", { lineHeight: "16px", fontFamily: "Pretendard-Bold" }],
-        "body-10-semibold": ["10px", { lineHeight: "16px", fontFamily: "Pretendard-SemiBold" }],
-        "body-10-regular": ["10px", { lineHeight: "16px", fontFamily: "Pretendard-Regular" }],
-        "body-8-bold": ["8px", { lineHeight: "16px", fontFamily: "Pretendard-Bold" }],
-        "body-8-semibold": ["8px", { lineHeight: "16px", fontFamily: "Pretendard-SemiBold" }],
-        "body-8-regular": ["8px", { lineHeight: "16px", fontFamily: "Pretendard-Regular" }],
-      },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addUtilities, theme }) => {
+      addUtilities({
+        ".text-heading-24-bold": {
+          fontSize: "1.5rem",
+          lineHeight: "2.25rem",
+          fontFamily: theme("fontFamily.pretendard-bold")[0],
+        },
+        ".text-heading-24-semibold": {
+          fontSize: "1.5rem",
+          lineHeight: "2.25rem",
+          fontFamily: theme("fontFamily.pretendard-semibold")[0],
+        },
+        ".text-heading-24-regular": {
+          fontSize: "1.5rem",
+          lineHeight: "2.25rem",
+          fontFamily: theme("fontFamily.pretendard-regular")[0],
+        },
+        ".text-heading-20-bold": {
+          fontSize: "1.25rem",
+          lineHeight: "1.75rem",
+          fontFamily: theme("fontFamily.pretendard-bold")[0],
+        },
+        ".text-heading-20-semibold": {
+          fontSize: "1.25rem",
+          lineHeight: "1.75rem",
+          fontFamily: theme("fontFamily.pretendard-semibold")[0],
+        },
+        ".text-heading-20-regular": {
+          fontSize: "1.25rem",
+          lineHeight: "1.75rem",
+          fontFamily: theme("fontFamily.pretendard-regular")[0],
+        },
+        ".text-body-16-bold": {
+          fontSize: "1rem",
+          lineHeight: "1.5rem",
+          fontFamily: theme("fontFamily.pretendard-bold")[0],
+        },
+        ".text-body-16-semibold": {
+          fontSize: "1rem",
+          lineHeight: "1.5rem",
+          fontFamily: theme("fontFamily.pretendard-semibold")[0],
+        },
+        ".text-body-16-regular": {
+          fontSize: "1rem",
+          lineHeight: "1.5rem",
+          fontFamily: theme("fontFamily.pretendard-regular")[0],
+        },
+        ".text-body-14-bold": {
+          fontSize: "0.875rem",
+          lineHeight: "1.25rem",
+          fontFamily: theme("fontFamily.pretendard-bold")[0],
+        },
+        ".text-body-14-semibold": {
+          fontSize: "0.875rem",
+          lineHeight: "1.25rem",
+          fontFamily: theme("fontFamily.pretendard-semibold")[0],
+        },
+        ".text-body-14-medium": {
+          fontSize: "0.875rem",
+          lineHeight: "1.25rem",
+          fontFamily: theme("fontFamily.pretendard-medium")[0],
+        },
+        ".text-body-14-regular": {
+          fontSize: "0.875rem",
+          lineHeight: "1.25rem",
+          fontFamily: theme("fontFamily.pretendard-regular")[0],
+        },
+        ".text-body-12-bold": {
+          fontSize: "0.75rem",
+          lineHeight: "1.125rem",
+          fontFamily: theme("fontFamily.pretendard-bold")[0],
+        },
+        ".text-body-12-semibold": {
+          fontSize: "0.75rem",
+          lineHeight: "1.125rem",
+          fontFamily: theme("fontFamily.pretendard-semibold")[0],
+        },
+        ".text-body-12-regular": {
+          fontSize: "0.75rem",
+          lineHeight: "1.125rem",
+          fontFamily: theme("fontFamily.pretendard-regular")[0],
+        },
+        ".text-body-10-bold": {
+          fontSize: "0.625rem",
+          lineHeight: "1rem",
+          fontFamily: theme("fontFamily.pretendard-bold")[0],
+        },
+        ".text-body-10-semibold": {
+          fontSize: "0.625rem",
+          lineHeight: "1rem",
+          fontFamily: theme("fontFamily.pretendard-semibold")[0],
+        },
+        ".text-body-10-regular": {
+          fontSize: "0.625rem",
+          lineHeight: "1rem",
+          fontFamily: theme("fontFamily.pretendard-regular")[0],
+        },
+        ".text-body-8-bold": {
+          fontSize: "0.5rem",
+          lineHeight: "1rem",
+          fontFamily: theme("fontFamily.pretendard-bold")[0],
+        },
+        ".text-body-8-semibold": {
+          fontSize: "0.5rem",
+          lineHeight: "1rem",
+          fontFamily: theme("fontFamily.pretendard-semibold")[0],
+        },
+        ".text-body-8-regular": {
+          fontSize: "0.5rem",
+          lineHeight: "1rem",
+          fontFamily: theme("fontFamily.pretendard-regular")[0],
+        },
+      });
+    }),
+  ],
 };

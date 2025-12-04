@@ -17,19 +17,19 @@ export default function SearchHeader({
   onSubmit,
 }: SearchHeaderProps) {
   return (
-    <View className="flex-row items-center px-5 py-3">
+    <View className="flex-row items-center px-5 py-3 gap-[0.625rem]">
       <TouchableOpacity activeOpacity={0.7} onPress={onBackPress}>
         <IcChevronLeft width={24} height={24} stroke={colors.gray[900]} />
       </TouchableOpacity>
 
-      <View className="flex-1 flex-row items-center border border-gray-500 rounded-md px-2 py-2 ml-2.5">
+      <View className="flex-1 flex-row items-center border border-gray-500 rounded-md px-3 py-2">
         <TextInput
           className="flex-1 text-body-10-regular text-gray-900 mr-2"
           placeholder="도서명 · 저자 · ISBN 검색"
           placeholderTextColor={colors.gray[500]}
           value={keyword}
           onChangeText={onKeywordChange}
-          onSubmitEditing={onSubmit}
+          onSubmitEditing={() => onSubmit?.()}
           returnKeyType="search"
         />
         <IcSearch width={20} height={20} stroke={colors.gray[500]} />
