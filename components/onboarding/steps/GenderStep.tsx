@@ -17,12 +17,12 @@ export function GenderStep({ onGenderSelect, initialGender }: GenderStepProps) {
   };
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 gap-4">
       {GENDER_OPTIONS.map((option) => (
         <TouchableOpacity
           key={option.value}
-          className={`border rounded-lg px-4 py-4 mb-3 ${
-            selectedGender === option.value ? "border-primary-600 bg-primary-50" : "border-gray-300"
+          className={`border rounded-2xl px-3 py-3 items-center ${
+            selectedGender === option.value ? "border-primary-600 bg-primary-50" : "border-gray-900"
           }`}
           onPress={() => handleSelect(option.value)}
         >
@@ -30,7 +30,7 @@ export function GenderStep({ onGenderSelect, initialGender }: GenderStepProps) {
             className={
               selectedGender === option.value
                 ? "text-body-16-semibold text-primary-600"
-                : "text-body-16-regular text-gray-800"
+                : "text-body-16-semibold text-gray-900"
             }
           >
             {option.label}
