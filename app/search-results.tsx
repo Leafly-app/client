@@ -14,7 +14,6 @@ import { useEffect, useState } from "react";
 import { FlatList, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-// CategoryType을 BookGenre로 변환
 const CATEGORY_TO_GENRE_MAP: Record<CategoryType, BookGenre> = {
   all: "전체",
   literature: "소설/시/희곡",
@@ -120,7 +119,7 @@ export default function SearchResultsScreen() {
         )}
         contentContainerStyle={{
           padding: 20,
-          gap: 12, // 0.75rem
+          gap: 12,
         }}
         showsVerticalScrollIndicator={false}
       />
