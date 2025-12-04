@@ -208,7 +208,7 @@ export default function CreateReviewScreen() {
                 <Text className="text-body-16-bold text-gray-900" numberOfLines={1}>
                   {selectedBook.title}
                 </Text>
-                <Text className="text-body-14-regular text-gray-600 mt-1">
+                <Text className="text-body-12-regular text-gray-700 mt-1">
                   {selectedBook.author}
                 </Text>
                 <View className="mt-2">

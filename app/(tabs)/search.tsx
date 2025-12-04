@@ -4,7 +4,7 @@ import SearchHeader from "@/components/common/SearchHeader";
 import { CategorySection } from "@/components/search/CategorySection";
 import { PopularBooksSection } from "@/components/search/PopularBooksSection";
 import { RecommendedKeywords } from "@/components/search/RecommendedKeywords";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -50,6 +50,7 @@ const popularBooks: CarouselBook[] = [
 
 export default function SearchScreen() {
   const router = useRouter();
+  const { mode } = useLocalSearchParams<{ mode?: string }>();
   const [keyword, setKeyword] = useState("");
   const [selectedCategories, setSelectedCategories] = useState<CategoryType[]>([]);
   const insets = useSafeAreaInsets();
@@ -75,7 +76,11 @@ export default function SearchScreen() {
       params.append("categories", selectedCategories.join(","));
     }
 
-    router.push(`/search-results?${params.toString()}` as any);
+    if (mode === "review") {
+      params.append("mode", "review");
+    }
+
+    router.push(`/search-results?${params.toString()}`);
   };
 
   const handleKeywordPress = (searchKeyword: string) => {
