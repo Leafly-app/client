@@ -1,9 +1,8 @@
 import { IcHeartFilled, IcHeartOutline, IcStarFilled } from "@/components/icons";
 import IcCategoryLiterature from "@/components/icons/IcCategoryLiterature";
-import { useToggleLike } from "@/hooks/useToggleLike";
+import { useLikeToggle } from "@/hooks/useLikeToggle";
 import { colors } from "@/styles/colors";
 import type { SearchBook } from "@/types/book";
-import { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
 interface SearchResultBookCardProps {
@@ -13,35 +12,13 @@ interface SearchResultBookCardProps {
 }
 
 export function SearchResultBookCard({ book, onPress, onLikeToggle }: SearchResultBookCardProps) {
-  const [isLiked, setIsLiked] = useState(book.isLiked);
-  const { toggle: toggleLike } = useToggleLike();
+  const { isLiked, handleLikePress } = useLikeToggle(
+    book.isbn,
+    { title: book.title, author: book.author, cover: book.cover },
+    book.isLiked,
+    onLikeToggle,
+  );
 
-  useEffect(() => {
-    setIsLiked(book.isLiked);
-  }, [book.isLiked]);
-
-  const handleLikePress = async (e: unknown) => {
-    if (typeof e === "object" && e !== null && "stopPropagation" in e) {
-      (e as { stopPropagation: () => void }).stopPropagation();
-    }
-    const previousIsLiked = isLiked;
-    const newIsLiked = !previousIsLiked;
-    setIsLiked(newIsLiked);
-
-    const bookInfo = {
-      title: book.title,
-      author: book.author,
-      cover: book.cover,
-    };
-    const result = await toggleLike(book.isbn, bookInfo);
-
-    if (result.success) {
-      onLikeToggle?.(book.isbn, newIsLiked);
-    } else {
-      console.error("좋아요 실패:", result.error);
-      setIsLiked(previousIsLiked);
-    }
-  };
   return (
     <TouchableOpacity
       onPress={onPress}
