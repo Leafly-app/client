@@ -1,6 +1,6 @@
-import { TouchableOpacity, View } from "react-native";
-import GoBackIcon from "@/assets/images/goback.svg";
 import ScanZapIcon from "@/assets/images/scan/scan_zap.svg";
+import { TouchableOpacity, View } from "react-native";
+import { IcBack } from "../icons";
 
 interface ScanHeaderProps {
   onBackPress: () => void;
@@ -12,7 +12,7 @@ export function ScanHeader({ onBackPress, enableTorch, onFlashToggle }: ScanHead
   return (
     <View className="flex-row justify-between items-center px-5 py-3">
       <TouchableOpacity onPress={onBackPress} className="p-2" activeOpacity={0.7}>
-        <GoBackIcon width={24} height={24} fill="#FFFFFF" />
+        <IcBack width={24} height={24} color="#FFFFFF" />
       </TouchableOpacity>
 
       <TouchableOpacity onPress={onFlashToggle} className="p-2" activeOpacity={0.7}>

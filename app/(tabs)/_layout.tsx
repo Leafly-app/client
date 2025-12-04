@@ -1,14 +1,14 @@
-import { BlurView } from "expo-blur";
-import { LinearGradient } from "expo-linear-gradient";
-import { Tabs } from "expo-router";
-import { Platform, TouchableOpacity, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import IcBook from "@/components/icons/IcBook";
 import IcCamera from "@/components/icons/IcCamera";
 import IcFeed from "@/components/icons/IcFeed";
 import IcHome from "@/components/icons/IcHome";
 import IcWrite from "@/components/icons/IcWrite";
 import { colors } from "@/styles/colors";
+import { BlurView } from "expo-blur";
+import { LinearGradient } from "expo-linear-gradient";
+import { Tabs } from "expo-router";
+import { Platform, TouchableOpacity, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TabLayout() {
   const insets = useSafeAreaInsets();
@@ -51,6 +51,7 @@ export default function TabLayout() {
         name="scan"
         options={{
           title: "",
+          tabBarStyle: { display: "none" },
           tabBarButton: (props) => (
             <TouchableOpacity
               {...props}
