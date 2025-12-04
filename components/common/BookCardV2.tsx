@@ -35,7 +35,11 @@ const BookCardV2 = React.memo<BookCardV2Props>(function BookCardV2({
           </View>
         )}
       </View>
-      <Text className="text-body-10-bold text-gray-900" numberOfLines={1} style={{ marginBottom: 4 }}>
+      <Text
+        className="text-body-10-bold text-gray-900"
+        numberOfLines={1}
+        style={{ marginBottom: 4 }}
+      >
         {author}
       </Text>
       <View className="flex-row items-center justify-between">
