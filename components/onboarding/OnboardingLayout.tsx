@@ -1,7 +1,10 @@
+import IcBack from "@/components/icons/IcBack";
 import type { ReactNode } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ProgressBar } from "./ProgressBar";
+
+export { CategoryList, type CategoryType } from "@/components/common/CategoryList";
 
 interface OnboardingLayoutProps {
   currentStep: number;
@@ -38,8 +41,8 @@ export function OnboardingLayout({
       <View className="flex-1 px-6">
         {onBack && (
           <View className="pt-4 pb-4">
-            <TouchableOpacity onPress={onBack} className="w-8 h-8">
-              <Text className="text-heading-24-regular text-gray-800">&lt;</Text>
+            <TouchableOpacity onPress={onBack} className="w-8 h-8 justify-center">
+              <IcBack width={13} height={24} />
             </TouchableOpacity>
           </View>
         )}
@@ -50,25 +53,23 @@ export function OnboardingLayout({
 
         <Text className="text-heading-24-bold mb-2">{title}</Text>
 
-        <Text className="text-body-12-regular text-gray-600 mb-8">{description}</Text>
+        <Text className="text-body-12-regular text-gray-900 mb-8">{description}</Text>
 
         <View className="flex-1">{children}</View>
 
         <View className="pb-6">
           <TouchableOpacity
             className={`py-4 rounded-lg items-center justify-center ${
-              isNextDisabled || isLoading ? "bg-gray-300" : "bg-primary-600"
+              isNextDisabled || isLoading ? "bg-gray-600" : "bg-primary-600"
             }`}
             onPress={onNext}
             disabled={isNextDisabled || isLoading}
             activeOpacity={0.8}
           >
             {isLoading ? (
-              <Text className="text-body-16-semibold text-gray-500">로딩 중...</Text>
+              <Text className="text-body-16-semibold text-white">로딩 중...</Text>
             ) : (
-              <Text
-                className={`text-body-16-semibold ${isNextDisabled ? "text-gray-500" : "text-white"}`}
-              >
+              <Text className="text-body-16-semibold text-white">
                 {isLastStep ? "완료" : "다음"}
               </Text>
             )}

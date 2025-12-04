@@ -19,7 +19,7 @@ export function BirthYearStep({ onYearSelect, initialYear }: BirthYearStepProps)
   return (
     <View className="flex-1">
       <TouchableOpacity
-        className="border border-gray-300 rounded-lg px-4 py-4"
+        className="border border-gray-900 rounded-lg px-6 py-5"
         onPress={() => setIsBottomSheetVisible(true)}
       >
         <Text

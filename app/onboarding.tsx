@@ -5,15 +5,16 @@ import { GenderStep } from "../components/onboarding/steps/GenderStep";
 import { GenreStep } from "../components/onboarding/steps/GenreStep";
 import { ReadingFrequencyStep } from "../components/onboarding/steps/ReadingFrequencyStep";
 import { ReadingPurposeStep } from "../components/onboarding/steps/ReadingPurposeStep";
+import { type CategoryType, categoriesToGenres } from "../constants/categories";
 import { ONBOARDING_STEPS, TOTAL_STEPS } from "../constants/onboarding";
 import { useOnboarding } from "../hooks/useOnboarding";
-import type { Gender, GenreType, ReadingFrequency, ReadingPurpose } from "../types/onboarding";
+import type { Gender, ReadingFrequency, ReadingPurpose } from "../types/onboarding";
 
 export default function OnboardingScreen() {
   const [currentStep, setCurrentStep] = useState(1);
   const [birthYear, setBirthYear] = useState<number | null>(null);
   const [gender, setGender] = useState<Gender | null>(null);
-  const [genres, setGenres] = useState<GenreType[]>([]);
+  const [genres, setGenres] = useState<CategoryType[]>([]);
   const [readingPurpose, setReadingPurpose] = useState<ReadingPurpose | null>(null);
   const [readingFrequency, setReadingFrequency] = useState<ReadingFrequency | null>(null);
 
@@ -29,7 +30,7 @@ export default function OnboardingScreen() {
           gender,
           readingPurpose,
           readingFrequency,
-          favoriteGenres: genres,
+          favoriteGenres: categoriesToGenres(genres),
         });
       }
     }

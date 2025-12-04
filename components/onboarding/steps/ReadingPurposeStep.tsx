@@ -19,14 +19,14 @@ export function ReadingPurposeStep({ onPurposeSelect, initialPurpose }: ReadingP
   };
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 gap-4">
       {READING_PURPOSE_OPTIONS.map((option) => (
         <TouchableOpacity
           key={option.value}
-          className={`border rounded-lg px-4 py-4 mb-3 ${
+          className={`border rounded-lg px-3 py-3 ${
             selectedPurpose === option.value
               ? "border-primary-600 bg-primary-50"
-              : "border-gray-300"
+              : "border-gray-900"
           }`}
           onPress={() => handleSelect(option.value)}
         >

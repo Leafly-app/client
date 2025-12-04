@@ -1,7 +1,7 @@
 export const ONBOARDING_STEPS = [
   {
     id: 1,
-    title: "출생연도를 알려주세요",
+    title: "몇 살이신가요?",
     description: "나이에 맞는 도서를 추천해드릴게요",
   },
   {

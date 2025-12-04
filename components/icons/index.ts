@@ -1,3 +1,4 @@
+export { default as IcBack } from "./IcBack";
 export { default as IcBook } from "./IcBook";
 export { default as IcCalendar } from "./IcCalendar";
 export { default as IcCamera } from "./IcCamera";
