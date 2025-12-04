@@ -12,16 +12,16 @@ interface ReviewGridProps {
 
 const ReviewGrid = React.memo<ReviewGridProps>(({ reviews, cardWidth, onReviewPress }) => {
   return (
-    <View className="px-5 pb-6">
+    <View className="px-4 pb-6">
       <FlatList
         data={reviews}
         keyExtractor={(item) => `review-${item.reviewId}`}
         numColumns={3}
         scrollEnabled={false}
-        columnWrapperStyle={{ gap: 16, marginBottom: 20 }}
+        columnWrapperStyle={{ gap: 8, marginBottom: 20 }}
         renderItem={({ item }) => (
           <BookCardV2
-            title={item.title}
+            author={item.author}
             cover={item.thumbnail}
             width={cardWidth}
             rating={item.rating}

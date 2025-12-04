@@ -1,6 +1,6 @@
-import FilterSection from "@/components/feed/FilterSection";
+import FeedStats from "@/components/feed/FeedStats";
 import ReviewGrid from "@/components/feed/ReviewGrid";
-import SortDropdown, { type SortOption } from "@/components/feed/SortDropdown";
+import { type SortOption } from "@/components/feed/SortDropdown";
 import { IcFilter } from "@/components/icons";
 import ScreenLayout from "@/components/layouts/ScreenLayout";
 import {
@@ -14,7 +14,7 @@ import { useMemo, useState } from "react";
 import { ActivityIndicator, Dimensions, Text, View } from "react-native";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
-const CARD_WIDTH = (SCREEN_WIDTH - 40 - 32) / 3;
+const CARD_WIDTH = (SCREEN_WIDTH - 32 - 16) / 3;
 
 export default function FeedScreen() {
   const router = useRouter();
@@ -61,6 +61,9 @@ export default function FeedScreen() {
     setSelectedRating(rating);
   };
 
+  const averageRating =
+    reviews.length > 0 ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length : 0;
+
   return (
     <ScreenLayout
       enableStickyHeader
@@ -72,24 +75,6 @@ export default function FeedScreen() {
         onSearchPress: handleFilterPress,
       }}
     >
-      <FilterSection onFilterPress={handleFilterPress} />
-
-      <View className="flex-row items-center justify-between px-5 py-3">
-        <Text className="text-body-14-regular text-gray-700">
-          총{" "}
-          <Text className="text-body-14-bold text-primary-600">
-            {filteredAndSortedReviews.length}
-          </Text>
-          권
-        </Text>
-        <SortDropdown
-          selectedSort={selectedSort}
-          onSortChange={setSelectedSort}
-          showDropdown={showSortDropdown}
-          onToggleDropdown={() => setShowSortDropdown(!showSortDropdown)}
-        />
-      </View>
-
       {isLoading ? (
         <View className="py-20 items-center justify-center">
           <ActivityIndicator size="large" color={colors.primary[600]} />
@@ -100,11 +85,14 @@ export default function FeedScreen() {
           <Text className="text-body-14-regular text-gray-500">{error}</Text>
         </View>
       ) : filteredAndSortedReviews.length > 0 ? (
-        <ReviewGrid
-          reviews={filteredAndSortedReviews}
-          cardWidth={CARD_WIDTH}
-          onReviewPress={handleReviewPress}
-        />
+        <>
+          <FeedStats reviewCount={filteredAndSortedReviews.length} averageRating={averageRating} />
+          <ReviewGrid
+            reviews={filteredAndSortedReviews}
+            cardWidth={CARD_WIDTH}
+            onReviewPress={handleReviewPress}
+          />
+        </>
       ) : (
         <View className="py-20 items-center justify-center">
           <Text className="text-body-14-regular text-gray-500">독후감이 없습니다.</Text>

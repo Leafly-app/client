@@ -22,8 +22,13 @@ export interface Review {
   reviewId: number;
   title: string;
   thumbnail: string;
+  author: string;
+  tags: string[];
   rating: number;
+  reviewTitle: string;
   createAt: string;
+  content: string;
+  images: string[];
 }
 
 export interface GetReviewsResponse {
