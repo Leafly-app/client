@@ -2,14 +2,14 @@ import IcUser from "@/components/icons/IcUser";
 import { useAuthStore } from "@/store/useAuthStore";
 import { colors } from "@/styles/colors";
 import { router } from "expo-router";
-import { Alert, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 
 interface ProfileCardProps {
   nickName: string;
   profileImage: string | null;
 }
 
-export default function ProfileCard({ nickName }: ProfileCardProps) {
+export default function ProfileCard({ nickName, profileImage }: ProfileCardProps) {
   const { logout } = useAuthStore();
 
   const handleLogout = async () => {
@@ -25,8 +25,12 @@ export default function ProfileCard({ nickName }: ProfileCardProps) {
           text: "로그아웃",
           onPress: async () => {
             await logout();
-            router.dismissAll();
-            router.replace("/");
+            if (router.canDismiss()) {
+              router.dismissAll();
+            }
+            setTimeout(() => {
+              router.replace("/");
+            }, 50);
           },
           style: "destructive",
         },
@@ -39,10 +43,14 @@ export default function ProfileCard({ nickName }: ProfileCardProps) {
     <View className="p-4 flex-row items-center justify-between bg-white rounded-lg">
       <View className="flex-row items-center" style={{ gap: 8 }}>
         <View
-          className="w-[3.5rem] h-[3.5rem] rounded-full items-center justify-center"
+          className="w-[3.5rem] h-[3.5rem] rounded-full items-center justify-center overflow-hidden"
           style={{ backgroundColor: colors.primary[700] }}
         >
-          <IcUser width={20} height={20} color={colors.white} />
+          {profileImage ? (
+            <Image source={{ uri: profileImage }} className="w-full h-full" resizeMode="cover" />
+          ) : (
+            <IcUser width={20} height={20} color={colors.white} />
+          )}
         </View>
         <Text className="text-body-16-bold text-gray-900">{nickName} 님</Text>
       </View>
