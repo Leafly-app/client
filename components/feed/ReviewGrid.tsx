@@ -1,8 +1,8 @@
-import React from "react";
-import { FlatList, View } from "react-native";
 import BookCardV2 from "@/components/common/BookCardV2";
 import type { Review } from "@/types/review";
 import { formatDate } from "@/utils/formatDate";
+import React from "react";
+import { FlatList, View } from "react-native";
 
 interface ReviewGridProps {
   reviews: Review[];
@@ -21,7 +21,7 @@ const ReviewGrid = React.memo<ReviewGridProps>(({ reviews, cardWidth, onReviewPr
         columnWrapperStyle={{ gap: 8, marginBottom: 20 }}
         renderItem={({ item }) => (
           <BookCardV2
-            author={item.author}
+            title={item.title}
             cover={item.thumbnail}
             width={cardWidth}
             rating={item.rating}

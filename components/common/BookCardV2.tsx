@@ -3,7 +3,7 @@ import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
 interface BookCardV2Props {
-  author: string;
+  title: string;
   cover: string;
   onPress?: () => void;
   rating: number;
@@ -12,7 +12,7 @@ interface BookCardV2Props {
 }
 
 const BookCardV2 = React.memo<BookCardV2Props>(function BookCardV2({
-  author,
+  title,
   cover,
   onPress,
   rating,
@@ -40,7 +40,7 @@ const BookCardV2 = React.memo<BookCardV2Props>(function BookCardV2({
         numberOfLines={1}
         style={{ marginBottom: 4 }}
       >
-        {author}
+        {title}
       </Text>
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-center" style={{ gap: 2.04 }}>
