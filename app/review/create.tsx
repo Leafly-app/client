@@ -1,11 +1,3 @@
-import CameraIcon from "@/assets/images/review/review_camera.svg";
-import StarRating from "@/components/common/StarRating";
-import { IcPlus } from "@/components/icons";
-import IcChevronLeft from "@/components/icons/IcChevronLeft";
-import { useCreateReview } from "@/hooks/useCreateReview";
-import { useDraftReview } from "@/hooks/useDraftReview";
-import { useReviewValidation } from "@/hooks/useReviewValidation";
-import { colors } from "@/styles/colors";
 import { useFocusEffect } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
 import * as ImagePicker from "expo-image-picker";
@@ -26,6 +18,14 @@ import {
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import CameraIcon from "@/assets/images/review/review_camera.svg";
+import StarRating from "@/components/common/StarRating";
+import { IcPlus } from "@/components/icons";
+import IcChevronLeft from "@/components/icons/IcChevronLeft";
+import { useCreateReview } from "@/hooks/useCreateReview";
+import { useDraftReview } from "@/hooks/useDraftReview";
+import { useReviewValidation } from "@/hooks/useReviewValidation";
+import { colors } from "@/styles/colors";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 const BACKGROUND_IMAGE = require("@/assets/images/bg_blur.png");
@@ -208,7 +208,9 @@ export default function CreateReviewScreen() {
                 <Text className="text-body-16-bold text-gray-900" numberOfLines={1}>
                   {selectedBook.title}
                 </Text>
-                <Text className="text-body-14-regular text-gray-600 mt-1">{selectedBook.author}</Text>
+                <Text className="text-body-14-regular text-gray-600 mt-1">
+                  {selectedBook.author}
+                </Text>
                 <View className="mt-2">
                   <StarRating rating={rating} onRatingChange={setRating} />
                 </View>
@@ -237,7 +239,9 @@ export default function CreateReviewScreen() {
                 className="text-body-14-regular text-gray-900 p-0"
               />
             </View>
-            <Text className="text-body-8-regular text-gray-700 text-right mt-1">{title.length}/20 자</Text>
+            <Text className="text-body-8-regular text-gray-700 text-right mt-1">
+              {title.length}/20 자
+            </Text>
           </View>
 
           {/* 독후감 내용 */}
@@ -256,7 +260,9 @@ export default function CreateReviewScreen() {
                 className="flex-1 text-body-14-regular text-gray-900 p-0"
               />
             </View>
-            <Text className="text-body-8-regular text-gray-700 text-right mt-1">{content.length}/500 자</Text>
+            <Text className="text-body-8-regular text-gray-700 text-right mt-1">
+              {content.length}/500 자
+            </Text>
           </View>
 
           {/* 이미지 첨부 */}
