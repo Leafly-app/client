@@ -28,7 +28,7 @@ export default function LibraryScreen() {
 
   if (isLoading) {
     return (
-      <ScreenLayout bgColor="bg-gray-200" scrollable={false}>
+      <ScreenLayout bgColor="bg-gray-50" scrollable={false}>
         <View className="flex-1 items-center justify-center">
           <ActivityIndicator size="large" color={colors.primary[600]} />
           <Text className="text-body-14-regular text-gray-500 mt-4">로딩 중...</Text>
@@ -39,7 +39,7 @@ export default function LibraryScreen() {
 
   if (error || !profile) {
     return (
-      <ScreenLayout bgColor="bg-gray-200" scrollable={false}>
+      <ScreenLayout bgColor="bg-gray-50" scrollable={false}>
         <View className="flex-1 items-center justify-center">
           <Text className="text-body-14-regular text-gray-500">
             {error || "프로필 정보를 불러올 수 없습니다."}
@@ -50,31 +50,33 @@ export default function LibraryScreen() {
   }
 
   return (
-    <ScreenLayout bgColor="bg-gray-200" enableStickyHeader>
-      <ProfileCard nickName={profile.nickName} profileImage={profile.profileImage} />
+    <ScreenLayout bgColor="bg-gray-50" enableStickyHeader>
+      <View className="px-4 pt-3" style={{ gap: 12 }}>
+        <ProfileCard nickName={profile.nickName} profileImage={profile.profileImage} />
 
-      <View className="px-4 mt-2 mb-2">
-        <Text className="text-heading-16-bold text-gray-900">
-          완독 ({profile.library.finishedCount})
-        </Text>
+        <View>
+          <Text className="text-body-12-semibold text-gray-900 mb-2">
+            읽고 싶어요 ({profile.library.wantCount})
+          </Text>
+          <BookListSection books={profile.library.wantBooks} onBookPress={handleBookPress} />
+        </View>
+
+        <View>
+          <Text className="text-body-12-semibold text-gray-900 mb-2">
+            좋아요한 책 ({profile.likes.likeCount})
+          </Text>
+          <BookListSection books={profile.likes.likeBooks} onBookPress={handleBookPress} />
+        </View>
+
+        <View>
+          <Text className="text-body-12-semibold text-gray-900 mb-2">
+            완독한 책 ({profile.library.finishedCount})
+          </Text>
+          <BookListSection books={profile.library.finishedBooks} onBookPress={handleBookPress} />
+        </View>
+
+        <View className="h-6" />
       </View>
-      <BookListSection books={profile.library.finishedBooks} onBookPress={handleBookPress} />
-
-      <View className="px-4 mt-4 mb-2">
-        <Text className="text-heading-16-bold text-gray-900">
-          읽고 싶어요 ({profile.library.wantCount})
-        </Text>
-      </View>
-      <BookListSection books={profile.library.wantBooks} onBookPress={handleBookPress} />
-
-      <View className="px-4 mt-4 mb-2">
-        <Text className="text-heading-16-bold text-gray-900">
-          좋아요 ({profile.likes.likeCount})
-        </Text>
-      </View>
-      <BookListSection books={profile.likes.likeBooks} onBookPress={handleBookPress} />
-
-      <View className="h-6" />
     </ScreenLayout>
   );
 }
