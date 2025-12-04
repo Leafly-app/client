@@ -1,6 +1,5 @@
 import FeedStats from "@/components/feed/FeedStats";
 import ReviewGrid from "@/components/feed/ReviewGrid";
-import { type SortOption } from "@/components/feed/SortDropdown";
 import { IcFilter } from "@/components/icons";
 import ScreenLayout from "@/components/layouts/ScreenLayout";
 import {
@@ -19,35 +18,15 @@ const CARD_WIDTH = (SCREEN_WIDTH - 32 - 16) / 3;
 export default function FeedScreen() {
   const router = useRouter();
   const { reviews, isLoading, error } = useReviewList();
-  const [selectedSort, setSelectedSort] = useState<SortOption>("latest");
-  const [showSortDropdown, setShowSortDropdown] = useState(false);
   const [showFilterSheet, setShowFilterSheet] = useState(false);
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
 
-  const filteredAndSortedReviews = useMemo(() => {
-    let filtered = [...reviews];
-
+  const filteredReviews = useMemo(() => {
     if (selectedRating !== null) {
-      filtered = filtered.filter((review) => review.rating === selectedRating);
+      return reviews.filter((review) => review.rating === selectedRating);
     }
-
-    switch (selectedSort) {
-      case "latest":
-        return filtered.sort(
-          (a, b) => new Date(b.createAt).getTime() - new Date(a.createAt).getTime(),
-        );
-      case "oldest":
-        return filtered.sort(
-          (a, b) => new Date(a.createAt).getTime() - new Date(b.createAt).getTime(),
-        );
-      case "highRating":
-        return filtered.sort((a, b) => b.rating - a.rating);
-      case "lowRating":
-        return filtered.sort((a, b) => a.rating - b.rating);
-      default:
-        return filtered;
-    }
-  }, [reviews, selectedSort, selectedRating]);
+    return reviews;
+  }, [reviews, selectedRating]);
 
   const handleReviewPress = (reviewId: number) => {
     router.push(`/review/${reviewId}` as any);
@@ -61,8 +40,10 @@ export default function FeedScreen() {
     setSelectedRating(rating);
   };
 
-  const averageRating =
-    reviews.length > 0 ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length : 0;
+  const currentAverage =
+    filteredReviews.length > 0
+      ? filteredReviews.reduce((sum, r) => sum + r.rating, 0) / filteredReviews.length
+      : 0;
 
   return (
     <ScreenLayout
@@ -84,11 +65,11 @@ export default function FeedScreen() {
         <View className="py-20 items-center justify-center">
           <Text className="text-body-14-regular text-gray-500">{error}</Text>
         </View>
-      ) : filteredAndSortedReviews.length > 0 ? (
+      ) : filteredReviews.length > 0 ? (
         <>
-          <FeedStats reviewCount={filteredAndSortedReviews.length} averageRating={averageRating} />
+          <FeedStats reviewCount={filteredReviews.length} averageRating={currentAverage} />
           <ReviewGrid
-            reviews={filteredAndSortedReviews}
+            reviews={filteredReviews}
             cardWidth={CARD_WIDTH}
             onReviewPress={handleReviewPress}
           />
