@@ -7,9 +7,9 @@ import {
   FilterBottomSheet,
 } from "@/components/search/FilterBottomSheet";
 import type { CategoryType } from "@/constants/categories";
-import { CATEGORIES } from "@/constants/categories";
 import { useReviewList } from "@/hooks/useReviewList";
 import { colors } from "@/styles/colors";
+import { CATEGORY_TO_LABEL_MAP } from "@/utils/categoryMappers";
 import { filterByCategory } from "@/utils/filterUtils";
 import { useRouter } from "expo-router";
 import { useMemo, useState } from "react";
@@ -17,14 +17,6 @@ import { ActivityIndicator, Dimensions, Text, View } from "react-native";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CARD_WIDTH = (SCREEN_WIDTH - 32 - 16) / 3;
-
-const CATEGORY_TO_LABEL_MAP = CATEGORIES.reduce(
-  (acc, cat) => {
-    acc[cat.id] = cat.label;
-    return acc;
-  },
-  {} as Record<CategoryType, string>,
-);
 
 export default function FeedScreen() {
   const router = useRouter();
