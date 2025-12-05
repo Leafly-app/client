@@ -25,7 +25,9 @@ export default function FeedScreen() {
     const filtered = selectedRating !== null
       ? reviews.filter((review) => review.rating === selectedRating)
       : reviews;
-    return [...filtered].reverse();
+    return [...filtered].sort((a, b) =>
+      new Date(b.createAt).getTime() - new Date(a.createAt).getTime()
+    );
   }, [reviews, selectedRating]);
 
   const handleReviewPress = (reviewId: number) => {
