@@ -6,28 +6,40 @@ import { Text, TouchableOpacity, View } from "react-native";
 
 const mockBooks: Book[] = [
   {
-    id: "9791130649498",
-    title: "100일 아침 습관의 기적 - 최고의 나를 만나는 하루 20분의 약속",
-    author: "켈리 최 (지은이)",
-    cover: "https://image.aladin.co.kr/product/32928/20/coversum/k612936843_2.jpg",
+    id: "9788937448638",
+    title: "후리",
+    author: "카멜 다우드",
+    cover: "https://image.aladin.co.kr/product/37906/47/cover500/8937448637_1.jpg",
   },
   {
-    id: "9791191308006",
-    title: "앞으로 5년, 집을 사고팔 타이밍은 정해져 있다",
-    author: "삼토시(강승우) (지은이)",
-    cover: "https://image.aladin.co.kr/product/25893/67/coversum/k802737770_1.jpg",
+    id: "9791170526643",
+    title: "어스탐 경의 인사 전언",
+    author: "이영도 (지은이)",
+    cover: "https://image.aladin.co.kr/product/37684/42/cover500/k392032448_1.jpg",
   },
   {
-    id: "9791172172923",
-    title: "하루 3분, 눈이 좋아지는 기적의 그림",
-    author: "히라마쓰 루이 (지은이)",
-    cover: "https://image.aladin.co.kr/product/34172/71/coversum/k472931119_1.jpg",
+    id: "9791167903334",
+    title: "모텔과 나방",
+    author: "유선혜 (지은이)",
+    cover: "https://image.aladin.co.kr/product/37881/98/cover500/k132033009_1.jpg",
   },
   {
-    id: "9791168340770",
-    title: "미움받을 용기",
-    author: "기시미 이치로, 고가 후미타케 (지은이)",
-    cover: "https://image.aladin.co.kr/product/30782/55/coversum/k442831368_1.jpg",
+    id: "9791168343337",
+    title: "기쁨의 황제",
+    author: "오션 부엉 (지은이)",
+    cover: "https://image.aladin.co.kr/product/37727/28/cover500/k522033260_1.jpg",
+  },
+  {
+    id: "9791191803525",
+    title: "신 게임",
+    author: "마야 유타카 (지은이)",
+    cover: "https://image.aladin.co.kr/product/37568/46/cover500/k412032527_2.jpg",
+  },
+  {
+    id: "9788933711234",
+    title: "모순",
+    author: "양귀자 (지은이)",
+    cover: "https://image.aladin.co.kr/product/2584/37/cover500/8998441012_3.jpg",
   },
 ];
 
