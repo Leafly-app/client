@@ -62,13 +62,10 @@ export default function SearchScreen() {
   const router = useRouter();
   const { mode } = useLocalSearchParams<{ mode?: string }>();
   const [keyword, setKeyword] = useState("");
-  const [selectedCategories, setSelectedCategories] = useState<CategoryType[]>([]);
   const insets = useSafeAreaInsets();
 
   const toggleCategory = (category: CategoryType) => {
-    setSelectedCategories((prev) =>
-      prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category],
-    );
+    router.push(`/search-results?category=${category}`);
   };
 
   const handleSearch = (searchKeyword?: string) => {
@@ -81,10 +78,6 @@ export default function SearchScreen() {
     const params = new URLSearchParams({
       keyword: keywordToSearch.trim(),
     });
-
-    if (selectedCategories.length > 0) {
-      params.append("categories", selectedCategories.join(","));
-    }
 
     if (mode === "review") {
       params.append("mode", "review");
@@ -114,10 +107,7 @@ export default function SearchScreen() {
             onKeywordPress={handleKeywordPress}
           />
           <PopularBooksSection books={popularBooks} />
-          <CategorySection
-            selectedCategories={selectedCategories}
-            onCategoryPress={toggleCategory}
-          />
+          <CategorySection selectedCategories={[]} onCategoryPress={toggleCategory} />
         </View>
       </ScrollView>
     </View>

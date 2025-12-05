@@ -41,3 +41,8 @@ export const toggleLike = async (
   const response = await API.post<ApiResponse<ToggleLikeResponse>>(`/api/bookmarks/${isbn}`, data);
   return response.data;
 };
+
+export const getBooksByCategory = async (genre: string): Promise<ApiResponse<SearchBook[]>> => {
+  const response = await API.get<ApiResponse<SearchBook[]>>(`/api/books/category?genre=${genre}`);
+  return response.data;
+};

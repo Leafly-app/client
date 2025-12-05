@@ -1,34 +1,22 @@
+import { getBooksByCategory } from "@/apis/book";
 import Header from "@/components/common/Header";
 import IcFilter from "@/components/icons/IcFilter";
 import {
   DEFAULT_SEARCH_RATING_OPTIONS,
   FilterBottomSheet,
 } from "@/components/search/FilterBottomSheet";
-import { SearchResultBookCard } from "@/components/search/SearchResultBookCard";
+import { SearchResultsList } from "@/components/search/SearchResultsList";
 import type { CategoryType } from "@/constants/categories";
+import { CATEGORIES, categoryToAPIGenre } from "@/constants/categories";
 import { useSearchBooks } from "@/hooks/useSearchBooks";
 import { useLibraryUpdateStore } from "@/store/libraryUpdateStore";
 import type { BookGenre, SearchBook } from "@/types/book";
+import { CATEGORY_TO_GENRE_MAP } from "@/utils/categoryMappers";
 import { filterByCategory } from "@/utils/filterUtils";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
-const CATEGORY_TO_GENRE_MAP: Record<CategoryType, BookGenre> = {
-  all: "전체",
-  literature: "소설/시/희곡",
-  essay: "에세이",
-  development: "자기계발",
-  science: "과학",
-  history: "역사",
-  economy: "경제경영",
-  art: "예술/대중문화",
-  humanity: "인문학",
-  lifestyle: "가정/요리/뷰티",
-  trip: "여행",
-  health: "건강/취미/레저",
-};
 
 export default function SearchResultsScreen() {
   const router = useRouter();
@@ -36,10 +24,12 @@ export default function SearchResultsScreen() {
     keyword,
     categories: categoriesParam,
     mode,
+    category,
   } = useLocalSearchParams<{
-    keyword: string;
+    keyword?: string;
     categories?: string;
     mode?: string;
+    category?: CategoryType;
   }>();
   const { books, search, updateBookLikeStatus } = useSearchBooks();
   const setNeedsUpdate = useLibraryUpdateStore((state) => state.setNeedsUpdate);
@@ -47,10 +37,18 @@ export default function SearchResultsScreen() {
   const [showFilterSheet, setShowFilterSheet] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<CategoryType[]>([]);
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // 카테고리 모드인지 확인
+  const isCategoryMode = !!category;
+  const categoryData = isCategoryMode ? CATEGORIES.find((cat) => cat.id === category) : null;
+
+  const [categoryBooks, setCategoryBooks] = useState<SearchBook[]>([]);
 
   const filteredBooks = useMemo(() => {
+    const booksToFilter = isCategoryMode ? categoryBooks : books;
     const categoryFiltered = filterByCategory(
-      books,
+      booksToFilter,
       selectedCategories,
       CATEGORY_TO_GENRE_MAP,
       (book) => book.category,
@@ -61,10 +59,37 @@ export default function SearchResultsScreen() {
     }
 
     return categoryFiltered.filter((book) => book.rating >= selectedRating);
-  }, [books, selectedCategories, selectedRating]);
+  }, [books, categoryBooks, isCategoryMode, selectedCategories, selectedRating]);
 
+  // Category mode: fetch books by category
   useEffect(() => {
-    if (keyword && keyword.trim().length >= 2) {
+    if (isCategoryMode && category) {
+      const fetchCategoryBooks = async () => {
+        try {
+          setIsLoading(true);
+          const apiGenre = categoryToAPIGenre(category);
+          const response = await getBooksByCategory(apiGenre);
+
+          if (response.isSuccess) {
+            setCategoryBooks(response.data || []);
+          }
+        } catch (error) {
+          console.error("Failed to fetch category books:", error);
+          setCategoryBooks([]);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      fetchCategoryBooks();
+      setSelectedCategories([]);
+      setSelectedRating(null);
+    }
+  }, [isCategoryMode, category]);
+
+  // Keyword search mode
+  useEffect(() => {
+    if (!isCategoryMode && keyword && keyword.trim().length >= 2) {
       const initialCategories = categoriesParam
         ? (categoriesParam.split(",").map((c) => c.trim()) as CategoryType[])
         : [];
@@ -79,7 +104,7 @@ export default function SearchResultsScreen() {
       setSelectedCategories(initialCategories);
       setSelectedRating(null);
     }
-  }, [keyword, categoriesParam, search]);
+  }, [isCategoryMode, keyword, categoriesParam, search]);
 
   const handleLikeToggle = (isbn: string, isLiked: boolean) => {
     updateBookLikeStatus(isbn, isLiked);
@@ -119,35 +144,20 @@ export default function SearchResultsScreen() {
         hasBack
         hasSearch
         titleType="text"
-        title="검색 결과"
+        title={categoryData?.label || "검색 결과"}
         searchIcon={<IcFilter width={24} height={24} />}
         isFilterActive={selectedCategories.length > 0 || selectedRating !== null}
         onBackPress={() => router.back()}
         onSearchPress={handleFilterPress}
       />
 
-      {filteredBooks.length === 0 ? (
-        <View className="flex-1 items-center justify-center">
-          <Text className="text-body-12-regular text-gray-700">해당 책이 없습니다.</Text>
-        </View>
-      ) : (
-        <FlatList
-          data={filteredBooks}
-          keyExtractor={(item) => item.isbn}
-          renderItem={({ item }) => (
-            <SearchResultBookCard
-              book={item}
-              onPress={() => handleBookPress(item)}
-              onLikeToggle={handleLikeToggle}
-            />
-          )}
-          contentContainerStyle={{
-            padding: 20,
-            gap: 12,
-          }}
-          showsVerticalScrollIndicator={false}
-        />
-      )}
+      <SearchResultsList
+        books={filteredBooks}
+        isLoading={isLoading}
+        mode={mode}
+        onBookPress={handleBookPress}
+        onLikeToggle={handleLikeToggle}
+      />
 
       <FilterBottomSheet
         visible={showFilterSheet}

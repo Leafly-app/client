@@ -41,6 +41,20 @@ export type GenreEnum =
   | "건강"
   | "여행";
 
+export type BookGenreAPI =
+  | "FICTION"
+  | "ESSAY"
+  | "SELF_IMPROVEMENT"
+  | "SCIENCE"
+  | "HISTORY"
+  | "ECONOMY"
+  | "ART"
+  | "HUMANITIES"
+  | "HOME"
+  | "TRAVEL"
+  | "HEALTH"
+  | "ALL";
+
 export interface CategoryData {
   id: CategoryType;
   label: string;
@@ -148,4 +162,22 @@ export function categoriesToGenres(categories: CategoryType[]): GenreEnum[] {
   return categories
     .map((cat) => categoryToGenre(cat))
     .filter((genre): genre is GenreEnum => genre !== null);
+}
+
+export function categoryToAPIGenre(categoryId: CategoryType): BookGenreAPI {
+  const mapping: Record<CategoryType, BookGenreAPI> = {
+    all: "ALL",
+    literature: "FICTION",
+    essay: "ESSAY",
+    development: "SELF_IMPROVEMENT",
+    science: "SCIENCE",
+    history: "HISTORY",
+    economy: "ECONOMY",
+    art: "ART",
+    humanity: "HUMANITIES",
+    lifestyle: "HOME",
+    trip: "TRAVEL",
+    health: "HEALTH",
+  };
+  return mapping[categoryId];
 }
