@@ -32,7 +32,9 @@ export default function SearchHeader({
           onSubmitEditing={() => onSubmit?.()}
           returnKeyType="search"
         />
-        <IcSearch width={20} height={20} stroke={colors.gray[500]} />
+        <TouchableOpacity activeOpacity={0.7} onPress={() => onSubmit?.()}>
+          <IcSearch width={20} height={20} stroke={colors.gray[500]} />
+        </TouchableOpacity>
       </View>
     </View>
   );

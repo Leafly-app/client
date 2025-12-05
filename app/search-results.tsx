@@ -31,7 +31,11 @@ const CATEGORY_TO_GENRE_MAP: Record<CategoryType, BookGenre> = {
 
 export default function SearchResultsScreen() {
   const router = useRouter();
-  const { keyword, categories: categoriesParam, mode } = useLocalSearchParams<{
+  const {
+    keyword,
+    categories: categoriesParam,
+    mode,
+  } = useLocalSearchParams<{
     keyword: string;
     categories?: string;
     mode?: string;
