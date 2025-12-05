@@ -34,6 +34,7 @@ export default function FeedScreen() {
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
 
   const filteredReviews = useMemo(() => {
+
     const categoryFiltered = filterByCategory(
       reviews,
       selectedCategories,
@@ -47,6 +48,7 @@ export default function FeedScreen() {
 
     return categoryFiltered.filter((review) => review.rating === selectedRating);
   }, [reviews, selectedCategories, selectedRating]);
+
 
   const handleReviewPress = (reviewId: number) => {
     router.push(`/review/${reviewId}` as any);
