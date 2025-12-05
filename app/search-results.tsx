@@ -89,7 +89,7 @@ export default function SearchResultsScreen() {
   const handleBookPress = (book: SearchBook) => {
     if (mode === "review") {
       router.replace({
-        pathname: "/review/create",
+        pathname: "/(tabs)/write",
         params: {
           bookTitle: book.title,
           bookAuthor: book.author,
