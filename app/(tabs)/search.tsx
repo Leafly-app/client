@@ -58,7 +58,6 @@ const popularBooks: CarouselBook[] = [
   },
 ];
 
-
 export default function SearchScreen() {
   const router = useRouter();
   const { mode } = useLocalSearchParams<{ mode?: string }>();
