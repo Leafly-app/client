@@ -17,7 +17,10 @@ export default function RecommendedBooksSection() {
       try {
         const response = await getRecommendedBooks();
         if (response.isSuccess && response.data) {
-          setBooks(response.data);
+          const uniqueBooks = response.data.filter(
+            (book, index, self) => index === self.findIndex((t) => t.isbn === book.isbn),
+          );
+          setBooks(uniqueBooks);
         }
       } catch (error) {
         console.error("Failed to fetch recommended books:", error);
