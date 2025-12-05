@@ -10,43 +10,54 @@ import { ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const recommendedSearchKeywords = [
-  "잎새",
-  "고영이",
-  "강아지",
-  "귤",
-  "아몬드",
-  "호두",
-  "흰수염고래",
+  "소년이 온다",
+  "채식주의자",
+  "작별하지 않는다",
+  "트렌드 코리아 2025",
+  "불변의 법칙",
+  "모순",
+  "넥서스",
+  "급류",
 ];
 const popularBooks: CarouselBook[] = [
   {
-    id: "9791130649498",
-    title: "100일 아침 습관의 기적 - 최고의 나를 만나는 하루 20분의 약속",
-    author: "켈리 최 (지은이)",
-    cover: "https://image.aladin.co.kr/product/32928/20/coversum/k612936843_2.jpg",
+    id: "9791193401583",
+    title: "최소한의 삼국지",
+    author: "최태성 (지은이)",
+    cover: "https://image.aladin.co.kr/product/37773/21/cover500/k002033562_2.jpg",
   },
   {
-    id: "9791191308006",
-    title:
-      "앞으로 5년, 집을 사고팔 타이밍은 정해져 있다 - 유튜브 직방TV 〈빅데이터의 신〉 삼토시가 찾아낸",
-    author: "삼토시(강승우) (지은이)",
-    cover: "https://image.aladin.co.kr/product/25893/67/coversum/k802737770_1.jpg",
+    id: "9791141614072",
+    title: "나나 올리브에게",
+    author: "루리 (지은이)",
+    cover: "https://image.aladin.co.kr/product/37789/25/cover500/k392033660_1.jpg",
   },
   {
-    id: "9791172172923",
-    title:
-      "하루 3분, 눈이 좋아지는 기적의 그림 - 근시, 원시, 난시, 노안 어떠한 문제성 눈이든 좋아질 수 있다!",
-    author: "히라마쓰 루이 (지은이)",
-    cover: "https://image.aladin.co.kr/product/34172/71/coversum/k472931119_1.jpg",
+    id: "9788927105886",
+    title: "사람이 되는 법",
+    author: "캐서린 뉴먼 (지은이)",
+    cover: "https://image.aladin.co.kr/product/30369/61/cover500/8927105885_1.jpg",
   },
   {
-    id: "9791168340770",
-    title:
-      "미움받을 용기 (200만 부 기념 스페셜 에디션) - 자유롭고 행복한 삶을 위한 아들러의 가르침",
-    author: "기시미 이치로, 고가 후미타케 (지은이), 전경아 (옮긴이), 김정운 (감수)",
-    cover: "https://image.aladin.co.kr/product/30782/55/coversum/k442831368_1.jpg",
+    id: "9788925588735",
+    title: "프로젝트 헤일메리",
+    author: "앤디 위어 (지은이)",
+    cover: "https://image.aladin.co.kr/product/27045/43/cover500/8925588730_2.jpg",
+  },
+  {
+    id: "9791142813887",
+    title: "나의 히어로 아카데미아 캐릭터 팬북 컴플리트 에디션",
+    author: "호리코시 코헤이 (지은이)",
+    cover: "https://image.aladin.co.kr/product/37902/70/cover500/k842033737_1.jpg",
+  },
+  {
+    id: "9791142335204",
+    title: "열혈강호 94",
+    author: "전극진 (지은이)",
+    cover: "https://image.aladin.co.kr/product/37900/46/cover500/k202033730_1.jpg",
   },
 ];
+
 
 export default function SearchScreen() {
   const router = useRouter();
