@@ -6,28 +6,41 @@ import { Text, TouchableOpacity, View } from "react-native";
 
 const mockBooks: Book[] = [
   {
-    id: "9791130649498",
-    title: "100일 아침 습관의 기적 - 최고의 나를 만나는 하루 20분의 약속",
-    author: "켈리 최 (지은이)",
-    cover: "https://image.aladin.co.kr/product/32928/20/coversum/k612936843_2.jpg",
+    id: "9788936439743",
+    title: "혼모노",
+    author: "성해나 (지은이)",
+
+    cover: "https://image.aladin.co.kr/product/36101/66/cover500/k152033655_2.jpg",
   },
   {
-    id: "9791191308006",
-    title: "앞으로 5년, 집을 사고팔 타이밍은 정해져 있다",
-    author: "삼토시(강승우) (지은이)",
-    cover: "https://image.aladin.co.kr/product/25893/67/coversum/k802737770_1.jpg",
+    id: "9788956604992",
+    title: "7년의 밤",
+    author: "정유정 (지은이)",
+    cover: "https://image.aladin.co.kr/product/988/67/cover500/8956604991_3.jpg",
   },
   {
-    id: "9791172172923",
-    title: "하루 3분, 눈이 좋아지는 기적의 그림",
-    author: "히라마쓰 루이 (지은이)",
-    cover: "https://image.aladin.co.kr/product/34172/71/coversum/k472931119_1.jpg",
+    id: "9791141613433",
+    title: "노 피플 존",
+    author: "정이현 (지은이)",
+    cover: "https://image.aladin.co.kr/product/37448/73/cover500/k512032607_1.jpg",
   },
   {
-    id: "9791168340770",
-    title: "미움받을 용기",
-    author: "기시미 이치로, 고가 후미타케 (지은이)",
-    cover: "https://image.aladin.co.kr/product/30782/55/coversum/k442831368_1.jpg",
+    id: "9791168343108",
+    title: "양면의 조개껍데기",
+    author: "김초엽 (지은이)",
+    cover: "https://image.aladin.co.kr/product/37024/77/cover500/k482030732_2.jpg",
+  },
+  {
+    id: "9788968971389",
+    title: "지금 나를 위해 해야 하는 것들",
+    author: "김연경 (지은이)",
+    cover: "https://image.aladin.co.kr/product/37875/98/cover500/8968971382_1.jpg",
+  },
+  {
+    id: "9788901297842",
+    title: "기분이 태도가 되지 않게 (헬로키티 에디션)",
+    author: "레몬심리 (지은이)",
+    cover: "https://image.aladin.co.kr/product/37535/62/cover500/8901297841_1.jpg",
   },
 ];
 
