@@ -168,7 +168,14 @@ export default function WriteScreen() {
       <Image source={BACKGROUND_IMAGE} style={styles.backgroundImage} resizeMode="cover" />
 
       {/* 헤더 */}
-      <Header state="default" hasBack hasSearch={false} titleType="text" title="독후감 작성" />
+      <Header
+        state="default"
+        hasBack
+        hasSearch={false}
+        titleType="text"
+        title="독후감 작성"
+        onBackPress={() => router.push("/(tabs)")}
+      />
 
       <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
         {/* 책 선택 영역 */}

@@ -97,6 +97,7 @@ export default function ReviewDetailScreen() {
         hasSearch={false}
         titleType="text"
         title={reviewDetail.title}
+        onBackPress={() => router.back()}
       />
 
       <ScrollView
