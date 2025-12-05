@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { Alert } from "react-native";
 import { getRecommendedBooks } from "@/apis/book";
 import type { Book } from "@/types/book";
+import { useEffect, useState } from "react";
+import { Alert } from "react-native";
 
 export const useRecommendedBooks = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -15,7 +15,17 @@ export const useRecommendedBooks = () => {
       const response = await getRecommendedBooks();
 
       if (response.isSuccess) {
-        setBooks(response.data || []);
+        const seenISBNs = new Set<string>();
+        const uniqueBooks: Book[] = [];
+
+        for (const book of response.data || []) {
+          if (!seenISBNs.has(book.isbn)) {
+            seenISBNs.add(book.isbn);
+            uniqueBooks.push(book);
+          }
+        }
+
+        setBooks(uniqueBooks);
       } else {
         const errorMsg = response.message || "책을 불러오는데 실패했습니다.";
         setError(errorMsg);

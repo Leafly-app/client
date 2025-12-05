@@ -9,9 +9,10 @@ import type { CategoryType } from "@/constants/categories";
 import { useSearchBooks } from "@/hooks/useSearchBooks";
 import { useLibraryUpdateStore } from "@/store/libraryUpdateStore";
 import type { BookGenre, SearchBook } from "@/types/book";
+import { filterByCategory } from "@/utils/filterUtils";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
-import { FlatList, View } from "react-native";
+import { useEffect, useMemo, useState } from "react";
+import { FlatList, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const CATEGORY_TO_GENRE_MAP: Record<CategoryType, BookGenre> = {
@@ -40,19 +41,27 @@ export default function SearchResultsScreen() {
     categories?: string;
     mode?: string;
   }>();
-  const { books, isLoading, search, updateBookLikeStatus } = useSearchBooks();
+  const { books, search, updateBookLikeStatus } = useSearchBooks();
   const setNeedsUpdate = useLibraryUpdateStore((state) => state.setNeedsUpdate);
   const insets = useSafeAreaInsets();
   const [showFilterSheet, setShowFilterSheet] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<CategoryType[]>([]);
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
 
-  const filteredBooks = books.filter((book) => {
-    if (selectedRating !== null && book.rating !== undefined) {
-      return book.rating >= selectedRating;
+  const filteredBooks = useMemo(() => {
+    const categoryFiltered = filterByCategory(
+      books,
+      selectedCategories,
+      CATEGORY_TO_GENRE_MAP,
+      (book) => book.category,
+    );
+
+    if (selectedRating === null) {
+      return categoryFiltered;
     }
-    return true;
-  });
+
+    return categoryFiltered.filter((book) => book.rating >= selectedRating);
+  }, [books, selectedCategories, selectedRating]);
 
   useEffect(() => {
     if (keyword && keyword.trim().length >= 2) {
@@ -86,7 +95,7 @@ export default function SearchResultsScreen() {
           bookAuthor: book.author,
           bookCover: book.cover,
           bookIsbn: book.isbn,
-          bookCategory: book.categoryName || "",
+          bookCategory: book.category || "",
         },
       });
     } else {
@@ -101,14 +110,6 @@ export default function SearchResultsScreen() {
   const handleFilterApply = (categories: CategoryType[], rating: number | null) => {
     setSelectedCategories(categories);
     setSelectedRating(rating);
-
-    if (!keyword || keyword.trim().length < 2) return;
-
-    const hasAll = categories.includes("all");
-    const genres: BookGenre[] | null =
-      categories.length > 0 && !hasAll ? categories.map((cat) => CATEGORY_TO_GENRE_MAP[cat]) : null;
-
-    search(keyword.trim(), genres);
   };
 
   return (
@@ -125,22 +126,28 @@ export default function SearchResultsScreen() {
         onSearchPress={handleFilterPress}
       />
 
-      <FlatList
-        data={filteredBooks}
-        keyExtractor={(item) => item.isbn}
-        renderItem={({ item }) => (
-          <SearchResultBookCard
-            book={item}
-            onPress={() => handleBookPress(item)}
-            onLikeToggle={handleLikeToggle}
-          />
-        )}
-        contentContainerStyle={{
-          padding: 20,
-          gap: 12,
-        }}
-        showsVerticalScrollIndicator={false}
-      />
+      {filteredBooks.length === 0 ? (
+        <View className="flex-1 items-center justify-center">
+          <Text className="text-body-12-regular text-gray-700">해당 책이 없습니다.</Text>
+        </View>
+      ) : (
+        <FlatList
+          data={filteredBooks}
+          keyExtractor={(item) => item.isbn}
+          renderItem={({ item }) => (
+            <SearchResultBookCard
+              book={item}
+              onPress={() => handleBookPress(item)}
+              onLikeToggle={handleLikeToggle}
+            />
+          )}
+          contentContainerStyle={{
+            padding: 20,
+            gap: 12,
+          }}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
 
       <FilterBottomSheet
         visible={showFilterSheet}
