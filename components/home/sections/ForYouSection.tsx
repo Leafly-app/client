@@ -1,6 +1,7 @@
 import type { Book } from "@/components/common/BookCarousel";
 import BookCarousel from "@/components/common/BookCarousel";
 import IcUserLike from "@/components/icons/IcUserLike";
+import { useRouter } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 
 const mockBooks: Book[] = [
@@ -31,6 +32,13 @@ const mockBooks: Book[] = [
 ];
 
 export default function ForYouSection() {
+  const router = useRouter();
+
+  const booksWithPress = mockBooks.map((book) => ({
+    ...book,
+    onPress: () => router.push(`/book/${book.id}` as any),
+  }));
+
   return (
     <View className="py-0 px-2 pb-4">
       <View className="flex-row items-center justify-between mb-2">
@@ -45,7 +53,7 @@ export default function ForYouSection() {
       <Text className="text-body-10-regular text-gray-600 mb-2">
         소설/시/희곡을 좋아하는 당신에게
       </Text>
-      <BookCarousel books={mockBooks} />
+      <BookCarousel books={booksWithPress} />
     </View>
   );
 }
