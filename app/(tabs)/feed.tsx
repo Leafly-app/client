@@ -22,10 +22,12 @@ export default function FeedScreen() {
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
 
   const filteredReviews = useMemo(() => {
-    if (selectedRating !== null) {
-      return reviews.filter((review) => review.rating === selectedRating);
-    }
-    return reviews;
+    const filtered = selectedRating !== null
+      ? reviews.filter((review) => review.rating === selectedRating)
+      : reviews;
+    return [...filtered].sort((a, b) =>
+      new Date(b.createAt).getTime() - new Date(a.createAt).getTime()
+    );
   }, [reviews, selectedRating]);
 
   const handleReviewPress = (reviewId: number) => {
