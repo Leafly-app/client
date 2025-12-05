@@ -16,7 +16,7 @@ export function RecommendedKeywords({ keywords, onKeywordPress }: RecommendedKey
             onPress={() => onKeywordPress(keyword)}
             className="bg-primary-100 rounded-full px-2 py-1"
           >
-            <Text className="text-body-12-regular text-gray-800">{keyword}</Text>
+            <Text numberOfLines={1} className="text-body-12-regular text-gray-800">{keyword}</Text>
           </TouchableOpacity>
         ))}
       </View>
