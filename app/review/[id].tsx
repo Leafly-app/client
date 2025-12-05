@@ -1,3 +1,4 @@
+import Header from "@/components/common/Header";
 import StarRating from "@/components/common/StarRating";
 import IcChevronLeft from "@/components/icons/IcChevronLeft";
 import { useReviewDetail } from "@/hooks/useReviewDetail";
@@ -90,14 +91,14 @@ export default function ReviewDetailScreen() {
       <Image source={BACKGROUND_IMAGE} style={styles.backgroundImage} resizeMode="cover" />
 
       {/* 헤더 */}
-      <View className="h-12 px-5 py-3 bg-white flex-row items-center">
-        <TouchableOpacity onPress={() => router.back()} className="mr-2">
-          <IcChevronLeft width={24} height={24} color={colors.gray[900]} />
-        </TouchableOpacity>
-        <Text className="flex-1 text-body-16-bold text-gray-900" numberOfLines={1}>
-          {reviewDetail.title}
-        </Text>
-      </View>
+      <Header
+        state="default"
+        hasBack
+        hasSearch={false}
+        titleType="text"
+        title={reviewDetail.title}
+        onBackPress={() => router.back()}
+      />
 
       <ScrollView
         className="flex-1"
