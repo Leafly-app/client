@@ -3,10 +3,12 @@ import IcLeaf from "@/components/icons/IcLeaf";
 import IcStarFilled from "@/components/icons/IcStarFilled";
 import IcThumbsUp from "@/components/icons/IcThumbsUp";
 import type { Book } from "@/types/book";
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 export default function RecommendedBooksSection() {
+  const router = useRouter();
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -26,6 +28,10 @@ export default function RecommendedBooksSection() {
 
     fetchBooks();
   }, []);
+
+  const handleBookPress = (isbn: string) => {
+    router.push(`/book/${isbn}` as any);
+  };
 
   return (
     <View className="py-0 px-2 pb-4">
@@ -51,7 +57,12 @@ export default function RecommendedBooksSection() {
           contentContainerStyle={{ gap: 12 }}
         >
           {books.map((book) => (
-            <View key={book.isbn} className="bg-secondary-50 rounded-lg border border-gray-200 p-3">
+            <TouchableOpacity
+              key={book.isbn}
+              className="bg-secondary-50 rounded-lg border border-gray-200 p-3"
+              activeOpacity={0.7}
+              onPress={() => handleBookPress(book.isbn)}
+            >
               <View className="flex-row gap-3">
                 <View
                   className="bg-gray-300 rounded overflow-hidden"
@@ -68,7 +79,7 @@ export default function RecommendedBooksSection() {
                   />
                 </View>
 
-                <View className="flex-1" style={{ width: 216 }}>
+                <View style={{ width: 216 }}>
                   <View className="flex-row items-start justify-between mb-1">
                     <Text className="text-body-12-bold text-gray-900 flex-1" numberOfLines={2}>
                       {book.title}
@@ -95,7 +106,7 @@ export default function RecommendedBooksSection() {
                   </View>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
         </ScrollView>
       )}

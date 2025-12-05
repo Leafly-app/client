@@ -30,6 +30,7 @@ export const searchBooks = async (
     `/api/books?keyword=${encodeURIComponent(keyword)}`,
     { categories },
   );
+
   return response.data;
 };
 
