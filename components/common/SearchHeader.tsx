@@ -22,9 +22,9 @@ export default function SearchHeader({
         <IcChevronLeft width={24} height={24} stroke={colors.gray[900]} />
       </TouchableOpacity>
 
-      <View className="flex-1 flex-row items-center border border-gray-500 rounded-md px-3 py-2">
+      <View className="flex-1 flex-row items-center border border-gray-500 rounded-md px-2 py-1">
         <TextInput
-          className="flex-1 text-body-10-regular text-gray-900 mr-2"
+          className="flex-1 text-body-12-regular text-gray-900 mr-2"
           placeholder="도서명 · 저자 · ISBN 검색"
           placeholderTextColor={colors.gray[500]}
           value={keyword}

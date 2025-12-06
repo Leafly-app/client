@@ -51,28 +51,40 @@ export default function LibraryScreen() {
 
   return (
     <ScreenLayout bgColor="bg-gray-50" enableStickyHeader>
-      <View className="px-4 pt-3" style={{ gap: 12 }}>
+      <View className=" pt-3 gap-4 mx-4">
         <ProfileCard nickName={profile.nickName} profileImage={profile.profileImage} />
 
         <View>
-          <Text className="text-body-12-semibold text-gray-900 mb-2">
+          <Text className="text-body-12-semibold text-gray-900 mb-2 mx-2">
             읽고 싶어요 ({profile.library.wantCount})
           </Text>
-          <BookListSection books={profile.library.wantBooks} onBookPress={handleBookPress} />
+          <BookListSection
+            books={profile.library.wantBooks}
+            onBookPress={handleBookPress}
+            sectionId="want"
+          />
         </View>
 
         <View>
-          <Text className="text-body-12-semibold text-gray-900 mb-2">
+          <Text className="text-body-12-semibold text-gray-900 mb-2 mx-2">
             좋아요한 책 ({profile.likes.likeCount})
           </Text>
-          <BookListSection books={profile.likes.likeBooks} onBookPress={handleBookPress} />
+          <BookListSection
+            books={profile.likes.likeBooks}
+            onBookPress={handleBookPress}
+            sectionId="like"
+          />
         </View>
 
         <View>
-          <Text className="text-body-12-semibold text-gray-900 mb-2">
+          <Text className="text-body-12-semibold text-gray-900 mb-2 mx-2">
             완독한 책 ({profile.library.finishedCount})
           </Text>
-          <BookListSection books={profile.library.finishedBooks} onBookPress={handleBookPress} />
+          <BookListSection
+            books={profile.library.finishedBooks}
+            onBookPress={handleBookPress}
+            sectionId="finished"
+          />
         </View>
 
         <View className="h-6" />

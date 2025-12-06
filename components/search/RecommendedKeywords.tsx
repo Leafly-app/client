@@ -9,7 +9,7 @@ export function RecommendedKeywords({ keywords, onKeywordPress }: RecommendedKey
   return (
     <View>
       <Text className="text-body-16-semibold text-gray-900 mb-2">추천 검색어</Text>
-      <View className="flex-row flex-wrap gap-1">
+      <View className="flex-row flex-wrap gap-2">
         {keywords.map((keyword) => (
           <TouchableOpacity
             key={keyword}

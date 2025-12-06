@@ -53,18 +53,20 @@ export default function ForYouSection() {
 
   return (
     <View className="py-0 px-2 pb-4">
-      <View className="flex-row items-center justify-between mb-2">
-        <View className="flex-row items-center gap-2">
-          <IcUserLike width={20} height={20} fill="#C60000" />
-          <Text className="text-body-16-bold text-gray-900">당신을 위한 추천</Text>
+      <View className="mb-2">
+        <View className="flex-row items-center justify-between">
+          <View className="flex-row items-center gap-1">
+            <IcUserLike width={20} height={20} fill="#C60000" />
+            <Text className="text-body-16-bold text-gray-900">당신을 위한 추천</Text>
+          </View>
+          <TouchableOpacity>
+            <Text className="text-body-12-bold text-primary-500">더보기</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity>
-          <Text className="text-body-10-bold text-primary-500">더보기</Text>
-        </TouchableOpacity>
+        <Text className="text-body-12-regular text-gray-600 mb-2">
+          소설/시/희곡을 좋아하는 당신에게
+        </Text>
       </View>
-      <Text className="text-body-10-regular text-gray-600 mb-2">
-        소설/시/희곡을 좋아하는 당신에게
-      </Text>
       <BookCarousel books={booksWithPress} />
     </View>
   );

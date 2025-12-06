@@ -36,20 +36,20 @@ const BookCardV2 = React.memo<BookCardV2Props>(function BookCardV2({
         )}
       </View>
       <Text
-        className="text-body-10-bold text-gray-900"
+        className="text-body-12-bold text-gray-900"
         numberOfLines={1}
         style={{ marginBottom: 4 }}
       >
         {title}
       </Text>
       <View className="flex-row items-center justify-between">
-        <View className="flex-row items-center" style={{ gap: 2.04 }}>
+        <View className="flex-row items-center gap-1">
           <IcStarFilled width={12} height={12} color="#FACC15" />
-          <Text className="text-body-8-semibold" style={{ color: "#FACC15" }}>
+          <Text className="text-body-10-semibold" style={{ color: "#FACC15" }}>
             {rating}
           </Text>
         </View>
-        <Text className="text-body-8-regular text-gray-700">{date}</Text>
+        <Text className="text-body-10-regular text-gray-700">{date}</Text>
       </View>
     </TouchableOpacity>
   );

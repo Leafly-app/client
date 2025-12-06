@@ -30,23 +30,28 @@ export function SearchResultBookCard({ book, onPress, onLikeToggle }: SearchResu
         <Image
           source={{ uri: book.cover }}
           className="w-20 h-[7.1875rem] rounded"
-          style={{ aspectRatio: 16 / 23 }}
+          style={{ aspectRatio: 16 / 24 }}
           resizeMode="cover"
         />
 
-        <View className="flex-1 ml-2.5 justify-center gap-2">
+        <View className="flex-1 ml-2.5 justify-center gap-1">
           {book.category && (
             <View className="flex-row items-center self-start bg-primary-100 rounded-full px-2 py-1">
               <IcCategoryLiterature width={12} height={12} color={colors.gray[700]} />
-              <Text className="text-body-8-regular text-gray-900 ml-1">{book.category}</Text>
+              <Text
+                className="text-body-8-regular text-gray-900 ml-1 flex-shrink"
+                numberOfLines={1}
+              >
+                {book.category}
+              </Text>
             </View>
           )}
 
           <View className="gap-1">
-            <Text className="text-body-14-bold text-gray-900" numberOfLines={2}>
+            <Text className="text-body-12-bold text-gray-900" numberOfLines={2}>
               {book.title}
             </Text>
-            <Text className="text-body-12-regular text-gray-700" numberOfLines={1}>
+            <Text className="text-body-10-regular text-gray-700" numberOfLines={1}>
               {book.author}
             </Text>
           </View>
@@ -61,7 +66,7 @@ export function SearchResultBookCard({ book, onPress, onLikeToggle }: SearchResu
 
         <TouchableOpacity
           onPress={handleLikePress}
-          className="absolute right-3 top-[1.31rem]"
+          className="absolute right-1 top-2"
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
           {isLiked ? (

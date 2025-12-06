@@ -65,19 +65,42 @@ export default function TabLayout() {
                 borderRadius: 1000,
                 borderWidth: 4,
                 borderColor: colors.primary[400],
-                overflow: "hidden",
               }}
             >
-              {Platform.OS === "ios" && (
-                <BlurView intensity={20} tint="light" style={{ position: "absolute", inset: 0 }} />
-              )}
-              <LinearGradient
-                colors={["#AAEEBC33", "#FCF17433"]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={{ position: "absolute", inset: 0 }}
-              />
-              <View className="flex-1 items-center justify-center">
+              <View
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  borderRadius: 1000,
+                  overflow: "hidden",
+                }}
+              >
+                <BlurView
+                  intensity={Platform.OS === "ios" ? 20 : 60}
+                  tint="light"
+                  style={{ flex: 1 }}
+                  experimentalBlurMethod="dimezisBlurView"
+                />
+                <LinearGradient
+                  colors={["#AAEEBC33", "#FCF17433"]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
+                />
+              </View>
+
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  position: "relative",
+                  zIndex: 1,
+                }}
+              >
                 <IcCamera width={24} height={24} fill={colors.primary[700]} />
               </View>
             </TouchableOpacity>

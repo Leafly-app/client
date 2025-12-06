@@ -17,7 +17,11 @@ export default function RecommendedBooksSection() {
       try {
         const response = await getRecommendedBooks();
         if (response.isSuccess && response.data) {
-          setBooks(response.data);
+          // ISBN 기준 중복 제거
+          const uniqueBooks = Array.from(
+            new Map(response.data.map((book) => [book.isbn, book])).values(),
+          );
+          setBooks(uniqueBooks);
         }
       } catch (error) {
         console.error("Failed to fetch recommended books:", error);
@@ -35,16 +39,16 @@ export default function RecommendedBooksSection() {
 
   return (
     <View className="py-0 px-2 pb-4">
-      <View className="flex-row items-center justify-between mb-2">
+      <View className="flex-row items-center justify-between">
         <View className="flex-row items-center gap-2">
           <IcThumbsUp width={20} height={20} fill="#FACC15" />
           <Text className="text-body-16-bold text-gray-900">추천 도서</Text>
         </View>
         <TouchableOpacity>
-          <Text className="text-body-10-bold text-primary-500">더보기</Text>
+          <Text className="text-body-12-bold text-primary-500">더보기</Text>
         </TouchableOpacity>
       </View>
-      <Text className="text-body-10-regular text-gray-600 mb-2">당신을 위한 맞춤 도서</Text>
+      <Text className="text-body-12-regular text-gray-600 mb-2">당신을 위한 맞춤 도서</Text>
 
       {loading ? (
         <View className="py-8 items-center">
@@ -100,7 +104,7 @@ export default function RecommendedBooksSection() {
 
                   <View className="flex-row items-start gap-1">
                     <IcLeaf width={12} height={12} fill="#8CC63F" />
-                    <Text className="text-body-8-regular text-gray-700 flex-1" numberOfLines={2}>
+                    <Text className="text-body-10-regular text-gray-700 flex-1" numberOfLines={2}>
                       {book.reason || "당신을 위한 추천 도서입니다"}
                     </Text>
                   </View>

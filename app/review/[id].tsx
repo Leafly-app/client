@@ -154,7 +154,7 @@ export default function ReviewDetailScreen() {
             <Text className="text-body-12-bold text-gray-900 flex-1" numberOfLines={1}>
               {reviewDetail.reviewTitle || "제목 없음"}
             </Text>
-            <Text className="text-body-8-regular text-gray-700">
+            <Text className="text-body-10-regular text-gray-700">
               {formatDate(reviewDetail.createAt)}
             </Text>
           </View>
@@ -184,15 +184,9 @@ export default function ReviewDetailScreen() {
                 ))
               ) : (
                 <>
-                  <View className="w-24 h-24 bg-zinc-300 rounded-lg border border-gray-300 justify-center items-center">
-                    <View className="w-6 h-4 bg-gray-400 rounded" />
-                  </View>
-                  <View className="w-24 h-24 bg-zinc-300 rounded-lg border border-gray-300 justify-center items-center">
-                    <View className="w-6 h-4 bg-gray-400 rounded" />
-                  </View>
-                  <View className="w-24 h-24 bg-zinc-300 rounded-lg border border-gray-300 justify-center items-center">
-                    <View className="w-6 h-4 bg-gray-400 rounded" />
-                  </View>
+                  <Text className="text-body-12-regular text-gray-500">
+                    첨부된 이미지가 없습니다.
+                  </Text>
                 </>
               )}
             </View>

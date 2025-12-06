@@ -52,7 +52,7 @@ export default function Header({
 
   const backgroundColor = animValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [colors.white, "rgba(255, 255, 255, 0.7)"],
+    outputRange: [colors.white, "rgba(255, 255, 255, 0)"], // 0.7이 아니라 0(투명)으로 변경
   });
 
   const blurOpacity = animValue.interpolate({
@@ -109,7 +109,7 @@ export default function Header({
   );
 
   return (
-    <Animated.View style={{ backgroundColor }} className="py-3 px-5 overflow-hidden">
+    <Animated.View style={{ backgroundColor }} className="py-3 px-5 ">
       <Animated.View
         style={{
           opacity: blurOpacity,
@@ -118,9 +118,15 @@ export default function Header({
           left: 0,
           right: 0,
           bottom: 0,
+          zIndex: 0,
         }}
       >
-        <BlurView intensity={BLUR_INTENSITY} tint="light" style={{ flex: 1 }} />
+        <BlurView
+          intensity={BLUR_INTENSITY}
+          tint="light" // tint가 'light'면 이미 반투명 흰색이 포함되어 있음
+          style={{ flex: 1 }}
+          experimentalBlurMethod="dimezisBlurView" // 2️⃣ 안드로이드 필수 옵션 추가
+        />
       </Animated.View>
 
       <View style={{ position: "relative", zIndex: 1 }}>{headerContent}</View>
