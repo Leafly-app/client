@@ -200,7 +200,7 @@ export default function WriteScreen() {
             </TouchableOpacity>
 
             {selectedBook ? (
-              <View className="mt-2 items-center">
+              <View className="mt-4 items-center">
                 <Text className="text-body-16-bold text-gray-900" numberOfLines={1}>
                   {selectedBook.title}
                 </Text>
@@ -235,7 +235,7 @@ export default function WriteScreen() {
                 className="text-body-14-regular text-gray-900 p-0"
               />
             </View>
-            <Text className="text-body-8-regular text-gray-700 text-right mt-1">
+            <Text className="text-body-10-regular text-gray-700 text-right mt-1">
               {title.length}/20 자
             </Text>
           </View>
@@ -256,7 +256,7 @@ export default function WriteScreen() {
                 className="flex-1 text-body-14-regular text-gray-900 p-0"
               />
             </View>
-            <Text className="text-body-8-regular text-gray-700 text-right mt-1">
+            <Text className="text-body-10-regular text-gray-700 text-right mt-1">
               {content.length}/500 자
             </Text>
           </View>

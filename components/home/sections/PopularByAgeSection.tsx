@@ -54,18 +54,20 @@ export default function PopularByAgeSection() {
 
   return (
     <View className="py-0 px-2 pb-4">
-      <View className="flex-row items-center justify-between mb-2">
-        <View className="flex-row items-center gap-2">
-          <IcPeople width={20} height={20} fill="#2563EB" />
-          <Text className="text-body-16-bold text-gray-900">20대 인기 도서</Text>
+      <View className="mb-2">
+        <View className="flex-row items-center justify-between">
+          <View className="flex-row items-center gap-2">
+            <IcPeople width={20} height={20} fill="#2563EB" />
+            <Text className="text-body-16-bold text-gray-900">20대 인기 도서</Text>
+          </View>
+          <TouchableOpacity>
+            <Text className="text-body-12-bold text-primary-500">더보기</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity>
-          <Text className="text-body-10-bold text-primary-500">더보기</Text>
-        </TouchableOpacity>
+        <Text className="text-body-12-regular text-gray-600 mb-2">
+          같은 연령대가 가장 많이 읽는 책
+        </Text>
       </View>
-      <Text className="text-body-10-regular text-gray-600 mb-2">
-        같은 연령대가 가장 많이 읽는 책
-      </Text>
       <BookCarousel books={booksWithPress} />
     </View>
   );

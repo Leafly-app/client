@@ -49,7 +49,7 @@ export default function ProfileCard({ nickName, profileImage }: ProfileCardProps
   };
 
   return (
-    <View className="p-4 flex-row items-center justify-between bg-white rounded-lg">
+    <View className="p-2 mx-2 flex-row items-center justify-between bg-white rounded-lg">
       <View className="flex-row items-center" style={{ gap: 8 }}>
         <View
           className="w-[3.5rem] h-[3.5rem] rounded-full items-center justify-center overflow-hidden"
@@ -66,10 +66,10 @@ export default function ProfileCard({ nickName, profileImage }: ProfileCardProps
 
       <View className="flex-row items-center" style={{ gap: 1 }}>
         <TouchableOpacity activeOpacity={0.7} className="bg-gray-200 px-3 py-2 rounded-lg">
-          <Text className="text-body-10-regular text-gray-900">정보수정</Text>
+          <Text className="text-body-12-regular text-gray-900">정보수정</Text>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={0.7} onPress={handleLogout}>
-          <Text className="text-body-10-regular px-3 py-2" style={{ color: colors.error.DEFAULT }}>
+          <Text className="text-body-12-regular px-3 py-2" style={{ color: colors.error.DEFAULT }}>
             로그아웃
           </Text>
         </TouchableOpacity>
