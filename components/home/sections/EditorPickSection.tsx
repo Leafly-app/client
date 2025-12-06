@@ -1,8 +1,11 @@
 import { Image, ScrollView, Text, View } from "react-native";
 
-const editorPickItems = Array.from({ length: 5 }, (_, i) => ({
-  id: String(i + 1),
-}));
+const editorPickItems = [
+  { id: "1", image: require("@/assets/images/item_curation1.png") },
+  { id: "2", image: require("@/assets/images/item_curation2.png") },
+  { id: "3", image: require("@/assets/images/item_curation3.png") },
+  { id: "4", image: require("@/assets/images/item_curation4.png") },
+];
 
 export default function EditorPickSection() {
   return (
@@ -18,12 +21,12 @@ export default function EditorPickSection() {
             key={item.id}
             className="bg-white rounded-xl overflow-hidden"
             style={{
-              width: 244,
+              width: 270,
               height: 340,
             }}
           >
             <Image
-              source={require("@/assets/images/item_curation.png")}
+              source={item.image}
               style={{ width: "100%", height: "100%" }}
               resizeMode="cover"
             />
