@@ -107,6 +107,7 @@ export default function WriteScreen() {
       reviewTitle: title || undefined,
       content,
       images: images.length > 0 ? images : undefined,
+      isbn: selectedBook.isbn,
     };
 
     try {
