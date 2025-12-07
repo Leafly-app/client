@@ -7,6 +7,7 @@ export interface CreateReviewRequest {
   reviewTitle?: string;
   content: string;
   images?: string[];
+  isbn: string;
 }
 
 export interface CreateReviewResponse {

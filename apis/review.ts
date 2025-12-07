@@ -16,6 +16,7 @@ export const createReview = async (data: CreateReviewRequest): Promise<CreateRev
   formData.append("rating", data.rating.toString());
   formData.append("category", data.category);
   formData.append("content", data.content);
+  formData.append("isbn", data.isbn);
 
   if (data.reviewTitle) {
     formData.append("reviewTitle", data.reviewTitle);
