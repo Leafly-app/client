@@ -115,6 +115,14 @@ export default function WriteScreen() {
 
       if (result.success) {
         await clearDraft();
+
+        // 폼 초기화
+        setRating(0);
+        setTitle("");
+        setContent("");
+        setImages([]);
+        setSelectedBook(null);
+
         Alert.alert("성공", "독후감이 저장되었습니다.", [
           { text: "확인", onPress: () => router.push("/(tabs)") },
         ]);
