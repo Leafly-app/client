@@ -33,11 +33,14 @@ export default function FeedScreen() {
       (review) => review.tags,
     );
 
-    if (selectedRating === null) {
-      return categoryFiltered;
-    }
+    const filtered =
+      selectedRating === null
+        ? categoryFiltered
+        : categoryFiltered.filter((review) => review.rating === selectedRating);
 
-    return categoryFiltered.filter((review) => review.rating === selectedRating);
+    return [...filtered].sort(
+      (a, b) => new Date(b.createAt).getTime() - new Date(a.createAt).getTime(),
+    );
   }, [reviews, selectedCategories, selectedRating]);
 
   const handleReviewPress = (reviewId: number) => {
