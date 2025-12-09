@@ -17,7 +17,7 @@ export const useBookOCR = () => {
       if (response.isSuccess && response.data) {
         const isbn = response.data.bookDetail.isbn13;
 
-        router.replace(`/book/${isbn}`);
+        router.push(`/book/${isbn}`);
 
         return response.data;
       } else {
