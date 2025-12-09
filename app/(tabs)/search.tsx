@@ -4,8 +4,8 @@ import SearchHeader from "@/components/common/SearchHeader";
 import { CategorySection } from "@/components/search/CategorySection";
 import { PopularBooksSection } from "@/components/search/PopularBooksSection";
 import { RecommendedKeywords } from "@/components/search/RecommendedKeywords";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
+import { useCallback, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -63,6 +63,12 @@ export default function SearchScreen() {
   const { mode } = useLocalSearchParams<{ mode?: string }>();
   const [keyword, setKeyword] = useState("");
   const insets = useSafeAreaInsets();
+
+  useFocusEffect(
+    useCallback(() => {
+      setKeyword("");
+    }, [])
+  );
 
   const toggleCategory = (category: CategoryType) => {
     router.push(`/search-results?category=${category}`);
