@@ -18,7 +18,7 @@ export default function BookListSection({ books, onBookPress, sectionId }: BookL
     );
   }
 
-  const carouselBooks: Book[] = books.map((book, index) => ({
+  const carouselBooks: Book[] = [...books].reverse().map((book, index) => ({
     id: `${sectionId}-${book.isbn}-${index}`,
     title: book.title,
     author: "",
