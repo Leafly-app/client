@@ -1,4 +1,3 @@
-import IcUser from "@/components/icons/IcUser";
 import { useAuthStore } from "@/store/useAuthStore";
 import { colors } from "@/styles/colors";
 import { router } from "expo-router";
@@ -8,6 +7,8 @@ interface ProfileCardProps {
   nickName: string;
   profileImage: string | null;
 }
+
+const DEFAULT_PROFILE_IMAGE = require("@/assets/images/profileImage.jpeg");
 
 export default function ProfileCard({ nickName, profileImage }: ProfileCardProps) {
   const { logout } = useAuthStore();
@@ -56,12 +57,16 @@ export default function ProfileCard({ nickName, profileImage }: ProfileCardProps
           style={{ backgroundColor: colors.primary[700] }}
         >
           {profileImage ? (
-            <Image source={{ uri: profileImage }} className="w-full h-full" resizeMode="cover" />
+            <Image
+              source={profileImage ? { uri: profileImage } : DEFAULT_PROFILE_IMAGE}
+              className="w-full h-full"
+              resizeMode="cover"
+            />
           ) : (
-            <IcUser width={20} height={20} color={colors.white} />
+            <Image source={DEFAULT_PROFILE_IMAGE} className="w-full h-full" resizeMode="cover" />
           )}
         </View>
-        <Text className="text-body-16-bold text-gray-900">{nickName} 님</Text>
+        <Text className="text-body-16-bold text-gray-900">상완 님</Text>
       </View>
 
       <View className="flex-row items-center" style={{ gap: 1 }}>
