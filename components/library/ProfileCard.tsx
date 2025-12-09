@@ -57,11 +57,7 @@ export default function ProfileCard({ nickName, profileImage }: ProfileCardProps
           style={{ backgroundColor: colors.primary[700] }}
         >
           {profileImage ? (
-            <Image
-              source={profileImage ? { uri: profileImage } : DEFAULT_PROFILE_IMAGE}
-              className="w-full h-full"
-              resizeMode="cover"
-            />
+            <Image source={{ uri: profileImage }} className="w-full h-full" resizeMode="cover" />
           ) : (
             <Image source={DEFAULT_PROFILE_IMAGE} className="w-full h-full" resizeMode="cover" />
           )}
