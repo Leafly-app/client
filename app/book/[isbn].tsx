@@ -67,7 +67,13 @@ export default function BookDetailScreen() {
     }
   }, [bookData, isbn, toggleLike, setNeedsUpdate, updateIsLiked]);
 
-  const handleBackPress = useCallback(() => router.back(), [router]);
+  const handleBackPress = useCallback(() => {
+    if (router.canGoBack()) {
+      router.back();
+    } else {
+      router.replace("/(tabs)");
+    }
+  }, [router]);
 
   if (isLoading || !bookData) {
     return (
